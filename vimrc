@@ -134,22 +134,26 @@ set hlsearch
 
 "}}}
 
-"{{{ key mappings
+"{{{ Key Mappings
 
 let mapleader='\'
 
-noremap <C-S> :w<CR>
 noremap <F3> :!ctags -R & echo "create tags OK"<CR>
 
-noremap <leader><TAB> :bn<CR>
-noremap <leader><S-TAB> :bp<CR>
+noremap <C-S> :w<CR>
 
 noremap <C-J> <C-W>j
 noremap <C-K> <C-W>k
 noremap <C-L> <C-W>l
 noremap <C-H> <C-W>h
 
+noremap <leader><TAB> :bn<CR>
+noremap <leader><S-TAB> :bp<CR>
+
 noremap <leader>s :OverCommandLine<CR>
+noremap <leader>tag :TagbarToggle <CR>
+" noremap <leader>cstrip :call StripTrailingWhitespace()<CR>
+
 " noremap <leader>g :YcmCompleter GoTo <CR>
 " noremap <leader>d :YcmCompleter GoToDefinition <CR>
 " noremap <leader>c :YcmCompleter GoToDeclaration <CR>
@@ -157,11 +161,13 @@ noremap <leader>s :OverCommandLine<CR>
 " noremap <leader>p :YcmCompleter GetParent <CR>
 " noremap <leader>t :YcmCompleter GetType <CR>
 
-noremap qt :TagbarToggle <CR>
-noremap qh :call AddFlieHead()<CR>
-noremap qc :call AddDashComment()<CR>
-noremap ql :call AddDashLine()<CR>
-noremap qstrip :call StripTrailingWhitespace()<CR>
+" noremap qh :call AddFlieHead()<CR>
+" noremap qc :call AddDashComment()<CR>
+" noremap ql :call AddDashLine()<CR>
+
+"}}}
+
+"{{{ Customized Functions
 
 function AddFlieHead()
   call append(0, "/*******************************************************************************")
@@ -196,7 +202,7 @@ function AddDashLine()
   call append(line(".")+0, "/*----------------------------------------------------------------------------*/")
 endfunction
 
-function! StripTrailingWhitespace()
+function StripTrailingWhitespace()
   " Preparation: save last search, and cursor position.
   let _s=@/
   let l = line(".")
@@ -207,6 +213,7 @@ function! StripTrailingWhitespace()
   let @/=_s
   call cursor(l, c)
 endfunction
+
 "}}}
 
 "{{{ Youcompleteme
@@ -350,5 +357,7 @@ let g:indentLine_conceallevel=2
 
 let g:ag_prg="/usr/bin/ag --vimgrep"
 let g:ag_working_path_mode="r"
+
+"}}}
 
 "}}}
