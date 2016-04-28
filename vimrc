@@ -9,8 +9,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'      " let Vundle manage Vundle, required
 
-"{{{ UI / Highlight
-
+" UI / Highlight
 Plugin 'airblade/vim-gitgutter'
 " Plugin 'scrooloose/syntastic'
 Plugin 'yggdroot/indentline'
@@ -21,51 +20,34 @@ Plugin 'altercation/vim-colors-solarized'
 " Plugin 'spf13/vim-colors'
 " Plugin 'powerline/fonts'
 
-"}}}
-
-"{{{ Interface
-
+" Interface
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
 
-"}}}
-
-"{{{ Motion
-
+" Motion
 Plugin 'easymotion/vim-easymotion'
 Plugin 'rhysd/conflict-marker.vim'
 
-"}}}
-
-"{{{ Integration
-
+" Integration
 Plugin 'tpope/vim-fugitive'
 Plugin 'christoomey/vim-tmux-navigator'
 
-"}}}
-
-"{{{ Edition
-
+" Edition
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'godlygeek/tabular'
 
-"}}}
-
-"{{{ Search
-
+" Search
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'mileszs/ack.vim'
 " Plugin 'rking/ag.vim'
 Plugin 'osyo-manga/vim-over'
 
-"}}}
-
-"{{{ Pragramming Language
+" Pragramming Language
 
 " cpp
 Plugin 'vim-scripts/a.vim'
@@ -84,8 +66,6 @@ Plugin 'guns/vim-clojure-highlight'
 " rust
 Plugin 'rust-lang/rust.vim'
 
-"}}}
-
 call vundle#end()
 
 filetype plugin indent on    " required
@@ -102,7 +82,6 @@ set foldmethod=marker
 set conceallevel=2
 set hidden
 set backspace=indent,eol,start
-set scrolloff=3                 " Minimum lines to keep above and below cursor
 
 " Format
 set autoindent
@@ -125,6 +104,7 @@ set foldenable
 set ruler
 set wildmenu
 set showcmd
+set scrolloff=3                 " Minimum lines to keep above and below cursor
 
 " Search
 set smartcase
@@ -216,39 +196,32 @@ endfunction
 
 "}}}
 
-"{{{ Youcompleteme
+"{{{ Plugin Settings
 
-let g:ycm_show_diagnostics_ui=0
-let g:ycm_enable_diagnostic_signs=0
-let g:ycm_enable_diagnostic_highlighting = 0
-let g:ycm_echo_current_diagnostic = 0
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_key_invoke_completion = '<C-Q>'
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_global_ycm_extra_conf = '/home/dyinnz/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
+"{{{ vim-gitgutter
+
+highlight clear VertSplit
+highlight clear SignColumn
+highlight clear LineNr
+highlight clear SpecialKey
 
 "}}}
 
-"{{{ octol/vim-cpp-enhanced-highlight
+"{{{ indentline
 
-let g:cpp_class_scope_highlight=1
-let g:cpp_experimental_template_highlight=1
-
-"}}}
-
-"{{{ tagbar
-
-let g:tagbar_left=1
-let g:tagbar_width=32
-"let g:tagbar_compact=1
-"let g:tagbar_expand=2
+let g:indentLine_conceallevel=2
 
 "}}}
 
-"{{{ rainbow parentheses
+"{{{ " vim-indent-guides
+
+" let g:indent_guides_start_level = 2
+" let g:indent_guides_guide_size = 1
+" let g:indent_guides_enable_on_vim_startup = 1
+
+"}}}
+
+"{{{ rainbow_parentheses.vim
 
 autocmd VimEnter * RainbowParenthesesToggle " Toggle it on
 let g:rbpt_max = 16
@@ -274,7 +247,66 @@ let g:rbpt_colorpairs = [
 
 "}}}
 
-"{{{ " pymode
+"{{{ vim-colors-solarized
+
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+let g:solarized_contrast="normal"
+let g:solarized_visibility="normal"
+color solarized             " Load a colorscheme
+
+"}}}
+
+"{{{ airline
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme='simple'
+
+"}}}
+
+"{{{ tagbar
+
+let g:tagbar_left=1
+let g:tagbar_width=32
+"let g:tagbar_compact=1
+"let g:tagbar_expand=2
+
+"}}}
+
+"{{{ vim-cpp-enhanced-highlight
+
+let g:cpp_class_scope_highlight=1
+let g:cpp_experimental_template_highlight=1
+
+"}}}
+
+"{{{ YouCompleteMe
+
+let g:ycm_show_diagnostics_ui=0
+let g:ycm_enable_diagnostic_signs=0
+let g:ycm_enable_diagnostic_highlighting = 0
+let g:ycm_echo_current_diagnostic = 0
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_key_invoke_completion = '<C-Q>'
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_global_ycm_extra_conf = '/home/dyinnz/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
+"}}}
+
+"{{{ clojure
+
+autocmd BufRead *.clj try | silent! Require | catch /^Fireplace/ | endtry
+autocmd Syntax clojure RainbowParenthesesLoadBraces " {}
+autocmd Syntax * RainbowParenthesesLoadRound " ()
+autocmd Syntax clojure RainbowParenthesesLoadSquare " []
+
+"}}}
+
+"{{{ " python-mode
 
 " setlocal textwidth=80
 " let g:pymode_warnings = 0
@@ -297,66 +329,9 @@ let g:rbpt_colorpairs = [
 
 "}}}
 
-"{{{ clojure
-
-autocmd BufRead *.clj try | silent! Require | catch /^Fireplace/ | endtry
-autocmd Syntax clojure RainbowParenthesesLoadBraces " {}
-autocmd Syntax * RainbowParenthesesLoadRound " ()
-autocmd Syntax clojure RainbowParenthesesLoadSquare " []
-
-"}}}
-
-"{{{ airline
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline_theme='simple'
-
-"}}}
-
 "{{{ rust.vim
 
 au BufNewFile,BufRead *.rs set filetype=rust
-
-"}}}
-
-"{{{ vim-colors-solarized
-
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-let g:solarized_contrast="normal"
-let g:solarized_visibility="normal"
-color solarized             " Load a colorscheme
-
-"}}}
-
-"{{{ nathanaelkane/vim-indent-guides
-
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
-let g:indent_guides_enable_on_vim_startup = 1
-
-"}}}
-
-"{{{ vim-gitgutter
-
-highlight clear VertSplit
-highlight clear SignColumn
-highlight clear LineNr
-highlight clear SpecialKey
-
-"}}}
-
-"{{{ indentline
-
-let g:indentLine_conceallevel=2
-
-"}}}
-
-"{{{ " ag
-
-let g:ag_prg="/usr/bin/ag --vimgrep"
-let g:ag_working_path_mode="r"
 
 "}}}
 
