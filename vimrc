@@ -92,39 +92,45 @@ filetype plugin indent on    " required
 
 "}}}
 
-"{{{ normal settings
+"{{{ Normal Settings
 
-syntax enable
-syntax on
-
-set number
-set showcmd
-set foldenable
+" Mics
 set encoding=utf-8
-set autoindent
-set cindent
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set expandtab
-set smarttab
-set ignorecase
-set hls
-set smartcase
-set incsearch
+set shell=/bin/bash
 set autowrite
+set foldmethod=marker
+set conceallevel=2
 set hidden
 set backspace=indent,eol,start
-set ruler
+set scrolloff=3                 " Minimum lines to keep above and below cursor
+
+" Format
+set autoindent
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set smarttab
+
+" Highlight
+syntax on
+set background=dark
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
-set wildmenu
-set scrolloff=3                 " Minimum lines to keep above and below cursor
 set cursorline                  " Highlight current line
-set background=dark
-set foldmethod=marker
-set shell=/bin/bash
-set conceallevel=2
+
+" UI
+set number
+set foldenable
+set ruler
+set wildmenu
+set showcmd
+
+" Search
+set smartcase
+set ignorecase
+set incsearch
+set hlsearch
 
 "}}}
 
@@ -138,18 +144,18 @@ noremap <F3> :!ctags -R & echo "create tags OK"<CR>
 noremap <leader><TAB> :bn<CR>
 noremap <leader><S-TAB> :bp<CR>
 
-map <C-J> <C-W>j
-map <C-K> <C-W>k
-map <C-L> <C-W>l
-map <C-H> <C-W>h
+noremap <C-J> <C-W>j
+noremap <C-K> <C-W>k
+noremap <C-L> <C-W>l
+noremap <C-H> <C-W>h
 
 noremap <leader>s :OverCommandLine<CR>
-noremap <leader>g :YcmCompleter GoTo <CR>
-noremap <leader>d :YcmCompleter GoToDefinition <CR>
-noremap <leader>c :YcmCompleter GoToDeclaration <CR>
-noremap <leader>i :YcmCompleter GoToImprecise <CR>
-noremap <leader>p :YcmCompleter GetParent <CR>
-noremap <leader>t :YcmCompleter GetType <CR>
+" noremap <leader>g :YcmCompleter GoTo <CR>
+" noremap <leader>d :YcmCompleter GoToDefinition <CR>
+" noremap <leader>c :YcmCompleter GoToDeclaration <CR>
+" noremap <leader>i :YcmCompleter GoToImprecise <CR>
+" noremap <leader>p :YcmCompleter GetParent <CR>
+" noremap <leader>t :YcmCompleter GetType <CR>
 
 noremap qt :TagbarToggle <CR>
 noremap qh :call AddFlieHead()<CR>
