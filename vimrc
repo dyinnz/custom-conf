@@ -72,6 +72,16 @@ filetype plugin indent on    " required
 
 "}}}
 
+"{{{ vim-colors-solarized :  must be trigger as early as possible
+
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+let g:solarized_contrast="normal"
+let g:solarized_visibility="normal"
+color solarized             " Load a colorscheme
+
+"}}}
+
 "{{{ Normal Settings
 
 " Mics
@@ -98,6 +108,16 @@ set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 set cursorline                  " Highlight current line
 
+highlight Folded term=bold cterm=bold
+highlight clear VertSplit
+highlight clear SignColumn        " link to LineNr
+highlight clear LineNr            " Line Number
+highlight clear SpecialKey        " for listchars
+highlight clear StatusLine
+highlight StatusLine ctermfg=33 guifg=Cyan
+highlight clear WildMenu
+highlight WildMenu ctermfg=136 gui=bold guifg=#60ff60
+
 " UI
 set number
 set foldenable
@@ -118,8 +138,6 @@ set hlsearch
 
 let mapleader='\'
 
-noremap <F3> :!ctags -R & echo "create tags OK"<CR>
-
 noremap <C-S> :w<CR>
 
 noremap <C-J> <C-W>j
@@ -127,12 +145,15 @@ noremap <C-K> <C-W>k
 noremap <C-L> <C-W>l
 noremap <C-H> <C-W>h
 
-noremap <leader><TAB> :bn<CR>
-noremap <leader><S-TAB> :bp<CR>
+noremap <leader><TAB>   : bn<CR>
+noremap <leader><S-TAB> : bp<CR>
 
-noremap <leader>s :OverCommandLine<CR>
-noremap <leader>tag :TagbarToggle <CR>
-" noremap <leader>cstrip :call StripTrailingWhitespace()<CR>
+noremap <leader>s       : OverCommandLine<CR>
+noremap <leader>ctags   : !ctags -R && echo "create tags OK"<CR>
+noremap <leader>tag     : TagbarToggle <CR>
+noremap <leader>mstrip  : call StripTrailingWhitespace()<CR>
+noremap <leader>head    : call AddFlieHead()<CR>
+noremap <leader>dl      : call AddDashLine()<CR>
 
 " noremap <leader>g :YcmCompleter GoTo <CR>
 " noremap <leader>d :YcmCompleter GoToDefinition <CR>
@@ -140,10 +161,6 @@ noremap <leader>tag :TagbarToggle <CR>
 " noremap <leader>i :YcmCompleter GoToImprecise <CR>
 " noremap <leader>p :YcmCompleter GetParent <CR>
 " noremap <leader>t :YcmCompleter GetType <CR>
-
-" noremap qh :call AddFlieHead()<CR>
-" noremap qc :call AddDashComment()<CR>
-" noremap ql :call AddDashLine()<CR>
 
 "}}}
 
@@ -156,18 +173,6 @@ function AddFlieHead()
   call append(3, " * Github: https://github.com/dyinnz")
   call append(4, " * Date:   ".strftime("%Y-%m-%d"))
   call append(5, " ******************************************************************************/")
-endfunction
-
-function AddStarComment()
-  call append(line(".")+0, "/***************************************************************************//**")
-  call append(line(".")+1, " *  ")
-  call append(line(".")+2, " ******************************************************************************/")
-  call cursor(line(".")+2, 5)
-  call feedkeys("i")
-endfunction
-
-function AddStarLine()
-  call append(line(".")+0, "/**************************************************************************/")
 endfunction
 
 function AddDashComment()
@@ -197,15 +202,6 @@ endfunction
 "}}}
 
 "{{{ Plugin Settings
-
-"{{{ vim-gitgutter
-
-highlight clear VertSplit
-highlight clear SignColumn
-highlight clear LineNr
-highlight clear SpecialKey
-
-"}}}
 
 "{{{ indentline
 
@@ -244,16 +240,6 @@ let g:rbpt_colorpairs = [
     \ ['darkgreen',   'RoyalBlue3'],
     \ ['darkcyan',    'SeaGreen3'],
     \ ]
-
-"}}}
-
-"{{{ vim-colors-solarized
-
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-let g:solarized_contrast="normal"
-let g:solarized_visibility="normal"
-color solarized             " Load a colorscheme
 
 "}}}
 
