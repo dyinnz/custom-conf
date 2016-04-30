@@ -11,7 +11,7 @@ Plugin 'VundleVim/Vundle.vim'      " let Vundle manage Vundle, required
 
 " UI / Highlight
 Plugin 'airblade/vim-gitgutter'
-" Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 Plugin 'yggdroot/indentline'
 " Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'kien/rainbow_parentheses.vim'
@@ -43,8 +43,7 @@ Plugin 'godlygeek/tabular'
 " Search
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
-Plugin 'mileszs/ack.vim'
-" Plugin 'rking/ag.vim'
+Plugin 'rking/ag.vim'
 Plugin 'osyo-manga/vim-over'
 
 " Pragramming Language
@@ -72,7 +71,7 @@ filetype plugin indent on    " required
 
 "}}}
 
-"{{{ vim-colors-solarized :  must be trigger as early as possible
+"{{{ vim-colors-solarized :  must be triggerred as early as possible
 
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
@@ -151,6 +150,7 @@ noremap <leader><S-TAB> : bp<CR>
 noremap <leader>s       : OverCommandLine<CR>
 noremap <leader>ctags   : !ctags -R && echo "create tags OK"<CR>
 noremap <leader>tag     : TagbarToggle <CR>
+noremap <leader>check   : SyntasticCheck <CR>
 noremap <leader>mstrip  : call StripTrailingWhitespace()<CR>
 noremap <leader>head    : call AddFlieHead()<CR>
 noremap <leader>dl      : call AddDashLine()<CR>
@@ -321,4 +321,14 @@ au BufNewFile,BufRead *.rs set filetype=rust
 
 "}}}
 
+"{{{ syntastic
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+
 "}}}
+
+"}}} end of Plugin Settings
