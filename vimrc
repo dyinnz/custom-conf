@@ -11,7 +11,7 @@ Plugin 'VundleVim/Vundle.vim'      " let Vundle manage Vundle, required
 
 " UI / Highlight
 Plugin 'airblade/vim-gitgutter'
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 Plugin 'yggdroot/indentline'
 " Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'kien/rainbow_parentheses.vim'
@@ -150,7 +150,7 @@ noremap <leader><S-TAB> : bp<CR>
 noremap <leader>s       : OverCommandLine<CR>
 noremap <leader>ctags   : !ctags -R && echo "create tags OK"<CR>
 noremap <leader>tag     : TagbarToggle <CR>
-noremap <leader>check   : SyntasticCheck <CR>
+" noremap <leader>check   : SyntasticCheck <CR>
 noremap <leader>mstrip  : call StripTrailingWhitespace()<CR>
 noremap <leader>head    : call AddFlieHead()<CR>
 noremap <leader>dl      : call AddDashLine()<CR>
@@ -323,12 +323,20 @@ au BufNewFile,BufRead *.rs set filetype=rust
 
 "{{{ syntastic
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_cpp_compiler = 'clang++'
+" let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
+"}}}
+
+"{{{ ctrlp
+let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\v(\.git|(CM|cm)ake\w+)$',
+      \ 'file': '\v(\.o|tags|(CM|cm)ake(\w|\.)+)$',
+      \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+      \ }
 "}}}
 
 "}}} end of Plugin Settings
