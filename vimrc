@@ -52,7 +52,6 @@ Plugin 'osyo-manga/vim-over'
 Plugin 'vim-scripts/a.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'Valloric/YouCompleteMe'
-" Plugin 'jeaye/color_coded'
 
 " clojure
 Plugin 'tpope/vim-fireplace'
@@ -62,8 +61,9 @@ Plugin 'guns/vim-clojure-highlight'
 " python
 " Plugin 'klen/python-mode'
 
-" rust
-Plugin 'rust-lang/rust.vim'
+" rails
+Plugin 'tpope/vim-rails'
+Plugin 'vim-ruby/vim-ruby'
 
 call vundle#end()
 
@@ -223,6 +223,7 @@ autocmd VimEnter * RainbowParenthesesToggle " Toggle it on
 let g:rbpt_max = 16
 let g:rbpt_loadcmd_toggle = 0
 let g:rbpt_colorpairs = [
+    \ ['black',       'SeaGreen3'],
     \ ['darkred',     'DarkOrchid3'],
     \ ['red',         'firebrick3'],
     \ ['brown',       'RoyalBlue3'],
@@ -234,7 +235,6 @@ let g:rbpt_colorpairs = [
     \ ['darkmagenta', 'DarkOrchid3'],
     \ ['brown',       'firebrick3'],
     \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
     \ ['darkmagenta', 'DarkOrchid3'],
     \ ['Darkblue',    'firebrick3'],
     \ ['darkgreen',   'RoyalBlue3'],
@@ -333,7 +333,7 @@ au BufNewFile,BufRead *.rs set filetype=rust
 
 "{{{ ctrlp
 let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v(\.git|(CM|cm)ake\w+)$',
+      \ 'dir':  '\v(\.git|(CM|cm)ake\w+|tmp)$',
       \ 'file': '\v(\.o|tags|(CM|cm)ake(\w|\.)+)$',
       \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
       \ }
