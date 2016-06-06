@@ -12,13 +12,15 @@ Plugin 'VundleVim/Vundle.vim'      " let Vundle manage Vundle, required
 " UI / Highlight
 Plugin 'airblade/vim-gitgutter'
 " Plugin 'scrooloose/syntastic'
-Plugin 'yggdroot/indentline'
+" Plugin 'yggdroot/indentline'
 " Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'altercation/vim-colors-solarized'
-" Plugin 'flazz/vim-colorschemes'
+Plugin 'flazz/vim-colorschemes'
 " Plugin 'spf13/vim-colors'
 " Plugin 'powerline/fonts'
+" Plugin 'chriskempson/vim-tomorrow-theme'
+" Plugin 'tomasr/molokai'
 
 " Interface
 Plugin 'vim-airline/vim-airline'
@@ -52,6 +54,7 @@ Plugin 'osyo-manga/vim-over'
 Plugin 'vim-scripts/a.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'Valloric/YouCompleteMe'
+" Plugin 'jeaye/color_coded'
 
 " clojure
 Plugin 'tpope/vim-fireplace'
@@ -137,15 +140,17 @@ set hlsearch
 
 let mapleader='\'
 
-noremap <C-S> :w<CR>
+noremap <F2> :w<CR>
 
 noremap <C-J> <C-W>j
 noremap <C-K> <C-W>k
 noremap <C-L> <C-W>l
 noremap <C-H> <C-W>h
 
-noremap <leader><TAB>   : bn<CR>
-noremap <leader><S-TAB> : bp<CR>
+" noremap <leader><TAB>   : bn<CR>
+" noremap <leader><S-TAB> : bp<CR>
+noremap <TAB>   : bn<CR>
+noremap <S-TAB> : bp<CR>
 
 noremap <leader>s       : OverCommandLine<CR>
 noremap <leader>ctags   : !ctags -R && echo "create tags OK"<CR>
@@ -154,6 +159,9 @@ noremap <leader>tag     : TagbarToggle <CR>
 noremap <leader>mstrip  : call StripTrailingWhitespace()<CR>
 noremap <leader>head    : call AddFlieHead()<CR>
 noremap <leader>dl      : call AddDashLine()<CR>
+noremap <leader>w       : bd<CR>
+
+nmap <leader><Space> <Plug>NERDCommenterToggle
 
 " noremap <leader>g :YcmCompleter GoTo <CR>
 " noremap <leader>d :YcmCompleter GoToDefinition <CR>
@@ -205,7 +213,7 @@ endfunction
 
 "{{{ indentline
 
-let g:indentLine_conceallevel=2
+" let g:indentLine_conceallevel=2
 
 "}}}
 
@@ -255,8 +263,8 @@ let g:airline_theme='simple'
 
 let g:tagbar_left=1
 let g:tagbar_width=32
-"let g:tagbar_compact=1
-"let g:tagbar_expand=2
+let g:tagbar_compact=1
+let g:tagbar_expand=2
 
 "}}}
 
@@ -334,7 +342,7 @@ au BufNewFile,BufRead *.rs set filetype=rust
 "{{{ ctrlp
 let g:ctrlp_custom_ignore = {
       \ 'dir':  '\v(\.git|(CM|cm)ake\w+|tmp)$',
-      \ 'file': '\v(\.o|tags|(CM|cm)ake(\w|\.)+)$',
+      \ 'file': '\v(\.o|tags|(CM|cm)ake(\w|\.)+|\.class)$',
       \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
       \ }
 "}}}
