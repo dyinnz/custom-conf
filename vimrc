@@ -37,7 +37,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'christoomey/vim-tmux-navigator'
 
 " Edition
-Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'godlygeek/tabular'
@@ -53,7 +52,6 @@ Plugin 'osyo-manga/vim-over'
 " cpp
 Plugin 'vim-scripts/a.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'Valloric/YouCompleteMe'
 " Plugin 'jeaye/color_coded'
 
 " clojure
@@ -67,6 +65,8 @@ Plugin 'guns/vim-clojure-highlight'
 " rails
 Plugin 'tpope/vim-rails'
 Plugin 'vim-ruby/vim-ruby'
+
+Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
 
@@ -341,10 +341,13 @@ au BufNewFile,BufRead *.rs set filetype=rust
 
 "{{{ ctrlp
 let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v(\.git|(CM|cm)ake\w+|tmp)$',
-      \ 'file': '\v(\.o|tags|(CM|cm)ake(\w|\.)+|\.class)$',
+      \ 'dir':  '\v(\.git|(CM|cm)ake\w+|tmp|node_modules|googletest)$',
+      \ 'file': '\v(\.o|tags|\.class)$',
       \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
       \ }
 "}}}
+
+
+let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 
 "}}} end of Plugin Settings
