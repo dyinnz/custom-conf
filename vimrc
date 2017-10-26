@@ -62,7 +62,7 @@ color solarized             " Load a colorscheme
 syntax on
 set background=dark
 
-set shell=/home/guoyingzhong/local/bin/zsh
+set shell=/bin/zsh
 autocmd BufWinEnter,WinEnter term://* startinsert
 
 " About indent
@@ -92,7 +92,6 @@ highlight WildMenu ctermfg=136 gui=bold guifg=#60ff60
 if has('nvim')
   " nothing
 else
-  syntax on
   " UI
   set ttyfast " Speed up
   set showcmd
