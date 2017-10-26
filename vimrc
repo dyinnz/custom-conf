@@ -26,11 +26,12 @@ Plugin 'christoomey/vim-tmux-navigator'
 " Edit
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'godlygeek/tabular'
+Plugin 'junegunn/vim-easy-align'
 
 " Search
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
+Plugin 'junegunn/fzf.vim'
 
 " Cpp
 Plugin 'vim-scripts/a.vim'
@@ -41,7 +42,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'klen/python-mode'
 
 " Lint
-" Plugin 'w0rp/ale'
+Plugin 'w0rp/ale'
 
 call vundle#end()
 
@@ -118,9 +119,11 @@ nnoremap <C-E>   :tabnext<CR>
 nnoremap <leader>t      : tabnew<CR>
 nnoremap <leader>w      : tabclose<CR>
 
-nnoremap <Space>h       : bn<CR>
-nnoremap <Space>l       : bp<CR>
-nnoremap <Space>b       : CtrlPBuffer<cr>
+nnoremap <Space>q       : bn<CR>
+nnoremap <Space>e       : bp<CR>
+nnoremap <Space>w       : bd<CR>
+nnoremap <Space>b       : Buffers<cr>
+nnoremap <Space>f       : FZF<CR>
 
 nnoremap <leader>nt     : NERDTreeToggle<CR>
 nnoremap <leader>ctags  : !ctags -R && echo "Create tags OK..."<CR>
@@ -190,4 +193,10 @@ let g:pymode_lint = 0
 
 " MacOS clang
 let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+
+" ale
+let g:ale_fixers = {
+\   'C++': ['clang'],
+\}
+let g:ale_fix_on_save = 1
 
