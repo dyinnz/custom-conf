@@ -11,13 +11,16 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'      " let Vundle manage Vundle, required
 
-" UI / Highlight
-Plugin 'flazz/vim-colorschemes'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'scrooloose/nerdtree'
+" Color & Highlight
+Plugin 'rakr/vim-one'
+Plugin 'sheerun/vim-polyglot'
+
+" UI
 Plugin 'vim-airline/vim-airline'
 " Plugin 'itchyny/lightline.vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'mhinz/vim-startify'
 
 " Move
 Plugin 'easymotion/vim-easymotion'
@@ -27,47 +30,41 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'junegunn/vim-easy-align'
+Plugin 'junegunn/goyo.vim'
 
 " Search
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'junegunn/fzf.vim'
 
+" Lint
+Plugin 'w0rp/ale'
+
 " Cpp
 Plugin 'vim-scripts/a.vim'
-Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'Valloric/YouCompleteMe'
 
 " Python
 Plugin 'klen/python-mode'
 
-" Lint
-Plugin 'w0rp/ale'
-
 call vundle#end()
 
 filetype plugin indent on    " required
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" colorscheme
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-" let g:solarized_contrast="normal"
-" let g:solarized_visibility="normal"
-color solarized             " Load a colorscheme
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Important for Line Number Bar
+" color
 syntax on
+colorscheme one
 set background=dark
+highlight Pmenu ctermfg=145 ctermbg=59 guifg=#abb2bf guibg=#5c6370
+highlight PmenuSel ctermfg=69 ctermbg=59 guifg=#abb2bf guibg=#5c6370
 
+" shell and terminal
 set shell=/bin/zsh
 autocmd BufWinEnter,WinEnter term://* startinsert
+autocmd TermClose * bd!
 
 " About indent
-" set autoindent
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
@@ -76,23 +73,12 @@ set smarttab
 
 " UI
 set number
-" set wildmenu
 set scrolloff=3 " Minimum lines to keep above and below cursor
-
-" Color
-" highlight Folded term=bold cterm=bold
-highlight clear VertSplit
-highlight clear SignColumn        " link to LineNr
-highlight clear LineNr            " Line Number
-" highlight clear SpecialKey        " for listchars
-highlight clear StatusLine
-highlight StatusLine ctermfg=33 guifg=Cyan
-highlight clear WildMenu
-highlight WildMenu ctermfg=136 gui=bold guifg=#60ff60
 
 if has('nvim')
   " nothing
 else
+  set autoindent
   " UI
   set ttyfast " Speed up
   set showcmd
@@ -130,10 +116,10 @@ nnoremap <leader>ctags  : !ctags -R && echo "Create tags OK..."<CR>
 nnoremap <leader>al     : call AddDashLine()<CR>
 nnoremap <leader>ds     : call StripTrailingWhitespace()<CR>
 
-nnoremap <leader><space>  <Plug>NERDCommenterToggle
-
 nnoremap <Leader>= :vertical resize +10<CR>
 nnoremap <Leader>- :vertical resize -10<CR>
+
+vmap <Enter> <Plug>(EasyAlign)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " function
@@ -160,6 +146,7 @@ endfunction
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_buffers = 0
+let g:airline_theme='one'
 
 " cpp highlight
 let g:cpp_class_scope_highlight=1
@@ -199,4 +186,5 @@ let g:ale_fixers = {
 \   'C++': ['clang'],
 \}
 let g:ale_fix_on_save = 1
-
+let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_delay = 1000
