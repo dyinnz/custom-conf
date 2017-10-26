@@ -95,27 +95,35 @@ set smartcase
 set incsearch
 set hlsearch
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Key Mappings
+" Key mapping
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-l> <C-\><C-n><C-w>l
 
-nnoremap <TAB>          : tabnext<CR>
-nnoremap <S-TAB>        : tabprev<CR>
+tnoremap <C-Q>   <C-\><C-n> :tabprev<CR>
+tnoremap <C-E>   <C-\><C-n> :tabnext<CR>
+nnoremap <C-Q>   :tabprev<CR>
+nnoremap <C-E>   :tabnext<CR>
+
 nnoremap <leader>t      : tabnew<CR>
 nnoremap <leader>w      : tabclose<CR>
 
 nnoremap <Space>h       : bn<CR>
 nnoremap <Space>l       : bp<CR>
+nnoremap <Space>b       : CtrlPBuffer<cr>
 
 nnoremap <leader>nt     : NERDTreeToggle<CR>
-nnoremap <leader>pb     : CtrlPBuffer<cr>
-nnoremap <leader>pm     : CtrlPMixed<cr>
-nnoremap <leader>pr     : CtrlPMRU<cr>
 nnoremap <leader>ctags  : !ctags -R && echo "Create tags OK..."<CR>
-nnoremap <leader>dl     : call AddDashLine()<CR>
-nnoremap <leader>mstrip : call StripTrailingWhitespace()<CR>
+nnoremap <leader>al     : call AddDashLine()<CR>
+nnoremap <leader>ds     : call StripTrailingWhitespace()<CR>
 
 nnoremap <leader><space>  <Plug>NERDCommenterToggle
+
+nnoremap <Leader>= :vertical resize +10<CR>
+nnoremap <Leader>- :vertical resize -10<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
