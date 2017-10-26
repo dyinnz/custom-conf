@@ -1,4 +1,5 @@
-"{{{ Vundle
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vundle
 
 " be iMproved, required
 set nocompatible
@@ -34,13 +35,16 @@ Plugin 'vim-scripts/a.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'Valloric/YouCompleteMe'
 
+" Python
+" Plugin 'klen/python-mode'
+
 call vundle#end()
 
 filetype plugin indent on    " required
 
-"}}}
 
-"{{{ vim-colors-solarized :  must be triggerred as early as possible
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-colors-solarized :  must be triggerred as early as possible
 
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
@@ -48,9 +52,8 @@ let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
 color solarized             " Load a colorscheme
 
-"}}}
-
-"{{{ Normal Settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Normal Settings
 
 " Vim
 syntax on
@@ -92,23 +95,31 @@ set smartcase
 set incsearch
 set hlsearch
 
-"}}}
 
-"{{{ Key Mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key Mappings
 
-map <TAB>   : bn<CR>
-map <S-TAB> : bp<CR>
+nnoremap <TAB>          : tabnext<CR>
+nnoremap <S-TAB>        : tabprev<CR>
+nnoremap <leader>t      : tabnew<CR>
+nnoremap <leader>w      : tabclose<CR>
 
-map <leader>ctags   : !ctags -R && echo "create tags OK"<CR>
-map <leader>mstrip  : call StripTrailingWhitespace()<CR>
-map <leader>dl      : call AddDashLine()<CR>
-map <leader>w       : bd<CR>
-map <leader>t       : NERDTreeToggle<CR>
-map <leader><space> <Plug>NERDCommenterToggle
+nnoremap <Space>h       : bn<CR>
+nnoremap <Space>l       : bp<CR>
 
-"}}}
+nnoremap <leader>nt     : NERDTreeToggle<CR>
+nnoremap <leader>pb     : CtrlPBuffer<cr>
+nnoremap <leader>pm     : CtrlPMixed<cr>
+nnoremap <leader>pr     : CtrlPMRU<cr>
+nnoremap <leader>ctags  : !ctags -R && echo "Create tags OK..."<CR>
+nnoremap <leader>dl     : call AddDashLine()<CR>
+nnoremap <leader>mstrip : call StripTrailingWhitespace()<CR>
 
-"{{{ Customized Functions
+nnoremap <leader><space>  <Plug>NERDCommenterToggle
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Customized Functions
 
 function AddDashLine()
   call append(line(".")+0, "/*----------------------------------------------------------------------------*/")
@@ -126,23 +137,21 @@ function StripTrailingWhitespace()
   call cursor(l, c)
 endfunction
 
-"}}}
 
-"{{{ Plugin Settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Plugin Settings
 
-"{{{ airline
+"airline
 let g:airline#extensions#tabline#enabled = 1
-"}}}
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#show_buffers = 0
 
-"{{{ vim-cpp-enhanced-highlight
 
+" vim-cpp-enhanced-highlight
 let g:cpp_class_scope_highlight=1
 let g:cpp_experimental_template_highlight=1
 
-"}}}
-
-"{{{ YouCompleteMe
-
+" YouCompleteMe
 let g:ycm_show_diagnostics_ui=0
 let g:ycm_enable_diagnostic_signs=0
 let g:ycm_enable_diagnostic_highlighting = 0
@@ -155,19 +164,14 @@ let g:ycm_confirm_extra_conf = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
-"}}}
-
-"{{{ ctrlp
+" ctrlp
+let g:ctrlp_by_filename = 1
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
 let g:ctrlp_custom_ignore = {
       \ 'dir':  '\v(\.git|(CM|cm)ake\w+|tmp|node_modules|googletest)$',
       \ 'file': '\v(\.o|tags|\.class)$',
       \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
       \ }
-"}}}
 
-"{{{ MacOS
+" MacOS clang
 let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-
-"}}}
-
-"}}}
