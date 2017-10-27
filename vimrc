@@ -2,62 +2,53 @@
 " vim and neovim configuration file
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" be iMproved, required
-set nocompatible
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-
-" Plugins
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'      " let Vundle manage Vundle, required
+call plug#begin('~/.vim/plugged')
 
 " Color & Highlight
-Plugin 'rakr/vim-one'
-Plugin 'sheerun/vim-polyglot'
+Plug 'joshdick/onedark.vim'
+Plug 'sheerun/vim-polyglot'
 
 " UI
-Plugin 'vim-airline/vim-airline'
-" Plugin 'itchyny/lightline.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'mhinz/vim-startify'
+Plug 'vim-airline/vim-airline'
+" Plug 'itchyny/lightline.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'scrooloose/nerdtree'
+Plug 'mhinz/vim-startify'
 
 " Move
-Plugin 'easymotion/vim-easymotion'
-Plugin 'christoomey/vim-tmux-navigator'
+Plug 'easymotion/vim-easymotion'
+Plug 'christoomey/vim-tmux-navigator'
 
 " Edit
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'junegunn/goyo.vim'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdcommenter'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/goyo.vim'
 
 " Search
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'tacahiroy/ctrlp-funky'
-Plugin 'junegunn/fzf.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tacahiroy/ctrlp-funky'
+Plug 'junegunn/fzf.vim'
 
 " Lint
-Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
 
 " Cpp
-Plugin 'vim-scripts/a.vim'
-Plugin 'Valloric/YouCompleteMe'
+Plug 'vim-scripts/a.vim'
+Plug '~/.vim/YouCompleteMe'
 
 " Python
-Plugin 'klen/python-mode'
+Plug 'klen/python-mode'
 
-call vundle#end()
+call plug#end()
 
 filetype plugin indent on    " required
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " color
 syntax on
-colorscheme one
+colorscheme onedark
 set background=dark
-highlight Pmenu ctermfg=145 ctermbg=59 guifg=#abb2bf guibg=#5c6370
-highlight PmenuSel ctermfg=69 ctermbg=59 guifg=#abb2bf guibg=#5c6370
 
 " shell and terminal
 set shell=/bin/zsh
@@ -146,11 +137,7 @@ endfunction
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_buffers = 0
-let g:airline_theme='one'
-
-" cpp highlight
-let g:cpp_class_scope_highlight=1
-let g:cpp_experimental_template_highlight=1
+let g:airline_theme='onedark'
 
 " YouCompleteMe
 let g:ycm_show_diagnostics_ui=0
