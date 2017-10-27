@@ -51,8 +51,11 @@ set background=dark
 
 " shell and terminal
 set shell=/bin/zsh
+" set shell=/home/guoyingzhong/local/bin/zsh
 autocmd BufWinEnter,WinEnter term://* startinsert
 autocmd TermClose * bd!
+set splitbelow
+set splitright
 
 " About indent
 set tabstop=2
@@ -92,12 +95,23 @@ tnoremap <C-E>   <C-\><C-n> :tabnext<CR>
 nnoremap <C-Q>   :tabprev<CR>
 nnoremap <C-E>   :tabnext<CR>
 
+nnoremap <CR> :
+
 nnoremap <leader>t      : tabnew<CR>
 nnoremap <leader>w      : tabclose<CR>
+nnoremap <leader>T      : tabe term://.//zsh<CR>
+nnoremap <leader>vs     : vs term://.//zsh<CR>
+nnoremap <leader>sp     : sp term://.//zsh<CR>
 
-nnoremap <Space>q       : bn<CR>
-nnoremap <Space>e       : bp<CR>
-nnoremap <Space>w       : bd<CR>
+nnoremap <Space>q       : q<CR>
+nnoremap <Space>w       : w<CR>
+nnoremap <Space>t       : term<CR>
+nnoremap <Space>vs      : vs<CR>
+nnoremap <Space>sp      : sp<CR>
+
+nnoremap <Space>=       : vertical resize +10<CR>
+nnoremap <Space>-       : vertical resize -10<CR>
+
 nnoremap <Space>b       : Buffers<cr>
 nnoremap <Space>f       : FZF<CR>
 
@@ -105,9 +119,6 @@ nnoremap <leader>nt     : NERDTreeToggle<CR>
 nnoremap <leader>ctags  : !ctags -R && echo "Create tags OK..."<CR>
 nnoremap <leader>al     : call AddDashLine()<CR>
 nnoremap <leader>ds     : call StripTrailingWhitespace()<CR>
-
-nnoremap <Leader>= :vertical resize +10<CR>
-nnoremap <Leader>- :vertical resize -10<CR>
 
 vmap <Enter> <Plug>(EasyAlign)
 
@@ -139,17 +150,9 @@ let g:airline#extensions#tabline#show_buffers = 0
 let g:airline_theme='onedark'
 
 " YouCompleteMe
-let g:ycm_show_diagnostics_ui=0
-let g:ycm_enable_diagnostic_signs=0
-let g:ycm_enable_diagnostic_highlighting = 0
-let g:ycm_echo_current_diagnostic = 0
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_key_invoke_completion = '<C-Q>'
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
+set completeopt-=preview " diable preview window
+let g:ycm_confirm_extra_conf = 0 " diable confirmation of opening extra_conf file
+" let g:ycm_show_diagnostics_ui=0 " disable
 
 " CtrlP
 let g:ctrlp_by_filename = 1
