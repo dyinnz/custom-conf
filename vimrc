@@ -12,7 +12,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
 " Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 Plug 'mhinz/vim-startify'
 
 " Move
@@ -53,7 +53,7 @@ set background=dark
 set shell=/bin/zsh
 " set shell=/home/guoyingzhong/local/bin/zsh
 autocmd BufWinEnter,WinEnter term://* startinsert
-autocmd TermClose * q
+autocmd TermClose * bd!
 set splitbelow
 set splitright
 
@@ -105,7 +105,7 @@ nnoremap <leader>sp     : sp term://.//zsh<CR>
 
 nnoremap <Space>q       : q<CR>
 nnoremap <Space>w       : w<CR>
-nnoremap <Space>t       : term<CR>
+nnoremap <Space>term    : term<CR>
 nnoremap <Space>vs      : vs<CR>
 nnoremap <Space>sp      : sp<CR>
 
