@@ -12,7 +12,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
 " Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'mhinz/vim-startify'
 
 " Move
@@ -23,7 +23,6 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/goyo.vim'
 
 " Search
 Plug 'ctrlpvim/ctrlp.vim'
@@ -34,11 +33,11 @@ Plug 'junegunn/fzf.vim'
 Plug 'w0rp/ale'
 
 " Cpp
-Plug 'vim-scripts/a.vim'
+Plug 'vim-scripts/a.vim', { 'for': 'cpp' }
 Plug '~/.vim/YouCompleteMe'
 
 " Python
-Plug 'klen/python-mode'
+Plug 'klen/python-mode', { 'for': 'python' }
 
 call plug#end()
 
