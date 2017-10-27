@@ -53,7 +53,7 @@ set background=dark
 set shell=/bin/zsh
 " set shell=/home/guoyingzhong/local/bin/zsh
 autocmd BufWinEnter,WinEnter term://* startinsert
-autocmd TermClose * bd!
+autocmd TermClose * q
 set splitbelow
 set splitright
 
@@ -112,8 +112,10 @@ nnoremap <Space>sp      : sp<CR>
 nnoremap <Space>=       : vertical resize +10<CR>
 nnoremap <Space>-       : vertical resize -10<CR>
 
-nnoremap <Space>b       : Buffers<cr>
-nnoremap <Space>f       : FZF<CR>
+nnoremap fb             : Buffers<cr>
+nnoremap ff             : FZF<CR>
+nnoremap fg             : GFiles<CR>
+nnoremap fw             : Windows<CR>
 
 nnoremap <leader>nt     : NERDTreeToggle<CR>
 nnoremap <leader>ctags  : !ctags -R && echo "Create tags OK..."<CR>
@@ -151,8 +153,9 @@ let g:airline_theme='onedark'
 
 " YouCompleteMe
 set completeopt-=preview " diable preview window
-let g:ycm_confirm_extra_conf = 0 " diable confirmation of opening extra_conf file
-" let g:ycm_show_diagnostics_ui=0 " disable
+let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf    = 0 " diable confirmation of opening extra_conf file
+let g:ycm_show_diagnostics_ui   = 0 " disable
 
 " CtrlP
 let g:ctrlp_by_filename = 1
@@ -176,4 +179,6 @@ let g:ale_fixers = {
 \}
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
-" let g:ale_lint_delay = 1000
+
+" fzf
+let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
