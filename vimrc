@@ -65,7 +65,7 @@ set expandtab
 set smarttab
 
 " UI
-set number
+" set number
 set scrolloff=3 " Minimum lines to keep above and below cursor
 
 if has('nvim')
