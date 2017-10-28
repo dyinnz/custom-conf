@@ -25,9 +25,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/vim-easy-align'
 
 " Search
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'tacahiroy/ctrlp-funky'
-Plug 'junegunn/fzf.vim'
+Plug 'Shougo/denite.nvim'
 
 " Lint
 Plug 'w0rp/ale'
@@ -84,24 +82,29 @@ endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key mapping
-tnoremap <Esc> <C-\><C-n>
-tnoremap <C-h> <C-\><C-n><C-w>h
-tnoremap <C-j> <C-\><C-n><C-w>j
-tnoremap <C-k> <C-\><C-n><C-w>k
-tnoremap <C-l> <C-\><C-n><C-w>l
-
-tnoremap <C-Q>   <C-\><C-n> :tabprev<CR>
-tnoremap <C-E>   <C-\><C-n> :tabnext<CR>
-nnoremap <C-Q>   :tabprev<CR>
-nnoremap <C-E>   :tabnext<CR>
-
 nnoremap <CR> :
+tnoremap <Esc> <C-\><C-N>
+
+tnoremap <C-H> <C-\><C-N><C-W>h
+tnoremap <C-J> <C-\><C-N><C-W>j
+tnoremap <C-K> <C-\><C-N><C-W>k
+tnoremap <C-L> <C-\><C-N><C-W>l
+
+tnoremap <C-Q> <C-\><C-n><C-PageUp>
+tnoremap <C-E> <C-\><C-n><C-PageDown>
+nnoremap <C-Q> <C-PageUp>
+nnoremap <C-E> <C-PageDown>
 
 nnoremap <leader>t      : tabnew<CR>
 nnoremap <leader>w      : tabclose<CR>
 nnoremap <leader>T      : tabe term://.//zsh<CR>
 nnoremap <leader>vs     : vs term://.//zsh<CR>
 nnoremap <leader>sp     : sp term://.//zsh<CR>
+
+nnoremap <leader>nt     : NERDTreeToggle<CR>
+nnoremap <leader>ctags  : !ctags -R && echo "Create tags OK..."<CR>
+nnoremap <leader>al     : call AddDashLine()<CR>
+nnoremap <leader>ds     : call StripTrailingWhitespace()<CR>
 
 nnoremap <Space>q       : q<CR>
 nnoremap <Space>w       : w<CR>
@@ -112,15 +115,10 @@ nnoremap <Space>sp      : sp<CR>
 nnoremap <Space>=       : vertical resize +10<CR>
 nnoremap <Space>-       : vertical resize -10<CR>
 
-nnoremap fb             : Buffers<cr>
-nnoremap ff             : FZF<CR>
-nnoremap fg             : GFiles<CR>
-nnoremap fw             : Windows<CR>
-
-nnoremap <leader>nt     : NERDTreeToggle<CR>
-nnoremap <leader>ctags  : !ctags -R && echo "Create tags OK..."<CR>
-nnoremap <leader>al     : call AddDashLine()<CR>
-nnoremap <leader>ds     : call StripTrailingWhitespace()<CR>
+nnoremap <C-P>          : Denite file_rec -highlight-mode-insert=Search<CR>
+nnoremap ff             : Denite file_rec -highlight-mode-insert=Search<CR>
+nnoremap fb             : Denite buffer -highlight-mode-insert=Search<CR>
+nnoremap fg             : Denite file_rec/git -highlight-mode-insert=Search<CR>
 
 vmap <Enter> <Plug>(EasyAlign)
 
@@ -180,5 +178,21 @@ let g:ale_fixers = {
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 
-" fzf
-let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
+" Denite
+call denite#custom#map(
+      \ 'insert',
+      \ '<C-j>',
+      \ '<denite:move_to_next_line>',
+      \ 'noremap'
+      \)
+call denite#custom#map(
+      \ 'insert',
+      \ '<C-k>',
+      \ '<denite:move_to_previous_line>',
+      \ 'noremap'
+      \)
+call denite#custom#var('file_rec', 'command',
+      \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+call denite#custom#alias('source', 'file_rec/git', 'file_rec')
+call denite#custom#var('file_rec/git', 'command',
+      \ ['git', 'ls-files'])
