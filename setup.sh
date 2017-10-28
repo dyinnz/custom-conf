@@ -23,7 +23,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 # oh my zsh
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-sed -i -e s/robbyrussell/candy/g ~/.zshrc
+sed -i -e s/robbyrussell/bira/g ~/.zshrc
 echo "" >> ~/.zshrc
 echo "source $(pwd)/common-env.sh" >> ~/.zshrc
 
