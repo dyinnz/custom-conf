@@ -1,7 +1,9 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim and neovim configuration file
+" Dyinnz 2017/10
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-plug
 call plug#begin('~/.vim/plugged')
 
 " Color & Highlight
@@ -10,7 +12,6 @@ Plug 'sheerun/vim-polyglot'
 
 " UI
 Plug 'vim-airline/vim-airline'
-" Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
 Plug 'mhinz/vim-startify'
@@ -39,13 +40,19 @@ Plug 'klen/python-mode', { 'for': 'python' }
 
 call plug#end()
 
-filetype plugin indent on    " required
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" color
-syntax on
+" colorscheme
+set background=dark " require
 colorscheme onedark
-set background=dark
+
+hi TabLine      ctermfg=Black  ctermbg=Green     cterm=NONE
+hi TabLineFill  ctermfg=Black  ctermbg=Green     cterm=NONE
+hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE
+
+set synmaxcol=200
+set lazyredraw
+set scrolloff=3 " Minimum lines to keep above and below cursor
 
 " shell and terminal
 set shell=/bin/zsh
@@ -55,16 +62,12 @@ autocmd TermClose * bd!
 set splitbelow
 set splitright
 
-" About indent
+" indent
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
 set smarttab
-
-" UI
-" set number
-set scrolloff=3 " Minimum lines to keep above and below cursor
 
 if has('nvim')
   " nothing
@@ -90,8 +93,8 @@ tnoremap <C-J> <C-\><C-N><C-W>j
 tnoremap <C-K> <C-\><C-N><C-W>k
 tnoremap <C-L> <C-\><C-N><C-W>l
 
-tnoremap <C-Q> <C-\><C-n><C-PageUp>
-tnoremap <C-E> <C-\><C-n><C-PageDown>
+tnoremap <C-Q> <C-\><C-N><C-PageUp>
+tnoremap <C-E> <C-\><C-N><C-PageDown>
 nnoremap <C-Q> <C-PageUp>
 nnoremap <C-E> <C-PageDown>
 
@@ -115,12 +118,13 @@ nnoremap <Space>sp      : sp<CR>
 nnoremap <Space>=       : vertical resize +10<CR>
 nnoremap <Space>-       : vertical resize -10<CR>
 
-nnoremap <C-P>          : Denite file_rec -highlight-mode-insert=Search<CR>
-nnoremap ff             : Denite file_rec -highlight-mode-insert=Search<CR>
-nnoremap fb             : Denite buffer -highlight-mode-insert=Search<CR>
-nnoremap fg             : Denite file_rec/git -highlight-mode-insert=Search<CR>
+nnoremap <C-P> : Denite -highlight-matched-char=Identifier file_rec<CR>
+nnoremap ff    : Denite -highlight-matched-char=Identifier file_rec<CR>
+nnoremap fb    : Denite -highlight-matched-char=Identifier buffer<CR>
+nnoremap fg    : Denite -highlight-matched-char=Identifier file_rec/git<CR>
+nnoremap fs    : Denite -highlight-matched-char=Identifier -no-empty grep<CR>
 
-vmap <Enter> <Plug>(EasyAlign)
+vnoremap <Enter> <Plug>(EasyAlign)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " function
@@ -155,15 +159,6 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf    = 0 " diable confirmation of opening extra_conf file
 let g:ycm_show_diagnostics_ui   = 0 " disable
 
-" CtrlP
-let g:ctrlp_by_filename = 1
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
-let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v(\.git|(CM|cm)ake\w+|tmp|node_modules|googletest)$',
-      \ 'file': '\v(\.o|tags|\.class)$',
-      \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-      \ }
-
 " Python
 let g:pymode_python = 'python3'
 let g:pymode_lint = 0
@@ -179,20 +174,28 @@ let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 
 " Denite
-call denite#custom#map(
-      \ 'insert',
-      \ '<C-j>',
-      \ '<denite:move_to_next_line>',
-      \ 'noremap'
-      \)
-call denite#custom#map(
-      \ 'insert',
-      \ '<C-k>',
-      \ '<denite:move_to_previous_line>',
-      \ 'noremap'
-      \)
+call denite#custom#map('insert', '<C-J>',
+      \ '<denite:move_to_next_line>', 'noremap')
+call denite#custom#map('insert', '<C-K>',
+      \ '<denite:move_to_previous_line>', 'noremap')
+call denite#custom#map('insert', '<C-D>',
+      \ '<denite:scroll_window_downwards>', 'noremap')
+call denite#custom#map('insert', '<C-U>',
+      \ '<denite:scroll_page_backwards>', 'noremap')
+
 call denite#custom#var('file_rec', 'command',
       \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+
 call denite#custom#alias('source', 'file_rec/git', 'file_rec')
 call denite#custom#var('file_rec/git', 'command',
       \ ['git', 'ls-files'])
+
+call denite#custom#var('grep', 'command', ['ag'])
+call denite#custom#var('grep', 'default_opts',
+      \ ['-i', '--vimgrep'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', [])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
+
+call denite#custom#option('default', 'prompt', '>')
