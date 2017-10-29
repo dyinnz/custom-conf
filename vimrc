@@ -27,6 +27,7 @@ Plug 'junegunn/vim-easy-align'
 
 " Search
 " Plug 'Shougo/denite.nvim'
+" Plug 'ctrlpvim/ctrlp.vim'
 if has('macunix')
   Plug '/usr/local/opt/fzf'
 else
@@ -191,6 +192,8 @@ autocmd FileType fzf tnoremap <buffer> <C-J> <C-N>
 autocmd FileType fzf tnoremap <buffer> <C-K> <C-P>
 let $FZF_DEFAULT_COMMAND = 'ag --follow --nocolor --nogroup -g ""'
 let $FZF_DEFAULT_OPTS = '--bind=ctrl-d:page-down,ctrl-u:page-up'
+
+let g:ctrlp_user_command = 'ag %s --follow --nocolor --nogroup -g ""'
 
 " Denite
 " call denite#custom#map('insert', '<C-J>',
