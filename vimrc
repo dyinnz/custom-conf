@@ -58,7 +58,6 @@ set scrolloff=3 " Minimum lines to keep above and below cursor
 set shell=/bin/zsh
 " set shell=/home/guoyingzhong/local/bin/zsh
 autocmd BufWinEnter,WinEnter term://* startinsert
-autocmd TermClose * bd!
 set splitbelow
 set splitright
 
@@ -70,7 +69,7 @@ set expandtab
 set smarttab
 
 if has('nvim')
-  " nothing
+  autocmd TermClose * bd!
 else
   set autoindent
   " UI
