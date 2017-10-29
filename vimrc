@@ -54,10 +54,6 @@ call plug#end()
 set background=dark " require
 colorscheme onedark
 
-hi TabLine      ctermfg=Black  ctermbg=Green     cterm=NONE
-hi TabLineFill  ctermfg=Black  ctermbg=Green     cterm=NONE
-hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE
-
 set synmaxcol=200
 set lazyredraw
 set scrolloff=3 " Minimum lines to keep above and below cursor
