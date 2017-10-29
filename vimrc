@@ -19,6 +19,7 @@ Plug 'mhinz/vim-startify'
 " Move
 Plug 'easymotion/vim-easymotion'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'justinmk/vim-sneak'
 
 " Edit
 Plug 'tpope/vim-surround'
