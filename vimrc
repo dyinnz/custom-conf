@@ -26,7 +26,13 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/vim-easy-align'
 
 " Search
-Plug 'Shougo/denite.nvim'
+" Plug 'Shougo/denite.nvim'
+if has('macunix')
+  Plug '/usr/local/opt/fzf'
+else
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+endif
+Plug 'junegunn/fzf.vim'
 
 " Lint
 Plug 'w0rp/ale'
@@ -118,11 +124,18 @@ nnoremap <Space>sp      : sp<CR>
 nnoremap <Space>=       : vertical resize +10<CR>
 nnoremap <Space>-       : vertical resize -10<CR>
 
-nnoremap <C-P> : Denite -highlight-matched-char=Identifier file_rec<CR>
-nnoremap ff    : Denite -highlight-matched-char=Identifier file_rec<CR>
-nnoremap fb    : Denite -highlight-matched-char=Identifier buffer<CR>
-nnoremap fg    : Denite -highlight-matched-char=Identifier file_rec/git<CR>
-nnoremap fs    : Denite -highlight-matched-char=Identifier -no-empty grep<CR>
+" nnoremap <C-P> : Denite -highlight-matched-char=Identifier file_rec<CR>
+" nnoremap ff    : Denite -highlight-matched-char=Identifier file_rec<CR>
+" nnoremap fb    : Denite -highlight-matched-char=Identifier buffer<CR>
+" nnoremap fg    : Denite -highlight-matched-char=Identifier file_rec/git<CR>
+" nnoremap fs    : Denite -highlight-matched-char=Identifier -no-empty grep<CR>
+
+nnoremap <C-P>  : FZF<CR>
+nnoremap <C-X>  : Buffers<CR>
+nnoremap ff     : Files<CR>
+nnoremap fg     : GFiles<CR>
+nnoremap fs     : Ag<CR>
+nnoremap fb     : Buffers<CR>
 
 vnoremap <Enter> <Plug>(EasyAlign)
 
@@ -173,29 +186,36 @@ let g:ale_fixers = {
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 
+" fzf
+autocmd FileType fzf tnoremap <buffer> <Esc> <C-C>
+autocmd FileType fzf tnoremap <buffer> <C-J> <C-N>
+autocmd FileType fzf tnoremap <buffer> <C-K> <C-P>
+let $FZF_DEFAULT_COMMAND = 'ag --follow --nocolor --nogroup -g ""'
+let $FZF_DEFAULT_OPTS = '--bind=ctrl-d:page-down,ctrl-u:page-up'
+
 " Denite
-call denite#custom#map('insert', '<C-J>',
-      \ '<denite:move_to_next_line>', 'noremap')
-call denite#custom#map('insert', '<C-K>',
-      \ '<denite:move_to_previous_line>', 'noremap')
-call denite#custom#map('insert', '<C-D>',
-      \ '<denite:scroll_window_downwards>', 'noremap')
-call denite#custom#map('insert', '<C-U>',
-      \ '<denite:scroll_page_backwards>', 'noremap')
-
-call denite#custom#var('file_rec', 'command',
-      \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-
-call denite#custom#alias('source', 'file_rec/git', 'file_rec')
-call denite#custom#var('file_rec/git', 'command',
-      \ ['git', 'ls-files'])
-
-call denite#custom#var('grep', 'command', ['ag'])
-call denite#custom#var('grep', 'default_opts',
-      \ ['-i', '--vimgrep'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', [])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
-
-call denite#custom#option('default', 'prompt', '>')
+" call denite#custom#map('insert', '<C-J>',
+"       \ '<denite:move_to_next_line>', 'noremap')
+" call denite#custom#map('insert', '<C-K>',
+"       \ '<denite:move_to_previous_line>', 'noremap')
+" call denite#custom#map('insert', '<C-D>',
+"       \ '<denite:scroll_window_downwards>', 'noremap')
+" call denite#custom#map('insert', '<C-U>',
+"       \ '<denite:scroll_page_backwards>', 'noremap')
+" 
+" call denite#custom#var('file_rec', 'command',
+"       \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+" 
+" call denite#custom#alias('source', 'file_rec/git', 'file_rec')
+" call denite#custom#var('file_rec/git', 'command',
+"       \ ['git', 'ls-files'])
+" 
+" call denite#custom#var('grep', 'command', ['ag'])
+" call denite#custom#var('grep', 'default_opts',
+"       \ ['-i', '--vimgrep'])
+" call denite#custom#var('grep', 'recursive_opts', [])
+" call denite#custom#var('grep', 'pattern_opt', [])
+" call denite#custom#var('grep', 'separator', ['--'])
+" call denite#custom#var('grep', 'final_opts', [])
+" 
+" call denite#custom#option('default', 'prompt', '>')
