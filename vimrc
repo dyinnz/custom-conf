@@ -129,12 +129,15 @@ nnoremap <Space>-       : vertical resize -10<CR>
 
 nnoremap <C-P>  : FZF<CR>
 nnoremap <C-X>  : Buffers<CR>
-nnoremap ff     : Files<CR>
-nnoremap fg     : GFiles<CR>
-nnoremap fs     : Ag<CR>
-nnoremap fb     : Buffers<CR>
+nnoremap <Space>ff     : Files<CR>
+nnoremap <Space>fg     : GFiles<CR>
+nnoremap <Space>fs     : Ag<CR>
+nnoremap <Space>fb     : Buffers<CR>
 
 vnoremap <Enter> <Plug>(EasyAlign)
+
+map <Space>/ <Plug>Sneak_s
+map <Space>? <Plug>Sneak_S
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " function
@@ -201,14 +204,14 @@ let g:ctrlp_user_command = 'ag %s --follow --nocolor --nogroup -g ""'
 "       \ '<denite:scroll_window_downwards>', 'noremap')
 " call denite#custom#map('insert', '<C-U>',
 "       \ '<denite:scroll_page_backwards>', 'noremap')
-" 
+"
 " call denite#custom#var('file_rec', 'command',
 "       \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-" 
+"
 " call denite#custom#alias('source', 'file_rec/git', 'file_rec')
 " call denite#custom#var('file_rec/git', 'command',
 "       \ ['git', 'ls-files'])
-" 
+"
 " call denite#custom#var('grep', 'command', ['ag'])
 " call denite#custom#var('grep', 'default_opts',
 "       \ ['-i', '--vimgrep'])
@@ -216,5 +219,5 @@ let g:ctrlp_user_command = 'ag %s --follow --nocolor --nogroup -g ""'
 " call denite#custom#var('grep', 'pattern_opt', [])
 " call denite#custom#var('grep', 'separator', ['--'])
 " call denite#custom#var('grep', 'final_opts', [])
-" 
+"
 " call denite#custom#option('default', 'prompt', '>')
