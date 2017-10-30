@@ -101,11 +101,14 @@ tnoremap <C-E> <C-\><C-N><C-PageDown>
 nnoremap <C-Q> <C-PageUp>
 nnoremap <C-E> <C-PageDown>
 
+nnoremap <C-S>          : w<CR>
+nnoremap <Space>s       : w<CR>
+
 nnoremap <leader>t      : tabnew<CR>
-nnoremap <leader>w      : tabclose<CR>
+nnoremap <leader>q      : tabclose<CR>
 nnoremap <leader>T      : tabe term://.//zsh<CR>
-nnoremap <leader>vs     : vs term://.//zsh<CR>
-nnoremap <leader>sp     : sp term://.//zsh<CR>
+nnoremap <leader>wv     : vs term://.//zsh<CR>
+nnoremap <leader>ws     : sp term://.//zsh<CR>
 
 nnoremap <leader>nt     : NERDTreeToggle<CR>
 nnoremap <leader>ctags  : !ctags -R && echo "Create tags OK..."<CR>
@@ -113,10 +116,9 @@ nnoremap <leader>al     : call AddDashLine()<CR>
 nnoremap <leader>ds     : call StripTrailingWhitespace()<CR>
 
 nnoremap <Space>q       : q<CR>
-nnoremap <Space>w       : w<CR>
-nnoremap <Space>term    : term<CR>
-nnoremap <Space>vs      : vs<CR>
-nnoremap <Space>sp      : sp<CR>
+nnoremap <Space>wt      : term<CR>
+nnoremap <Space>wv      : vs<CR>
+nnoremap <Space>ws      : sp<CR>
 
 nnoremap <Space>=       : vertical resize +10<CR>
 nnoremap <Space>-       : vertical resize -10<CR>
