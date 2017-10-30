@@ -37,7 +37,7 @@ endif
 Plug 'junegunn/fzf.vim'
 
 " Lint
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 
 " Cpp
 Plug 'vim-scripts/a.vim', { 'for': 'cpp' }
@@ -120,6 +120,11 @@ nnoremap <Space>wt      : term<CR>
 nnoremap <Space>wv      : vs<CR>
 nnoremap <Space>ws      : sp<CR>
 
+nnoremap <Space>bs      : w<CR>
+nnoremap <Space>bd      : bd<CR>
+nnoremap <Space>bn      : bn<CR>
+nnoremap <Space>bp      : bp<CR>
+
 nnoremap <Space>=       : vertical resize +10<CR>
 nnoremap <Space>-       : vertical resize -10<CR>
 
@@ -136,10 +141,10 @@ nnoremap <Space>fg     : GFiles<CR>
 nnoremap <Space>fs     : Ag<CR>
 nnoremap <Space>fb     : Buffers<CR>
 
-vnoremap <Enter> <Plug>(EasyAlign)
+vmap <leader>a <Plug>(EasyAlign)
 
-map <Space>/ <Plug>Sneak_s
-map <Space>? <Plug>Sneak_S
+map f <Plug>Sneak_s
+map F <Plug>Sneak_S
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " function
