@@ -46,6 +46,9 @@ Plug '~/.vim/YouCompleteMe'
 " Python
 Plug 'klen/python-mode', { 'for': 'python' }
 
+" Clojure
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
 call plug#end()
 
 
@@ -119,6 +122,8 @@ nnoremap <Space>q       : q<CR>
 nnoremap <Space>wt      : term<CR>
 nnoremap <Space>wv      : vs<CR>
 nnoremap <Space>ws      : sp<CR>
+nnoremap <Space>wc      : close<CR>
+nnoremap <Space>wo      : only<CR>
 
 nnoremap <Space>bs      : w<CR>
 nnoremap <Space>bd      : bd<CR>
@@ -128,23 +133,20 @@ nnoremap <Space>bp      : bp<CR>
 nnoremap <Space>=       : vertical resize +10<CR>
 nnoremap <Space>-       : vertical resize -10<CR>
 
-" nnoremap <C-P> : Denite -highlight-matched-char=Identifier file_rec<CR>
-" nnoremap ff    : Denite -highlight-matched-char=Identifier file_rec<CR>
-" nnoremap fb    : Denite -highlight-matched-char=Identifier buffer<CR>
-" nnoremap fg    : Denite -highlight-matched-char=Identifier file_rec/git<CR>
-" nnoremap fs    : Denite -highlight-matched-char=Identifier -no-empty grep<CR>
-
 nnoremap <C-P>  : FZF<CR>
 nnoremap <C-X>  : Buffers<CR>
 nnoremap <Space>ff     : Files<CR>
 nnoremap <Space>fg     : GFiles<CR>
-nnoremap <Space>fs     : Ag<CR>
+nnoremap <Space>fs     : Ag! 
 nnoremap <Space>fb     : Buffers<CR>
 
 vmap <leader>a <Plug>(EasyAlign)
 
 map f <Plug>Sneak_s
 map F <Plug>Sneak_S
+
+nnoremap <Space>ce :Eval<CR>
+nnoremap <Space>cr :Require<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " function
@@ -200,31 +202,10 @@ autocmd FileType fzf tnoremap <buffer> <C-K> <C-P>
 let $FZF_DEFAULT_COMMAND = 'ag --follow --nocolor --nogroup -g ""'
 let $FZF_DEFAULT_OPTS = '--bind=ctrl-d:page-down,ctrl-u:page-up'
 
-let g:ctrlp_user_command = 'ag %s --follow --nocolor --nogroup -g ""'
+command! -bang -nargs=* Ag
+      \ call fzf#vim#ag(<q-args>,
+      \                 <bang>0 ? fzf#vim#with_preview('up:50%')
+      \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+      \                 <bang>0)
 
-" Denite
-" call denite#custom#map('insert', '<C-J>',
-"       \ '<denite:move_to_next_line>', 'noremap')
-" call denite#custom#map('insert', '<C-K>',
-"       \ '<denite:move_to_previous_line>', 'noremap')
-" call denite#custom#map('insert', '<C-D>',
-"       \ '<denite:scroll_window_downwards>', 'noremap')
-" call denite#custom#map('insert', '<C-U>',
-"       \ '<denite:scroll_page_backwards>', 'noremap')
-"
-" call denite#custom#var('file_rec', 'command',
-"       \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-"
-" call denite#custom#alias('source', 'file_rec/git', 'file_rec')
-" call denite#custom#var('file_rec/git', 'command',
-"       \ ['git', 'ls-files'])
-"
-" call denite#custom#var('grep', 'command', ['ag'])
-" call denite#custom#var('grep', 'default_opts',
-"       \ ['-i', '--vimgrep'])
-" call denite#custom#var('grep', 'recursive_opts', [])
-" call denite#custom#var('grep', 'pattern_opt', [])
-" call denite#custom#var('grep', 'separator', ['--'])
-" call denite#custom#var('grep', 'final_opts', [])
-"
-" call denite#custom#option('default', 'prompt', '>')
+let g:ctrlp_user_command = 'ag %s --follow --nocolor --nogroup -g ""'
