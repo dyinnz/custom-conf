@@ -46,9 +46,6 @@ Plug '~/.vim/YouCompleteMe'
 " Python
 Plug 'klen/python-mode', { 'for': 'python' }
 
-" Clojure
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-
 call plug#end()
 
 
@@ -144,9 +141,6 @@ vmap <leader>a <Plug>(EasyAlign)
 
 map f <Plug>Sneak_s
 map F <Plug>Sneak_S
-
-nnoremap <Space>ce :Eval<CR>
-nnoremap <Space>cr :Require<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " function
