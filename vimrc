@@ -27,7 +27,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/vim-easy-align'
 
 " Search
-" Plug 'Shougo/denite.nvim'
 " Plug 'ctrlpvim/ctrlp.vim'
 if has('macunix')
   Plug '/usr/local/opt/fzf'
@@ -37,7 +36,7 @@ endif
 Plug 'junegunn/fzf.vim'
 
 " Lint
-" Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 
 " Cpp
 Plug 'vim-scripts/a.vim', { 'for': 'cpp' }
@@ -46,6 +45,8 @@ Plug '~/.vim/YouCompleteMe'
 " Python
 Plug 'klen/python-mode', { 'for': 'python' }
 
+" Plug 'mattn/emmet-vim'
+"
 call plug#end()
 
 
@@ -142,6 +143,8 @@ vmap <leader>a <Plug>(EasyAlign)
 map f <Plug>Sneak_s
 map F <Plug>Sneak_S
 
+nnoremap <leader>lf   : 0,$!yapf<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " function
 
@@ -169,30 +172,40 @@ let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline_theme='onedark'
 
+
 " YouCompleteMe
 set completeopt-=preview " diable preview window
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf    = 0 " diable confirmation of opening extra_conf file
 let g:ycm_show_diagnostics_ui   = 0 " disable
 
-" Python
-let g:pymode_python = 'python3'
-let g:pymode_lint = 0
 
-" MacOS clang
-let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+" Python
+let g:ycm_python_binary_path     = 'python3'
+let g:polyglot_disabled          = ['python'] " conficts with pymode
+let g:pymode_python              = 'python3'
+let g:pymode_lint                = 0
+let g:pymode_options_colorcolumn = 0
+let g:pymode_folding             = 0
+let g:pymode_rope                = 0
+let g:pymode_rope_completion     = 0
+let g:pymode_rope_regenerate_on_write = 0
+
 
 " ale
-let g:ale_fixers = {
-\   'C++': ['clang'],
-\}
+let g:ale_linters = {
+      \   'python': ['flake8'],
+      \   'C++': ['clang-format'],
+      \}
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
+
 
 " fzf
 autocmd FileType fzf tnoremap <buffer> <Esc> <C-C>
 autocmd FileType fzf tnoremap <buffer> <C-J> <C-N>
 autocmd FileType fzf tnoremap <buffer> <C-K> <C-P>
+
 let $FZF_DEFAULT_COMMAND = 'ag --follow --nocolor --nogroup -g ""'
 let $FZF_DEFAULT_OPTS = '--bind=ctrl-d:page-down,ctrl-u:page-up'
 
@@ -202,4 +215,7 @@ command! -bang -nargs=* Ag
       \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
       \                 <bang>0)
 
+
+" ctrlp
 let g:ctrlp_user_command = 'ag %s --follow --nocolor --nogroup -g ""'
+
