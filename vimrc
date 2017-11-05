@@ -38,6 +38,9 @@ Plug 'junegunn/fzf.vim'
 " Lint
 Plug 'w0rp/ale'
 
+" REPL
+Plug 'hkupty/iron.nvim'
+
 " Cpp
 Plug 'vim-scripts/a.vim', { 'for': 'cpp' }
 Plug '~/.vim/YouCompleteMe'
@@ -148,6 +151,10 @@ nnoremap <Space>fg      : GFiles<CR>
 nnoremap <Space>fs      : Ag! 
 nnoremap <Space>fb      : Buffers<CR>
 
+nmap <Space>R           <Plug>(iron-repeat-cmd)
+nmap <Space>r           V<Plug>(iron-send-motion)
+vmap <Space>r           <Plug>(iron-send-motion)
+
 nnoremap <leader>lf     : 0,$!yapf<CR>
 
 nnoremap <leader>nt     : NERDTreeToggle<CR>
@@ -234,3 +241,5 @@ command! -bang -nargs=* Ag
 " ctrlp
 let g:ctrlp_user_command = 'ag %s --follow --nocolor --nogroup -g ""'
 
+let g:iron_map_defaults=0
+let g:iron_repl_open_cmd = 'vs'
