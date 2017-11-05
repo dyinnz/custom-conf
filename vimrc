@@ -61,7 +61,6 @@ set scrolloff=3 " Minimum lines to keep above and below cursor
 
 " shell and terminal
 set shell=/bin/zsh
-" set shell=/home/guoyingzhong/local/bin/zsh
 autocmd BufWinEnter,WinEnter term://* startinsert
 set splitbelow
 set splitright
@@ -89,61 +88,76 @@ endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key mapping
-nnoremap <CR> :
-tnoremap <Esc> <C-\><C-N>
 
-tnoremap <C-H> <C-\><C-N><C-W>h
-tnoremap <C-J> <C-\><C-N><C-W>j
-tnoremap <C-K> <C-\><C-N><C-W>k
-tnoremap <C-L> <C-\><C-N><C-W>l
+map f                   <Plug>Sneak_s
+map F                   <Plug>Sneak_S
 
-tnoremap <C-Q> <C-\><C-N><C-PageUp>
-tnoremap <C-E> <C-\><C-N><C-PageDown>
-nnoremap <C-Q> <C-PageUp>
-nnoremap <C-E> <C-PageDown>
+tnoremap <Esc>          <C-\><C-N>
+tnoremap <C-H>          <C-\><C-N><C-W>h
+tnoremap <C-J>          <C-\><C-N><C-W>j
+tnoremap <C-K>          <C-\><C-N><C-W>k
+tnoremap <C-L>          <C-\><C-N><C-W>l
+tnoremap <C-Z>          <C-\><C-N><C-PageUp>
+tnoremap <C-X>          <C-\><C-N><C-PageDown>
 
+map   <C-A>             ^
+imap  <C-A>             <ESC>I
+map   <C-E>             $
+imap  <C-E>             <ESC>A
+
+nnoremap <C-Q>          : Buffers<CR>
+nnoremap <C-P>          : FZF<CR>
 nnoremap <C-S>          : w<CR>
-nnoremap <Space>s       : w<CR>
+nnoremap <C-Z>          <C-PageUp>
+nnoremap <C-X>          <C-PageDown>
 
-nnoremap <leader>t      : tabnew<CR>
-nnoremap <leader>q      : tabclose<CR>
-nnoremap <leader>T      : tabe term://.//zsh<CR>
-nnoremap <leader>wv     : vs term://.//zsh<CR>
-nnoremap <leader>ws     : sp term://.//zsh<CR>
+nnoremap <Space>s       : w<CR>
+nnoremap <Space>q       : q<CR>
+nnoremap <Space>Q       : q!<CR>
+
+nnoremap <Space>=       : vertical resize +10<CR>
+nnoremap <Space>-       : vertical resize -10<CR>
+
+" Window
+nnoremap <Space>wv      : vs<CR>
+nnoremap <Space>ws      : sp<CR>
+nnoremap <Space>wc      : close<CR>
+nnoremap <Space>wo      : only<CR>
+nnoremap <Space>WV      : vs term://.//zsh<CR>
+nnoremap <Space>WS      : sp term://.//zsh<CR>
+
+" Tab
+nnoremap <Space>tt      : tabnew<CR>
+nnoremap <Space>tc      : tabclose<CR>
+nnoremap <Space>to      : tabonly<CR>
+nnoremap <Space>TT      : tabe term://.//zsh<CR>
+nnoremap <Space>tn      : tabnext<CR>
+nnoremap <Space>tp      : tabprev<CR>
+nnoremap <Space>th      : tabmove -<CR>
+nnoremap <Space>tl      : tabmove +<CR>
+
+" Buffer
+nnoremap <Space>bs      : w<CR>
+nnoremap <Space>bd      : bd<CR>
+nnoremap <Space>bn      : bn<CR>
+nnoremap <Space>bp      : bp<CR>
+
+" FZF
+nnoremap <Space>ff      : Files<CR>
+nnoremap <Space>fg      : GFiles<CR>
+nnoremap <Space>fs      : Ag! 
+nnoremap <Space>fb      : Buffers<CR>
+
+nnoremap <leader>lf     : 0,$!yapf<CR>
 
 nnoremap <leader>nt     : NERDTreeToggle<CR>
 nnoremap <leader>ctags  : !ctags -R && echo "Create tags OK..."<CR>
 nnoremap <leader>al     : call AddDashLine()<CR>
 nnoremap <leader>ds     : call StripTrailingWhitespace()<CR>
 
-nnoremap <Space>q       : q<CR>
-nnoremap <Space>wt      : term<CR>
-nnoremap <Space>wv      : vs<CR>
-nnoremap <Space>ws      : sp<CR>
-nnoremap <Space>wc      : close<CR>
-nnoremap <Space>wo      : only<CR>
+vmap <leader>a          <Plug>(EasyAlign)
 
-nnoremap <Space>bs      : w<CR>
-nnoremap <Space>bd      : bd<CR>
-nnoremap <Space>bn      : bn<CR>
-nnoremap <Space>bp      : bp<CR>
-
-nnoremap <Space>=       : vertical resize +10<CR>
-nnoremap <Space>-       : vertical resize -10<CR>
-
-nnoremap <C-P>  : FZF<CR>
-nnoremap <C-X>  : Buffers<CR>
-nnoremap <Space>ff     : Files<CR>
-nnoremap <Space>fg     : GFiles<CR>
-nnoremap <Space>fs     : Ag! 
-nnoremap <Space>fb     : Buffers<CR>
-
-vmap <leader>a <Plug>(EasyAlign)
-
-map f <Plug>Sneak_s
-map F <Plug>Sneak_S
-
-nnoremap <leader>lf   : 0,$!yapf<CR>
+cnoremap <expr> %%      getcmdtype( ) == ':' ? expand('%:h').'/' : '%%'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " function
@@ -184,6 +198,7 @@ let g:ycm_show_diagnostics_ui   = 0 " disable
 let g:ycm_python_binary_path     = 'python3'
 let g:polyglot_disabled          = ['python'] " conficts with pymode
 let g:pymode_python              = 'python3'
+let g:pymode_options             = 0
 let g:pymode_lint                = 0
 let g:pymode_options_colorcolumn = 0
 let g:pymode_folding             = 0
