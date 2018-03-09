@@ -87,6 +87,7 @@ else
   set smartcase
   set incsearch
   set hlsearch
+  set backspace=indent,eol,start
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -149,6 +150,7 @@ nnoremap <Space>bp      : bp<CR>
 nnoremap <Space>ff      : Files<CR>
 nnoremap <Space>fg      : GFiles<CR>
 nnoremap <Space>fs      : Ag! 
+nnoremap <Space>fw      : Ag! <C-R><C-W><CR>
 nnoremap <Space>fb      : Buffers<CR>
 
 nmap <Space>R           <Plug>(iron-repeat-cmd)
