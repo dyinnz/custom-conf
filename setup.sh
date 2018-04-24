@@ -29,4 +29,4 @@ echo "source $(pwd)/common-env.sh" >> ~/.zshrc
 
 # zsh
 git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/plugins/zsh-autosuggestions
-sed -i -e "s/plugins=(git)/plugins=(git zsh-autosuggestions)/g" ~/.zshrc
+echo "plugins=(zsh-autosuggestions)" >> ~/.zshrc

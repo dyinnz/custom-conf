@@ -6,18 +6,18 @@
 " vim-plug
 call plug#begin('~/.vim/plugged')
 
-" Color & Highlight
+" Color theme
 Plug 'joshdick/onedark.vim'
+" Code highlight
 Plug 'sheerun/vim-polyglot'
 
 " UI
 Plug 'vim-airline/vim-airline'
-Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/nerdtree'
+Plug 'mhinz/vim-signify'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'mhinz/vim-startify'
 
 " Move
-Plug 'easymotion/vim-easymotion'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'justinmk/vim-sneak'
 
@@ -41,15 +41,16 @@ Plug 'w0rp/ale'
 " REPL
 Plug 'hkupty/iron.nvim'
 
+" tags
+Plug 'ludovicchabant/vim-gutentags'
+
 " Cpp
-Plug 'vim-scripts/a.vim', { 'for': 'cpp' }
+Plug 'vim-scripts/a.vim'
 Plug '~/.vim/YouCompleteMe'
 
 " Python
 Plug 'klen/python-mode', { 'for': 'python' }
 
-" Plug 'mattn/emmet-vim'
-"
 call plug#end()
 
 
@@ -74,6 +75,10 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 set smarttab
+
+set tags=./.tags;,.tags
+
+set nowrap
 
 if has('nvim')
   autocmd TermClose * bd!
@@ -101,19 +106,16 @@ tnoremap <C-H>          <C-\><C-N><C-W>h
 tnoremap <C-J>          <C-\><C-N><C-W>j
 tnoremap <C-K>          <C-\><C-N><C-W>k
 tnoremap <C-L>          <C-\><C-N><C-W>l
-tnoremap <C-Z>          <C-\><C-N><C-PageUp>
-tnoremap <C-X>          <C-\><C-N><C-PageDown>
 
 map   <C-A>             ^
 imap  <C-A>             <ESC>I
 map   <C-E>             $
 imap  <C-E>             <ESC>A
 
-nnoremap <C-Q>          : Buffers<CR>
-nnoremap <C-P>          : FZF<CR>
-nnoremap <C-S>          : w<CR>
-nnoremap <C-Z>          <C-PageUp>
-nnoremap <C-X>          <C-PageDown>
+nnoremap <C-m>          : Buffers<CR>
+nnoremap <C-p>          : FZF<CR>
+nnoremap <S-Tab>        <C-PageUp>
+nnoremap <Tab>          <C-PageDown>
 
 nnoremap <Space>s       : w<CR>
 nnoremap <Space>q       : q<CR>
@@ -129,6 +131,9 @@ nnoremap <Space>wc      : close<CR>
 nnoremap <Space>wo      : only<CR>
 nnoremap <Space>WV      : vs term://.//zsh<CR>
 nnoremap <Space>WS      : sp term://.//zsh<CR>
+
+"
+nnoremap <M-]>          <C-W>}
 
 " Tab
 nnoremap <Space>tt      : tabnew<CR>
@@ -157,10 +162,7 @@ nmap <Space>R           <Plug>(iron-repeat-cmd)
 nmap <Space>r           V<Plug>(iron-send-motion)
 vmap <Space>r           <Plug>(iron-send-motion)
 
-nnoremap <leader>lf     : 0,$!yapf<CR>
-
 nnoremap <leader>nt     : NERDTreeToggle<CR>
-nnoremap <leader>ctags  : !ctags -R && echo "Create tags OK..."<CR>
 nnoremap <leader>al     : call AddDashLine()<CR>
 nnoremap <leader>ds     : call StripTrailingWhitespace()<CR>
 
@@ -197,10 +199,12 @@ let g:airline_theme='onedark'
 
 
 " YouCompleteMe
-set completeopt-=preview " diable preview window
-let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf    = 0 " diable confirmation of opening extra_conf file
-let g:ycm_show_diagnostics_ui   = 0 " disable
+" set completeopt-=preview " diable preview window
+let g:ycm_global_ycm_extra_conf      = '~/.vim/ycm_extra_conf.py'
+let g:ycm_complete_in_strings        = 1
+let g:ycm_confirm_extra_conf         = 0 " diable confirmation of opening extra_conf file
+let g:ycm_show_diagnostics_ui        = 0 " disable
+let g:ycm_add_preview_to_completeopt = 0
 
 
 " Python
@@ -217,12 +221,13 @@ let g:pymode_rope_regenerate_on_write = 0
 
 
 " ale
+" \   'python': ['flake8'],
 let g:ale_linters = {
-      \   'python': ['flake8'],
       \   'C++': ['clang-format'],
       \}
-let g:ale_fix_on_save = 1
-let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:airline#extensions#ale#enabled = 1
 
 
 " fzf
@@ -243,5 +248,19 @@ command! -bang -nargs=* Ag
 " ctrlp
 let g:ctrlp_user_command = 'ag %s --follow --nocolor --nogroup -g ""'
 
+" iron repl
 let g:iron_map_defaults=0
 let g:iron_repl_open_cmd = 'vs'
+
+" ctags
+let s:vim_tags = expand('~/.cache/tags')
+if !isdirectory(s:vim_tags)
+  silent! call mkdir(s:vim_tags, 'p')
+endif
+
+let g:gutentags_project_root = ['.git', '.root']
+let g:gutentags_ctags_tagfile = '.tags'
+let g:gutentags_cache_dir = s:vim_tags
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
