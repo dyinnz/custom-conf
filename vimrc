@@ -42,7 +42,7 @@ Plug 'w0rp/ale'
 Plug 'hkupty/iron.nvim'
 
 " tags
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 
 " Cpp
 Plug 'vim-scripts/a.vim'
@@ -76,7 +76,7 @@ set softtabstop=2
 set expandtab
 set smarttab
 
-set tags=./.tags;,.tags
+set tags=./.tags;,.tags;,tags
 
 set nowrap
 
@@ -165,6 +165,7 @@ vmap <Space>r           <Plug>(iron-send-motion)
 nnoremap <leader>nt     : NERDTreeToggle<CR>
 nnoremap <leader>al     : call AddDashLine()<CR>
 nnoremap <leader>ds     : call StripTrailingWhitespace()<CR>
+nnoremap <leader>ct     : !ctags -R -f ".tags" .<CR>
 
 vmap <leader>a          <Plug>(EasyAlign)
 
@@ -258,9 +259,11 @@ if !isdirectory(s:vim_tags)
   silent! call mkdir(s:vim_tags, 'p')
 endif
 
-let g:gutentags_project_root = ['.git', '.root']
-let g:gutentags_ctags_tagfile = '.tags'
-let g:gutentags_cache_dir = s:vim_tags
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+" let g:gutentags_project_root = ['.git', '.root']
+" let g:gutentags_ctags_tagfile = '.tags'
+" let g:gutentags_cache_dir = s:vim_tags
+" let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+set rtp+=/usr/local/opt/fzf
