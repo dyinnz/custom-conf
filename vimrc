@@ -64,7 +64,7 @@ set lazyredraw
 set scrolloff=3 " Minimum lines to keep above and below cursor
 
 " shell and terminal
-set shell=/bin/zsh
+set shell=/bin/bash
 autocmd BufWinEnter,WinEnter term://* startinsert
 set splitbelow
 set splitright
