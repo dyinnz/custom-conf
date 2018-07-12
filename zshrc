@@ -12,3 +12,5 @@ source $ZSH/oh-my-zsh.sh
 
 # custom
 source $HOME/.custom-conf/common-env.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

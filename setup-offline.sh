@@ -16,8 +16,10 @@ ln -s $ROOT/vimrc ~/.vim/vimrc
 mkdir -p ~/.config/nvim
 ln -s $ROOT/vimrc ~/.config/nvim/init.vim
 
-rsync ./package/plug.vim ~/.vim/autoload/plug.vim
-rsync ./package/plug.vim ~/.local/share/nvim/site/autoload/plug.vim
+mkdir -p ~/.vim/autoload
+cp ./package/plug.vim ~/.vim/autoload/plug.vim
+mkdir -p ~/.local/share/nvim/site/autoload
+cp ./package/plug.vim ~/.local/share/nvim/site/autoload/plug.vim
 
 # ycm_extra_conf
 ln -s $ROOT/ycm_extra_conf.py ~/.vim/ycm_extra_conf.py
