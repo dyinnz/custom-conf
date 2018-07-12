@@ -8,8 +8,9 @@ ln -s $ROOT/tmux.conf ~/.tmux.conf
 
 # -----------------------------------------------------------------------------
 # vim
-mkdir -p ~/local/bin
-cp ./package/nvim ~/local/bin
+mkdir -p ~/local
+tar zxf ./package/nvim.tar.gz
+mv nvim-linux64 ~/local/nvim
 
 mkdir -p ~/.vim
 ln -s $ROOT/vimrc ~/.vim/vimrc
