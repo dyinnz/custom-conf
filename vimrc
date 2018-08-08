@@ -78,6 +78,8 @@ set smarttab
 
 set tags=./.tags;,.tags;,tags
 
+set completeopt=menu 
+
 set nowrap
 
 if has('nvim')
