@@ -1,6 +1,6 @@
 export TERM=screen-256color
 
-if [ "$(uname -s)" == "Linux" ]; then
+if [ "$(uname -s)" = "Linux" ]; then
     export LOCAL_PATH=$HOME/local
 else
     export LOCAL_PATH=$HOME/Local
