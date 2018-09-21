@@ -36,7 +36,7 @@ endif
 Plug 'junegunn/fzf.vim'
 
 " Lint
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 
 " REPL
 Plug 'hkupty/iron.nvim'
@@ -70,9 +70,9 @@ set splitbelow
 set splitright
 
 " indent
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 set smarttab
 
@@ -81,6 +81,9 @@ set tags=./.tags;,.tags;,tags
 set completeopt=menu 
 
 set nowrap
+
+set smartcase
+set ignorecase
 
 if has('nvim')
   autocmd TermClose * bd!
@@ -91,7 +94,6 @@ else
   set showcmd
   set wildmenu
   " Search
-  set smartcase
   set incsearch
   set hlsearch
   set backspace=indent,eol,start
@@ -202,7 +204,7 @@ let g:airline_theme='onedark'
 
 
 " YouCompleteMe
-" set completeopt-=preview " diable preview window
+set completeopt-=preview " diable preview window
 let g:ycm_global_ycm_extra_conf      = '~/.vim/ycm_extra_conf.py'
 let g:ycm_complete_in_strings        = 1
 let g:ycm_confirm_extra_conf         = 0 " diable confirmation of opening extra_conf file
