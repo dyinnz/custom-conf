@@ -36,7 +36,7 @@ endif
 Plug 'junegunn/fzf.vim'
 
 " Lint
-" Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 
 " REPL
 Plug 'hkupty/iron.nvim'
@@ -226,10 +226,11 @@ let g:pymode_rope_regenerate_on_write = 0
 
 
 " ale
-" \   'python': ['flake8'],
 let g:ale_linters = {
-      \   'C++': ['clang-format'],
-      \}
+            \ 'cpp': ['clang'],
+            \ 'python': ['flake8'],
+            \}
+let g:ale_cpp_clang_options = '-std=c++17 -Wall -Wextra'
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
 let g:airline#extensions#ale#enabled = 1
