@@ -12,7 +12,7 @@ ln -s $ROOT/tmux.confg $HOME/.tmux.conf
 
 ln -s $ROOT/vimrc $HOME/.vim/vimrc
 ln -s $ROOT/vimrc $HOME/.config/nvim/init.vim
-ln -s $ROOT/ycm_extra_conf.py $HOME.vim/ycm_extra_conf.py
+ln -s $ROOT/ycm_extra_conf.py $HOME/.vim/ycm_extra_conf.py
 
 ln -s $ROOT/flake8 $HOME/.config/flake8
 ln -s $ROOT/yapf.style $HOME/.config/yapf/style
