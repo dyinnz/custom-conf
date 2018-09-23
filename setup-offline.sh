@@ -1,42 +1,18 @@
 #!/bin/bash
 
-ROOT=$(pwd)
+ROOT="$( cd "$(dirname "$0")" ; pwd -P )"
 
-# -----------------------------------------------------------------------------
-# tmux
-ln -s $ROOT/tmux.conf ~/.tmux.conf
+source $ROOT/link.sh
 
-# -----------------------------------------------------------------------------
-# vim
-mkdir -p ~/local
-tar zxf ./package/nvim.tar.gz
-mv nvim-linux64 ~/local/nvim
+ln -s $HOME/.local/share/nvim/site/autoload/plug.vim $HOME/package/plug.vim
 
-mkdir -p ~/.vim
-ln -s $ROOT/vimrc ~/.vim/vimrc
-mkdir -p ~/.config/nvim
-ln -s $ROOT/vimrc ~/.config/nvim/init.vim
+unzip $ROOT/package/ycm.zip -d $HOME/.vim/
 
-mkdir -p ~/.vim/autoload
-cp ./package/plug.vim ~/.vim/autoload/plug.vim
-mkdir -p ~/.local/share/nvim/site/autoload
-cp ./package/plug.vim ~/.local/share/nvim/site/autoload/plug.vim
+unzip $ROOT/package/oh-my-zsh.zip -d $ROOT
+mv $ROOT/oh-my-zsh-master $HOME/.oh-my-zsh
 
-# ycm_extra_conf
-ln -s $ROOT/ycm_extra_conf.py ~/.vim/ycm_extra_conf.py
-unzip ./package/ycm.zip -d ~/.vim/
+unzip $ROOT/package/zsh-autosuggestions.zip -d $ROOT
+mv $ROOT/zsh-autosuggestions-master $HOME/.oh-my-zsh/plugins/zsh-autosuggestions
 
-# -----------------------------------------------------------------------------
-# oh my zsh
-ln -s $ROOT/zshrc ~/.zshrc
-
-unzip ./package/oh-my-zsh.zip
-mv ./oh-my-zsh-master ~/.oh-my-zsh
-
-unzip ./package/zsh-autosuggestions.zip
-mv ./zsh-autosuggestions-master ~/.oh-my-zsh/plugins/zsh-autosuggestions
-
-# -----------------------------------------------------------------------------
-# oh my zsh
-unzip ./package/brew.zip
-mv ./brew-master ~/.linuxbrew
+unzip $ROOT/package/brew.zip -d $ROOT
+mv $ROOT/brew-master $HOME/.linuxbrew
