@@ -16,6 +16,7 @@ fi
 plugins=(
   git
   z
+  tmux
   zsh-autosuggestions
 )
 
