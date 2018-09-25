@@ -2,10 +2,20 @@
 # oh my zsh
 export ZSH=$HOME/.oh-my-zsh
 
-ZSH_THEME="bira"
+
+if [ "$(uname -s)" = "Linux" ]; then
+    ZSH_THEME="bira"
+    LOCAL_PATH=$HOME/local
+    export TERM=screen-256color
+else
+    ZSH_THEME="bureau"
+    LOCAL_PATH=$HOME/local
+    export TERM=xterm-256color
+fi
 
 plugins=(
   git
+  z
   zsh-autosuggestions
 )
 
@@ -24,11 +34,6 @@ setopt HIST_BEEP
 
 # ------------------------------------------------------------------------------
 # PATH
-if [ "$(uname -s)" = "Linux" ]; then
-    export LOCAL_PATH=$HOME/local
-else
-    export LOCAL_PATH=$HOME/Local
-fi
 
 export C_INCLUDE_PATH=$LOCAL_PATH/include:$C_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=$LOCAL_PATH/include:$CPLUS_INCLUDE_PATH
@@ -42,7 +47,6 @@ export PATH=$LOCAL_PATH/bin:$PATH
 
 # ------------------------------------------------------------------------------
 # misc
-export TERM=screen-256color
 alias agcpp="ag --cpp"
 
 # custom
