@@ -2,7 +2,6 @@
 # oh my zsh
 export ZSH=$HOME/.oh-my-zsh
 
-
 if [ "$(uname -s)" = "Linux" ]; then
     ZSH_THEME="avit"
     LOCAL_PATH=$HOME/local
@@ -49,6 +48,8 @@ export PATH=$LOCAL_PATH/bin:$PATH
 # ------------------------------------------------------------------------------
 # misc
 alias agcpp="ag --cpp"
+alias rmcmake="rm -r CMakeFiles CMakeCache.txt cmake_install.cmake"
+alias tree="tree -C"
 
 # custom
 source $HOME/.custom-conf/custom-env.sh
