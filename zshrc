@@ -4,7 +4,7 @@ export ZSH=$HOME/.oh-my-zsh
 
 
 if [ "$(uname -s)" = "Linux" ]; then
-    ZSH_THEME="bira"
+    ZSH_THEME="avit"
     LOCAL_PATH=$HOME/local
     export TERM=screen-256color
 else

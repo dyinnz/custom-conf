@@ -139,6 +139,8 @@ nnoremap <Space>WS      : sp term://.//zsh<CR>
 "
 nnoremap <M-]>          <C-W>}
 
+nnoremap <Space>a       : A<CR>
+
 " Tab
 nnoremap <Space>tt      : tabnew<CR>
 nnoremap <Space>tc      : tabclose<CR>
@@ -148,6 +150,17 @@ nnoremap <Space>tn      : tabnext<CR>
 nnoremap <Space>tp      : tabprev<CR>
 nnoremap <Space>th      : tabmove -<CR>
 nnoremap <Space>tl      : tabmove +<CR>
+
+nnoremap <Space>0       0gt<CR>
+nnoremap <Space>1       1gt<CR>
+nnoremap <Space>2       2gt<CR>
+nnoremap <Space>3       3gt<CR>
+nnoremap <Space>4       4gt<CR>
+nnoremap <Space>5       5gt<CR>
+nnoremap <Space>6       6gt<CR>
+nnoremap <Space>7       7gt<CR>
+nnoremap <Space>8       8gt<CR>
+nnoremap <Space>9       9gt<CR>
 
 " Buffer
 nnoremap <Space>bs      : w<CR>
