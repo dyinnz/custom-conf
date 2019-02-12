@@ -15,7 +15,6 @@ fi
 plugins=(
   git
   z
-  tmux
   zsh-autosuggestions
 )
 
@@ -50,6 +49,7 @@ export PATH=$LOCAL_PATH/bin:$PATH
 alias agcpp="ag --cpp"
 alias rmcmake="rm -r CMakeFiles CMakeCache.txt cmake_install.cmake"
 alias tree="tree -C"
+alias xargs_pssh="xargs -0 -I {} pssh -H '{}' "
 
 # custom
 source $HOME/.custom-conf/custom-env.sh
