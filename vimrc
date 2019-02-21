@@ -62,6 +62,7 @@ colorscheme onedark
 set synmaxcol=200
 set lazyredraw
 set scrolloff=3 " Minimum lines to keep above and below cursor
+set nowrap
 
 " shell and terminal
 set shell=/bin/bash
@@ -76,14 +77,13 @@ set softtabstop=4
 set expandtab
 set smarttab
 
-set tags=./.tags;,.tags;,tags
-
-set completeopt=menu 
-
-set nowrap
+set hidden
 
 set smartcase
 set ignorecase
+
+set tags=./.tags;,.tags;,tags
+set completeopt=menu 
 
 if has('nvim')
   autocmd TermClose * bd!
