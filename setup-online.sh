@@ -6,13 +6,14 @@ source $ROOT/link.sh
 
 # pepare directories
 mkdir -p $ROOT/package
-mkdir -p $HOME/.local/share/nvim/site/autoload/plug.vim
+mkdir -p $HOME/.local/share/nvim/site/autoload
+mkdir -p $HOME/.vim/autoload
 
 # vim-plug
-curl -fLO $ROOT/package/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fLo $ROOT/package/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-ln -s $HOME/.local/share/nvim/site/autoload/plug.vim $HOME/package/plug.vim
+ln -s $ROOT/package/plug.vim $HOME/.local/share/nvim/site/autoload/plug.vim 
+ln -s $ROOT/package/plug.vim $HOME/.vim/autoload/plug.vim
 
 # oh-my-zsh
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh

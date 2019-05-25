@@ -8,7 +8,8 @@ mkdir -p $HOME/.config
 mkdir -p $HOME/.config/nvim
 mkdir -p $HOME/.config/yapf
 
-ln -s $ROOT/tmux.confg $HOME/.tmux.conf
+ln -s $ROOT/zshrc $HOME/.zshrc
+ln -s $ROOT/tmux.conf $HOME/.tmux.conf
 
 ln -s $ROOT/vimrc $HOME/.vim/vimrc
 ln -s $ROOT/vimrc $HOME/.config/nvim/init.vim
