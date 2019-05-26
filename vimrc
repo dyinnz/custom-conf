@@ -105,11 +105,13 @@ endif
 map f                   <Plug>Sneak_s
 map F                   <Plug>Sneak_S
 
-tnoremap <Esc>          <C-\><C-N>
-tnoremap <C-H>          <C-\><C-N><C-W>h
-tnoremap <C-J>          <C-\><C-N><C-W>j
-tnoremap <C-K>          <C-\><C-N><C-W>k
-tnoremap <C-L>          <C-\><C-N><C-W>l
+if has('nvim')
+    tnoremap <Esc>          <C-\><C-N>
+    tnoremap <C-H>          <C-\><C-N><C-W>h
+    tnoremap <C-J>          <C-\><C-N><C-W>j
+    tnoremap <C-K>          <C-\><C-N><C-W>k
+    tnoremap <C-L>          <C-\><C-N><C-W>l
+endif
 
 map   <C-A>             ^
 imap  <C-A>             <ESC>I
