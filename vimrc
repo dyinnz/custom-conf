@@ -264,7 +264,9 @@ autocmd FileType fzf tnoremap <buffer> <Esc> <C-C>
 autocmd FileType fzf tnoremap <buffer> <C-J> <C-N>
 autocmd FileType fzf tnoremap <buffer> <C-K> <C-P>
 
-let $FZF_DEFAULT_COMMAND = 'ag --follow --nocolor --nogroup -g ""'
+if executable('ag')
+    let $FZF_DEFAULT_COMMAND = 'ag --follow --nocolor --nogroup -g ""'
+endif
 let $FZF_DEFAULT_OPTS = '--bind=ctrl-d:page-down,ctrl-u:page-up'
 
 command! -bang -nargs=* Ag
