@@ -2,13 +2,10 @@
 # oh my zsh
 export ZSH=$HOME/.oh-my-zsh
 
-if [ "$(uname -s)" = "Linux" ]; then
-    ZSH_THEME="avit"
-    export TERM=screen-256color
-else
-    ZSH_THEME="bureau"
-    export TERM=xterm-256color
-fi
+# custom conf path
+export CUSTOM_CONF=$HOME/.custom-conf
+# set zsh theme early
+source $CUSTOM_CONF/env-functions.sh zsh_theme
 
 plugins=(
   git
@@ -31,8 +28,11 @@ setopt HIST_BEEP
 
 # ------------------------------------------------------------------------------
 
-source $HOME/.custom-conf/common-env.sh
+source $HOME/.custom-conf/env-functions.sh pre
+
 [ -f "$HOME/.custom-conf/custom-env.sh" ] && source $HOME/.custom-conf/custom-env.sh
+
+source $HOME/.custom-conf/env-functions.sh post
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
