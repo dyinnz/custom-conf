@@ -25,6 +25,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/vim-easy-align'
+Plug 'Chiel92/vim-autoformat'
 
 " Search
 " Plug 'ctrlpvim/ctrlp.vim'
@@ -83,7 +84,9 @@ set smartcase
 set ignorecase
 
 set tags=./.tags;,.tags;,tags
-set completeopt=menu 
+set completeopt=menu
+
+set clipboard=unnamedplus
 
 if has('nvim')
   autocmd TermClose * bd!
@@ -104,6 +107,7 @@ endif
 
 map f                   <Plug>Sneak_s
 map F                   <Plug>Sneak_S
+map =                   : Autoformat<CR>
 
 if has('nvim')
     tnoremap <Esc>          <C-\><C-N>
