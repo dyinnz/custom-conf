@@ -296,14 +296,14 @@ let g:pymode_rope_regenerate_on_write = 0
 
 " ale
 let g:ale_linters = {
-      \ 'cpp': ['clang'],
-      \ 'python': ['flake8'],
-      \}
+        \ 'cpp': ['clang++'],
+        \ 'python': ['flake8'],
+        \}
 let g:ale_fixers = {
-      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'python': ['isort', 'yapf'],
-      \}
-let g:ale_cpp_clang_options = '-std=c++17 -Wall -Wextra'
+        \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+        \ 'python': ['isort', 'yapf'],
+        \}
+let g:ale_cpp_clang_options = '-std=c++2a -Wall -Wextra'
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
 let g:airline#extensions#ale#enabled = 1

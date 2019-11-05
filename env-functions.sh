@@ -27,7 +27,7 @@ case "$1" in
         alias rmcmake="rm -r CMakeFiles CMakeCache.txt cmake_install.cmake"
         alias aria2c="aria2c -j 8"
         alias trn="tr '\n' ' '"
-        [ -x "$(command -v nvim)" ] && alias vim=nvim
+        [ -x "$(command -v nvim)" ] && alias vim=nvim && alias vimdiff="vim -d"
         ;;
 
     *)
