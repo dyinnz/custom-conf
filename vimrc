@@ -3,7 +3,28 @@
 " Dyinnz 2017/10
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-plug
+" Install vim-plug
+if has('nvim')
+  let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
+else
+  let vimplug_exists=expand('~/.vim/autoload/plug.vim')
+endif
+
+if !filereadable(vimplug_exists)
+  if !executable("curl")
+    echoerr "You have to install curl or first install vim-plug yourself!"
+    execute "q!"
+  endif
+  echo "Installing Vim-Plug..."
+  echo ""
+  silent exec "!\curl -fLo " . vimplug_exists . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+
+  autocmd VimEnter * PlugInstall
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Install packages by vim-plug
 call plug#begin('~/.vim/plugged')
 
 " Color theme
@@ -29,12 +50,12 @@ Plug 'Chiel92/vim-autoformat'
 
 " Search
 " Plug 'ctrlpvim/ctrlp.vim'
-if has('macunix')
-  Plug '/usr/local/opt/fzf'
+if isdirectory('/usr/local/opt/fzf')
+  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 else
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+  Plug 'junegunn/fzf.vim'
 endif
-Plug 'junegunn/fzf.vim'
 
 " Lint
 Plug 'w0rp/ale'
@@ -51,6 +72,7 @@ Plug '~/.vim/YouCompleteMe'
 
 " Python
 Plug 'klen/python-mode', { 'for': 'python' }
+Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
 
 call plug#end()
 
@@ -60,24 +82,24 @@ call plug#end()
 set background=dark " require
 colorscheme onedark
 
-set synmaxcol=200
+set synmaxcol=400
 set lazyredraw
 set scrolloff=3 " Minimum lines to keep above and below cursor
 set nowrap
 
-" shell and terminal
+" Shell and terminal
 set shell=/bin/bash
 autocmd BufWinEnter,WinEnter term://* startinsert
 set splitbelow
 set splitright
 
-" indent
+" Tabs
 set tabstop=4
-set shiftwidth=4
+set shiftwidth=0
 set softtabstop=4
 set expandtab
-set smarttab
 
+"" Enable hidden buffers
 set hidden
 
 set smartcase
@@ -105,16 +127,40 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key mapping
 
+" Search mappings: These will make it so that going to the next one in a
+" search will center on the line it's found in.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+"" no one is really happy until you have this shortcuts
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+
 map f                   <Plug>Sneak_s
 map F                   <Plug>Sneak_S
 map =                   : Autoformat<CR>
 
+vmap < <gv
+vmap > >gv
+
+noremap YY "+y<CR>
+noremap XX "+x<CR>
+noremap <leader>p "+gp<CR>
+
 if has('nvim')
-    tnoremap <Esc>          <C-\><C-N>
-    tnoremap <C-H>          <C-\><C-N><C-W>h
-    tnoremap <C-J>          <C-\><C-N><C-W>j
-    tnoremap <C-K>          <C-\><C-N><C-W>k
-    tnoremap <C-L>          <C-\><C-N><C-W>l
+  tnoremap <Esc>          <C-\><C-N>
+  tnoremap <C-H>          <C-\><C-N><C-W>h
+  tnoremap <C-J>          <C-\><C-N><C-W>j
+  tnoremap <C-K>          <C-\><C-N><C-W>k
+  tnoremap <C-L>          <C-\><C-N><C-W>l
 endif
 
 map   <C-A>             ^
@@ -124,8 +170,8 @@ imap  <C-E>             <ESC>A
 
 nnoremap <C-m>          : Buffers<CR>
 nnoremap <C-p>          : FZF<CR>
-nnoremap <S-Tab>        <C-PageUp>
-nnoremap <Tab>          <C-PageDown>
+nnoremap <Tab>          gt
+nnoremap <S-Tab>        gT
 
 nnoremap <Space>s       : w<CR>
 nnoremap <Space>q       : q<CR>
@@ -250,13 +296,13 @@ let g:pymode_rope_regenerate_on_write = 0
 
 " ale
 let g:ale_linters = {
-            \ 'cpp': ['clang'],
-            \ 'python': ['flake8'],
-            \}
+      \ 'cpp': ['clang'],
+      \ 'python': ['flake8'],
+      \}
 let g:ale_fixers = {
-            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \ 'python': ['isort', 'yapf'],
-            \}
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'python': ['isort', 'yapf'],
+      \}
 let g:ale_cpp_clang_options = '-std=c++17 -Wall -Wextra'
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
@@ -269,7 +315,7 @@ autocmd FileType fzf tnoremap <buffer> <C-J> <C-N>
 autocmd FileType fzf tnoremap <buffer> <C-K> <C-P>
 
 if executable('ag')
-    let $FZF_DEFAULT_COMMAND = 'ag --follow --nocolor --nogroup -g ""'
+  let $FZF_DEFAULT_COMMAND = 'ag --follow --hidden --nocolor --nogroup -g ""'
 endif
 let $FZF_DEFAULT_OPTS = '--bind=ctrl-d:page-down,ctrl-u:page-up'
 
