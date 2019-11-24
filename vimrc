@@ -146,7 +146,6 @@ cnoreabbrev Qall qall
 
 map f                   <Plug>Sneak_s
 map F                   <Plug>Sneak_S
-map =                   : Autoformat<CR>
 
 vmap < <gv
 vmap > >gv
@@ -192,6 +191,8 @@ nnoremap <Space>WS      : sp term://.//zsh<CR>
 nnoremap <M-]>          <C-W>}
 
 nnoremap <Space>a       : A<CR>
+noremap  <Space>f       : Autoformat<CR>
+autocmd FileType c,cpp,python noremap <buffer> = : Autoformat<CR>
 
 " Tab
 nnoremap <Space>tt      : tabnew<CR>
@@ -297,7 +298,7 @@ let g:pymode_rope_regenerate_on_write = 0
 " ale
 let g:ale_linters = {
         \ 'cpp': ['clang++'],
-        \ 'python': ['flake8'],
+        \ 'python': ['autopep8'],
         \}
 let g:ale_fixers = {
         \ '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -347,3 +348,6 @@ endif
 " let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
 set rtp+=/usr/local/opt/fzf
+
+let g:formatdef_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline"
+let g:formatters_python = ['autopep8']
