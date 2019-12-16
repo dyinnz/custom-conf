@@ -98,6 +98,7 @@ set tabstop=4
 set shiftwidth=0
 set softtabstop=4
 set expandtab
+set smarttab
 
 "" Enable hidden buffers
 set hidden
@@ -107,8 +108,6 @@ set ignorecase
 
 set tags=./.tags;,.tags;,tags
 set completeopt=menu
-
-set clipboard=unnamedplus
 
 if has('nvim')
   autocmd TermClose * bd!
@@ -150,8 +149,8 @@ map F                   <Plug>Sneak_S
 vmap < <gv
 vmap > >gv
 
-noremap YY "+y<CR>
-noremap XX "+x<CR>
+ "noremap YY "+y<CR>
+ "noremap XX "+x<CR>
 noremap <leader>p "+gp<CR>
 
 if has('nvim')
