@@ -21,13 +21,19 @@ case "$1" in
         ;;
 
     post)
+        # rename
         alias tree="tree -C"
-        alias xargs_pssh="xargs -0 -I {} pssh -H '{}' "
+        [ -x "$(command -v nvim)" ] && alias vim=nvim && alias vimdiff="vim -d"
+
+        # new command
         alias agcpp="ag --cpp"
         alias rmcmake="rm -r CMakeFiles CMakeCache.txt cmake_install.cmake"
         alias aria2c="aria2c -j 8"
         alias trn="tr '\n' ' '"
-        [ -x "$(command -v nvim)" ] && alias vim=nvim && alias vimdiff="vim -d"
+
+        alias xargs_pssh="xargs -0 -I {} pssh -H '{}' "
+        alias xargs_keyscan="xargs ssh-keyscan >> $HOME/.ssh/known_hosts"
+
         ;;
 
     *)

@@ -190,11 +190,11 @@ nnoremap <Space>WS      : sp term://.//zsh<CR>
 nnoremap <M-]>          <C-W>}
 
 nnoremap <Space>a       : A<CR>
-noremap  <Space>f       : Autoformat<CR>
-autocmd FileType c,cpp,python noremap <buffer> = : Autoformat<CR>
+noremap  <Space>ft       : Autoformat<CR>
+autocmd FileType c,cpp noremap <buffer> = : Autoformat<CR>
 
 " Tab
-nnoremap <Space>tt      : tabnew<CR>
+nnoremap <Space>tt      : tab split<CR>
 nnoremap <Space>tc      : tabclose<CR>
 nnoremap <Space>to      : tabonly<CR>
 nnoremap <Space>TT      : tabe term://.//zsh<CR>
