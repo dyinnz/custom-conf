@@ -17,7 +17,7 @@ case "$1" in
         export LD_LIBRARY_PATH=$LOCAL_PATH/lib:$LD_LIBRARY_PATH
         export LD_LIBRARY_PATH=$LOCAL_PATH/lib64:$LD_LIBRARY_PATH
 
-        export TERM=screen-256color
+        export TERM=xterm-256color
         ;;
 
     post)
