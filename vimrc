@@ -30,6 +30,7 @@ call plug#begin('~/.vim/plugged')
 " Color theme
 Plug 'joshdick/onedark.vim'
 " Code highlight
+let g:polyglot_disabled          = ['python'] " conficts with pymode
 Plug 'sheerun/vim-polyglot'
 
 " UI
@@ -283,7 +284,6 @@ let g:ycm_add_preview_to_completeopt = 0
 
 " Python
 let g:ycm_python_binary_path     = 'python3'
-let g:polyglot_disabled          = ['python'] " conficts with pymode
 let g:pymode_python              = 'python3'
 let g:pymode_options             = 0
 let g:pymode_lint                = 0
