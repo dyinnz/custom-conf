@@ -37,7 +37,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
 Plug 'mhinz/vim-signify'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'mhinz/vim-startify'
 
 " Move
 Plug 'christoomey/vim-tmux-navigator'
@@ -61,11 +60,8 @@ endif
 " Lint
 Plug 'w0rp/ale'
 
-" REPL
-Plug 'hkupty/iron.nvim'
-
 " tags
-" Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags'
 
 " Cpp
 Plug 'vim-scripts/a.vim'
@@ -124,6 +120,10 @@ else
   set backspace=indent,eol,start
 endif
 
+if has('unix') && !has('macunix')
+    set clipboard=unnamedplus
+endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key mapping
 
@@ -150,8 +150,8 @@ map F                   <Plug>Sneak_S
 vmap < <gv
 vmap > >gv
 
- "noremap YY "+y<CR>
- "noremap XX "+x<CR>
+noremap YY "+yy<CR>
+noremap XX "+cc<CR>
 noremap <leader>p "+gp<CR>
 
 if has('nvim')
@@ -228,11 +228,12 @@ nnoremap <Space>fs      : Ag!
 nnoremap <Space>fw      : Ag! <C-R><C-W><CR>
 nnoremap <Space>fb      : Buffers<CR>
 
+nnoremap <Space>nt      : NERDTreeToggle<CR>
+
 nmap <Space>R           <Plug>(iron-repeat-cmd)
 nmap <Space>r           V<Plug>(iron-send-motion)
 vmap <Space>r           <Plug>(iron-send-motion)
 
-nnoremap <leader>nt     : NERDTreeToggle<CR>
 nnoremap <leader>al     : call AddDashLine()<CR>
 nnoremap <leader>ds     : call StripTrailingWhitespace()<CR>
 nnoremap <leader>ct     : !ctags -R -f ".tags" .<CR>
@@ -296,14 +297,12 @@ let g:pymode_rope_regenerate_on_write = 0
 
 " ale
 let g:ale_linters = {
-        \ 'cpp': ['clang++'],
         \ 'python': ['autopep8'],
         \}
 let g:ale_fixers = {
         \ '*': ['remove_trailing_lines', 'trim_whitespace'],
         \ 'python': ['isort', 'yapf'],
         \}
-let g:ale_cpp_clang_options = '-std=c++2a -Wall -Wextra'
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
 let g:airline#extensions#ale#enabled = 1
@@ -339,12 +338,12 @@ if !isdirectory(s:vim_tags)
   silent! call mkdir(s:vim_tags, 'p')
 endif
 
-" let g:gutentags_project_root = ['.git', '.root']
-" let g:gutentags_ctags_tagfile = '.tags'
-" let g:gutentags_cache_dir = s:vim_tags
-" let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+let g:gutentags_project_root = ['.git', '.root']
+let g:gutentags_ctags_tagfile = '.tags'
+let g:gutentags_cache_dir = s:vim_tags
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
 set rtp+=/usr/local/opt/fzf
 

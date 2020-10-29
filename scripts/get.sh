@@ -10,7 +10,11 @@ cd package
 wget -O plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim &
 wget -O oh-my-zsh.zip https://github.com/robbyrussell/oh-my-zsh/archive/master.zip &
 wget -O zsh-autosuggestions.zip https://github.com/zsh-users/zsh-autosuggestions/archive/master.zip &
-wget -O nvim.tar.gz https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+
+wget -O nvim.tar.gz https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz &
+wget -O tmux.AppImage https://github.com/tmux/tmux/releases/download/3.1b/tmux-3.1b-x86_64.AppImage &
+
+echo end
 
 git clone --recurse-submodules -j8 https://github.com/Valloric/YouCompleteMe.git ../tmp/YouCompleteMe
 zip -r ycm.zip ../tmp/YouCompleteMe
