@@ -30,26 +30,25 @@ setopt HIST_SAVE_NO_DUPS
 # ------------------------------------------------------------------------------
 export TERM=xterm-256color
 
+
 # path
-LOCAL_PATH=$HOME/local
-export PATH=/usr/local/bin:$PATH
-export PATH=$LOCAL_PATH/bin:$PATH
-export C_PATH=$LOCAL_PATH/include:$C_PATH
-export LIBRARY_PATH=$LOCAL_PATH/lib:$LIBRARY_PATH
-export LIBRARY_PATH=$LOCAL_PATH/lib64:$LIBRARY_PATH
-export LD_LIBRARY_PATH=$LOCAL_PATH/lib:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$LOCAL_PATH/lib64:$LD_LIBRARY_PATH
+if [ "$(uname -s)" = "Linux" ]; then
+    LOCAL_PATH=$HOME/local
+    export PATH=/usr/local/bin:$PATH
+    export PATH=$LOCAL_PATH/bin:$PATH
+    export C_PATH=$LOCAL_PATH/include:$C_PATH
+    export LIBRARY_PATH=$LOCAL_PATH/lib64:$LOCAL_PATH/lib::$LIBRARY_PATH
+    export LD_LIBRARY_PATH=$LOCAL_PATH/lib64:$LOCAL_PATH/lib:$LD_LIBRARY_PATH
+else
+    # TODO
+fi
 
 
-# new command
-alias tree="tree -C"
+# alias
 [ -x "$(command -v nvim)" ] && alias vim=nvim && alias vimdiff="vim -d"
 
-alias agcpp="ag --cpp"
+alias tree="tree -C"
 alias rmcmake="rm -r CMakeFiles CMakeCache.txt cmake_install.cmake"
-alias aria2c="aria2c -j 8"
-alias trn="tr '\n' ' '"
-
 alias xargs_pssh="xargs -0 -I {} pssh -H '{}' "
 alias xargs_keyscan="xargs ssh-keyscan >> $HOME/.ssh/known_hosts"
 

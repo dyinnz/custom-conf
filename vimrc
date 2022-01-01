@@ -121,7 +121,7 @@ else
 endif
 
 if has('unix') && !has('macunix')
-    set clipboard=unnamedplus
+  set clipboard=unnamedplus
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -167,8 +167,8 @@ imap  <C-A>             <ESC>I
 map   <C-E>             $
 imap  <C-E>             <ESC>A
 
-nnoremap <C-m>          : Buffers<CR>
-nnoremap <C-p>          : FZF<CR>
+nnoremap <C-M>          : Buffers<CR>
+nnoremap <C-P>          : Files<CR>
 nnoremap <Tab>          gt
 nnoremap <S-Tab>        gT
 
@@ -229,10 +229,6 @@ nnoremap <Space>fw      : Ag! <C-R><C-W><CR>
 nnoremap <Space>fb      : Buffers<CR>
 
 nnoremap <Space>nt      : NERDTreeToggle<CR>
-
-nmap <Space>R           <Plug>(iron-repeat-cmd)
-nmap <Space>r           V<Plug>(iron-send-motion)
-vmap <Space>r           <Plug>(iron-send-motion)
 
 nnoremap <leader>al     : call AddDashLine()<CR>
 nnoremap <leader>ds     : call StripTrailingWhitespace()<CR>
@@ -297,12 +293,12 @@ let g:pymode_rope_regenerate_on_write = 0
 
 " ale
 let g:ale_linters = {
-        \ 'python': ['autopep8'],
-        \}
+      \ 'python': ['autopep8'],
+      \}
 let g:ale_fixers = {
-        \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-        \ 'python': ['isort', 'yapf'],
-        \}
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'python': ['isort', 'yapf'],
+      \}
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
 let g:airline#extensions#ale#enabled = 1
@@ -313,24 +309,11 @@ autocmd FileType fzf tnoremap <buffer> <Esc> <C-C>
 autocmd FileType fzf tnoremap <buffer> <C-J> <C-N>
 autocmd FileType fzf tnoremap <buffer> <C-K> <C-P>
 
-if executable('ag')
-  let $FZF_DEFAULT_COMMAND = 'ag --follow --hidden --nocolor --nogroup -g ""'
-endif
-let $FZF_DEFAULT_OPTS = '--bind=ctrl-d:page-down,ctrl-u:page-up'
-
-command! -bang -nargs=* Ag
-      \ call fzf#vim#ag(<q-args>,
-      \                 <bang>0 ? fzf#vim#with_preview('up:50%')
-      \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-      \                 <bang>0)
-
+let g:fzf_layout = { 'down': '50%' }
 
 " ctrlp
 let g:ctrlp_user_command = 'ag %s --follow --nocolor --nogroup -g ""'
 
-" iron repl
-let g:iron_map_defaults=0
-let g:iron_repl_open_cmd = 'vs'
 
 " ctags
 let s:vim_tags = expand('~/.cache/tags')
@@ -346,6 +329,3 @@ let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
 set rtp+=/usr/local/opt/fzf
-
-let g:formatdef_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline"
-let g:formatters_python = ['autopep8']
