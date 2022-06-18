@@ -32,16 +32,13 @@ export TERM=xterm-256color
 
 
 # path
-if [ "$(uname -s)" = "Linux" ]; then
-    LOCAL_PATH=$HOME/local
-    export PATH=/usr/local/bin:$PATH
-    export PATH=$LOCAL_PATH/bin:$PATH
-    export C_PATH=$LOCAL_PATH/include:$C_PATH
-    export LIBRARY_PATH=$LOCAL_PATH/lib64:$LOCAL_PATH/lib::$LIBRARY_PATH
-    export LD_LIBRARY_PATH=$LOCAL_PATH/lib64:$LOCAL_PATH/lib:$LD_LIBRARY_PATH
-else
-    # TODO
-fi
+export PATH=/usr/local/bin:$PATH
+
+LOCAL_PATH=$HOME/local
+export PATH=$LOCAL_PATH/bin:$PATH
+export C_PATH=$LOCAL_PATH/include:$C_PATH
+export LIBRARY_PATH=$LOCAL_PATH/lib64:$LOCAL_PATH/lib::$LIBRARY_PATH
+export LD_LIBRARY_PATH=$LOCAL_PATH/lib64:$LOCAL_PATH/lib:$LD_LIBRARY_PATH
 
 
 # alias

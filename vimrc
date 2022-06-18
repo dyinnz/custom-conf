@@ -58,7 +58,7 @@ else
 endif
 
 " Lint
-Plug 'w0rp/ale'
+Plug 'w0rp/ale', { 'for': 'python' }
 
 " tags
 Plug 'ludovicchabant/vim-gutentags'
