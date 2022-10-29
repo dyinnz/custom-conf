@@ -19,3 +19,4 @@ ln -s $ROOT/ycm_extra_conf.py $HOME/.vim/ycm_extra_conf.py
 
 ln -s $ROOT/flake8 $HOME/.config/flake8
 ln -s $ROOT/yapf.style $HOME/.config/yapf/style
+ln -s $ROOT/clang-format $HOME/.clang-format

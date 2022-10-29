@@ -64,7 +64,7 @@ Plug 'w0rp/ale', { 'for': 'python' }
 Plug 'ludovicchabant/vim-gutentags'
 
 " Cpp
-Plug 'vim-scripts/a.vim'
+Plug 'derekwyatt/vim-fswitch'
 Plug '~/.vim/YouCompleteMe'
 
 " Python
@@ -91,9 +91,9 @@ set splitbelow
 set splitright
 
 " Tabs
-set tabstop=4
+set tabstop=2
 set shiftwidth=0
-set softtabstop=4
+set softtabstop=2
 set expandtab
 set smarttab
 
@@ -104,7 +104,7 @@ set smartcase
 set ignorecase
 
 set tags=./.tags;,.tags;,tags
-set completeopt=menu
+set completeopt=menu " disable preview window (would be show below)
 
 if has('nvim')
   autocmd TermClose * bd!
@@ -190,7 +190,8 @@ nnoremap <Space>WS      : sp term://.//zsh<CR>
 "
 nnoremap <M-]>          <C-W>}
 
-nnoremap <Space>a       : A<CR>
+nnoremap <Space>a        : FSHere<CR>
+nnoremap <Space>wa       : FSSplitRight<CR>
 noremap  <Space>ft       : Autoformat<CR>
 autocmd FileType c,cpp noremap <buffer> = : Autoformat<CR>
 
@@ -222,6 +223,10 @@ nnoremap <Space>bn      : bn<CR>
 nnoremap <Space>bp      : bp<CR>
 
 " FZF
+autocmd FileType fzf tnoremap <buffer> <Esc> <C-C>
+autocmd FileType fzf tnoremap <buffer> <C-J> <C-N>
+autocmd FileType fzf tnoremap <buffer> <C-K> <C-P>
+
 nnoremap <Space>ff      : Files<CR>
 nnoremap <Space>fg      : GFiles<CR>
 nnoremap <Space>fs      : Ag! 
@@ -269,18 +274,19 @@ let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline_theme='onedark'
 
+" fswitch
+au BufEnter *.h  let b:fswitchdst = "cpp,cc,c,m"
+au BufEnter *.cc let b:fswitchdst = "h,hpp"
 
 " YouCompleteMe
-set completeopt-=preview " diable preview window
-let g:ycm_global_ycm_extra_conf      = '~/.vim/ycm_extra_conf.py'
-let g:ycm_complete_in_strings        = 1
+" let g:ycm_global_ycm_extra_conf      = '~/.vim/ycm_extra_conf.py' " TODO: remove me
 let g:ycm_confirm_extra_conf         = 0 " diable confirmation of opening extra_conf file
-let g:ycm_show_diagnostics_ui        = 0 " disable
-let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_complete_in_strings        = 1
+let g:ycm_complete_in_comments       = 1
+let g:ycm_show_diagnostics_ui        = 0 " disable it if the project cannot be complied
 
 
 " Python
-let g:ycm_python_binary_path     = 'python3'
 let g:pymode_python              = 'python3'
 let g:pymode_options             = 0
 let g:pymode_lint                = 0
@@ -305,10 +311,6 @@ let g:airline#extensions#ale#enabled = 1
 
 
 " fzf
-autocmd FileType fzf tnoremap <buffer> <Esc> <C-C>
-autocmd FileType fzf tnoremap <buffer> <C-J> <C-N>
-autocmd FileType fzf tnoremap <buffer> <C-K> <C-P>
-
 let g:fzf_layout = { 'down': '50%' }
 
 " ctrlp
