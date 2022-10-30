@@ -36,6 +36,7 @@ Plug 'sheerun/vim-polyglot'
 " UI
 Plug 'vim-airline/vim-airline'
 Plug 'mhinz/vim-signify'
+Plug 'preservim/tagbar', { 'on': 'Tagbar' }
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 " Move
@@ -49,22 +50,15 @@ Plug 'junegunn/vim-easy-align'
 Plug 'Chiel92/vim-autoformat'
 
 " Search
-" Plug 'ctrlpvim/ctrlp.vim'
-if isdirectory('/usr/local/opt/fzf')
-  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-else
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-  Plug 'junegunn/fzf.vim'
-endif
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 
 " Lint
-Plug 'w0rp/ale', { 'for': 'python' }
-
-" tags
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'dense-analysis/ale', { 'for': 'python' }
 
 " Cpp
 Plug 'derekwyatt/vim-fswitch'
+Plug 'ludovicchabant/vim-gutentags'
 Plug '~/.vim/YouCompleteMe'
 
 " Python
@@ -103,7 +97,7 @@ set hidden
 set smartcase
 set ignorecase
 
-set tags=./.tags;,.tags;,tags
+set tags=../.tags;,.tags;,tags
 set completeopt=menu " disable preview window (would be show below)
 
 if has('nvim')
@@ -147,19 +141,23 @@ cnoreabbrev Qall qall
 map f                   <Plug>Sneak_s
 map F                   <Plug>Sneak_S
 
-vmap < <gv
-vmap > >gv
+" continuous shift
+vmap <                  <gv
+vmap >                  >gv
 
-noremap YY "+yy<CR>
-noremap XX "+cc<CR>
-noremap <leader>p "+gp<CR>
+noremap YY              "+yy<CR>
+noremap XX              "+cc<CR>
+noremap <leader>p       "+gp<CR>
+
+nnoremap <Tab>          gt
+nnoremap <S-Tab>        gT
 
 if has('nvim')
-  tnoremap <Esc>          <C-\><C-N>
-  tnoremap <C-H>          <C-\><C-N><C-W>h
-  tnoremap <C-J>          <C-\><C-N><C-W>j
-  tnoremap <C-K>          <C-\><C-N><C-W>k
-  tnoremap <C-L>          <C-\><C-N><C-W>l
+  tnoremap <Esc>        <C-\><C-N>
+  tnoremap <C-H>        <C-\><C-N><C-W>h
+  tnoremap <C-J>        <C-\><C-N><C-W>j
+  tnoremap <C-K>        <C-\><C-N><C-W>k
+  tnoremap <C-L>        <C-\><C-N><C-W>l
 endif
 
 map   <C-A>             ^
@@ -167,33 +165,28 @@ imap  <C-A>             <ESC>I
 map   <C-E>             $
 imap  <C-E>             <ESC>A
 
-nnoremap <C-M>          : Buffers<CR>
-nnoremap <C-P>          : Files<CR>
-nnoremap <Tab>          gt
-nnoremap <S-Tab>        gT
+" tag
+nnoremap <M-]>          <C-W>}
 
+" Begin with <Space>
 nnoremap <Space>s       : w<CR>
 nnoremap <Space>q       : q<CR>
 nnoremap <Space>Q       : q!<CR>
 
+" Window
 nnoremap <Space>=       : vertical resize +10<CR>
 nnoremap <Space>-       : vertical resize -10<CR>
 
-" Window
 nnoremap <Space>wv      : vs<CR>
 nnoremap <Space>ws      : sp<CR>
 nnoremap <Space>wc      : close<CR>
 nnoremap <Space>wo      : only<CR>
 nnoremap <Space>WV      : vs term://.//zsh<CR>
 nnoremap <Space>WS      : sp term://.//zsh<CR>
-
-"
-nnoremap <M-]>          <C-W>}
-
-nnoremap <Space>a        : FSHere<CR>
-nnoremap <Space>wa       : FSSplitRight<CR>
-noremap  <Space>ft       : Autoformat<CR>
-autocmd FileType c,cpp noremap <buffer> = : Autoformat<CR>
+nnoremap <Space>a       : FSHere<CR>
+nnoremap <Space>wa      : FSSplitRight<CR>
+nnoremap <Space>wt      : Tagbar<CR>
+nnoremap <Space>wn      : NERDTreeToggle<CR>
 
 " Tab
 nnoremap <Space>tt      : tab split<CR>
@@ -227,21 +220,25 @@ autocmd FileType fzf tnoremap <buffer> <Esc> <C-C>
 autocmd FileType fzf tnoremap <buffer> <C-J> <C-N>
 autocmd FileType fzf tnoremap <buffer> <C-K> <C-P>
 
+nnoremap <C-P>          : Files<CR>
+nnoremap <C-M>          : Buffers<CR>
 nnoremap <Space>ff      : Files<CR>
+nnoremap <Space>fb      : Buffers<CR>
 nnoremap <Space>fg      : GFiles<CR>
 nnoremap <Space>fs      : Ag! 
 nnoremap <Space>fw      : Ag! <C-R><C-W><CR>
-nnoremap <Space>fb      : Buffers<CR>
 
-nnoremap <Space>nt      : NERDTreeToggle<CR>
-
+" begin with <leader>
 nnoremap <leader>al     : call AddDashLine()<CR>
 nnoremap <leader>ds     : call StripTrailingWhitespace()<CR>
-nnoremap <leader>ct     : !ctags -R -f ".tags" .<CR>
-nnoremap <leader>fix    : ALEFix <CR>
+nnoremap <leader>ct     : GutentagsUpdate<CR>
 
-nmap <Space>fk <Plug>(ale_previous_wrap)
-nmap <Space>fj <Plug>(ale_next_wrap)
+noremap  <leader>ft     : Autoformat<CR>
+autocmd FileType c,cpp noremap <buffer> = : Autoformat<CR>
+
+nnoremap <leader>fix    : ALEFix <CR>
+nmap <Space>fk          <Plug>(ale_previous_wrap)
+nmap <Space>fj          <Plug>(ale_next_wrap)
 
 vmap <leader>a          <Plug>(EasyAlign)
 
@@ -313,9 +310,6 @@ let g:airline#extensions#ale#enabled = 1
 " fzf
 let g:fzf_layout = { 'down': '50%' }
 
-" ctrlp
-let g:ctrlp_user_command = 'ag %s --follow --nocolor --nogroup -g ""'
-
 
 " ctags
 let s:vim_tags = expand('~/.cache/tags')
@@ -324,10 +318,7 @@ if !isdirectory(s:vim_tags)
 endif
 
 let g:gutentags_project_root = ['.git', '.root']
-let g:gutentags_ctags_tagfile = '.tags'
 let g:gutentags_cache_dir = s:vim_tags
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
-set rtp+=/usr/local/opt/fzf
