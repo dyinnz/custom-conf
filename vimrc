@@ -36,7 +36,7 @@ Plug 'sheerun/vim-polyglot'
 " UI
 Plug 'vim-airline/vim-airline'
 Plug 'mhinz/vim-signify'
-Plug 'preservim/tagbar', { 'on': 'Tagbar' }
+Plug 'preservim/tagbar' , { 'on': 'Tagbar' }
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 " Move
@@ -64,6 +64,11 @@ Plug '~/.vim/YouCompleteMe'
 " Python
 Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
+
+" Config
+Plug 'embear/vim-localvimrc'
+
+" Plug 'github/copilot.vim'
 
 call plug#end()
 
@@ -96,6 +101,8 @@ set hidden
 
 set smartcase
 set ignorecase
+
+set mouse=
 
 set tags=../.tags;,.tags;,tags
 set completeopt=menu " disable preview window (would be show below)
@@ -146,7 +153,9 @@ vmap <                  <gv
 vmap >                  >gv
 
 noremap YY              "+yy<CR>
+noremap Yy              "+yy<CR>
 noremap XX              "+cc<CR>
+noremap Xx              "+cc<CR>
 noremap <leader>p       "+gp<CR>
 
 nnoremap <Tab>          gt
@@ -231,7 +240,7 @@ nnoremap <Space>fw      : Ag! <C-R><C-W><CR>
 " begin with <leader>
 nnoremap <leader>al     : call AddDashLine()<CR>
 nnoremap <leader>ds     : call StripTrailingWhitespace()<CR>
-nnoremap <leader>ct     : GutentagsUpdate<CR>
+nnoremap <leader>gt     : GutentagsUpdate<CR>
 
 noremap  <leader>ft     : Autoformat<CR>
 autocmd FileType c,cpp noremap <buffer> = : Autoformat<CR>
@@ -243,6 +252,9 @@ nmap <Space>fj          <Plug>(ale_next_wrap)
 vmap <leader>a          <Plug>(EasyAlign)
 
 cnoremap <expr> %%      getcmdtype( ) == ':' ? expand('%:h').'/' : '%%'
+
+imap <silent><script><expr> <C-F>  copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " function
@@ -322,3 +334,8 @@ let g:gutentags_cache_dir = s:vim_tags
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+" embear/vim-localvimrc
+let g:localvimrc_ask = 0
+
+let g:tagbar_position = 'topleft vertical'
