@@ -1,3 +1,4 @@
 package/
 tmp/
 .git
+custom-env.sh

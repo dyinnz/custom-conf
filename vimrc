@@ -30,7 +30,6 @@ call plug#begin('~/.vim/plugged')
 " Color theme
 Plug 'joshdick/onedark.vim'
 " Code highlight
-let g:polyglot_disabled          = ['python'] " conficts with pymode
 Plug 'sheerun/vim-polyglot'
 
 " UI
@@ -56,17 +55,14 @@ Plug 'junegunn/fzf.vim'
 " Lint
 Plug 'dense-analysis/ale', { 'for': 'python' }
 
+" Complete
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm ci'}
+
 " Cpp
 Plug 'derekwyatt/vim-fswitch'
-Plug 'ludovicchabant/vim-gutentags'
-Plug '~/.vim/YouCompleteMe'
 
 " Python
-Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
-
-" Config
-Plug 'embear/vim-localvimrc'
 
 " Plug 'github/copilot.vim'
 
@@ -174,9 +170,6 @@ imap  <C-A>             <ESC>I
 map   <C-E>             $
 imap  <C-E>             <ESC>A
 
-" tag
-nnoremap <M-]>          <C-W>}
-
 " Begin with <Space>
 nnoremap <Space>s       : w<CR>
 nnoremap <Space>q       : q<CR>
@@ -234,15 +227,14 @@ nnoremap <C-M>          : Buffers<CR>
 nnoremap <Space>ff      : Files<CR>
 nnoremap <Space>fb      : Buffers<CR>
 nnoremap <Space>fg      : GFiles<CR>
-nnoremap <Space>fs      : Ag! 
-nnoremap <Space>fw      : Ag! <C-R><C-W><CR>
+nnoremap <Space>fs      : Rg! 
+nnoremap <Space>fw      : Rg! <C-R><C-W><CR>
 
 " begin with <leader>
-nnoremap <leader>al     : call AddDashLine()<CR>
 nnoremap <leader>ds     : call StripTrailingWhitespace()<CR>
-nnoremap <leader>gt     : GutentagsUpdate<CR>
 
 noremap  <leader>ft     : Autoformat<CR>
+autocmd BufRead,BufNewFile *.cppm setlocal filetype=cpp
 autocmd FileType c,cpp noremap <buffer> = : Autoformat<CR>
 
 nnoremap <leader>fix    : ALEFix <CR>
@@ -258,10 +250,6 @@ let g:copilot_no_tab_map = v:true
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " function
-
-function AddDashLine()
-  call append(line(".")+0, "/*-------------------------------------------------------------------------*/")
-endfunction
 
 function StripTrailingWhitespace()
   " Preparation: save last search, and cursor position.
@@ -287,32 +275,13 @@ let g:airline_theme='onedark'
 au BufEnter *.h  let b:fswitchdst = "cpp,cc,c,m"
 au BufEnter *.cc let b:fswitchdst = "h,hpp"
 
-" YouCompleteMe
-" let g:ycm_global_ycm_extra_conf      = '~/.vim/ycm_extra_conf.py' " TODO: remove me
-let g:ycm_confirm_extra_conf         = 0 " diable confirmation of opening extra_conf file
-let g:ycm_complete_in_strings        = 1
-let g:ycm_complete_in_comments       = 1
-let g:ycm_show_diagnostics_ui        = 0 " disable it if the project cannot be complied
-
-
-" Python
-let g:pymode_python              = 'python3'
-let g:pymode_options             = 0
-let g:pymode_lint                = 0
-let g:pymode_options_colorcolumn = 0
-let g:pymode_folding             = 0
-let g:pymode_rope                = 0
-let g:pymode_rope_completion     = 0
-let g:pymode_rope_regenerate_on_write = 0
-
-
 " ale
 let g:ale_linters = {
-      \ 'python': ['autopep8'],
+      \ 'python': ['pylint'],
       \}
 let g:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'python': ['isort', 'yapf'],
+      \ 'python': ['isort', 'pycln', 'black'],
       \}
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
@@ -322,20 +291,7 @@ let g:airline#extensions#ale#enabled = 1
 " fzf
 let g:fzf_layout = { 'down': '50%' }
 
-
-" ctags
-let s:vim_tags = expand('~/.cache/tags')
-if !isdirectory(s:vim_tags)
-  silent! call mkdir(s:vim_tags, 'p')
-endif
-
-let g:gutentags_project_root = ['.git', '.root']
-let g:gutentags_cache_dir = s:vim_tags
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
-" embear/vim-localvimrc
-let g:localvimrc_ask = 0
-
+" tagbar
 let g:tagbar_position = 'topleft vertical'
+
+source ~/.custom-conf/coc.vimrc

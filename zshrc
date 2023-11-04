@@ -19,6 +19,7 @@ source $ZSH/oh-my-zsh.sh
 
 # ------------------------------------------------------------------------------
 # zsh history
+export HISTSIZE=100000
 setopt EXTENDED_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
@@ -28,30 +29,42 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
 
 # ------------------------------------------------------------------------------
-export TERM=xterm-256color
+# export TERM=xterm-256color
 
 
-export PATH=/usr/local/bin:$PATH # linux path (may duplicate)
+# env
+LOCAL=$HOME/local
+export PATH=$LOCAL/bin:$PATH
 
-LOCAL_PATH=$HOME/local
-export PATH=$LOCAL_PATH/bin:$PATH
-export C_PATH=$LOCAL_PATH/include:$C_PATH
-export LIBRARY_PATH=$LOCAL_PATH/lib64:$LOCAL_PATH/lib::$LIBRARY_PATH
-export LD_LIBRARY_PATH=$LOCAL_PATH/lib64:$LOCAL_PATH/lib:$LD_LIBRARY_PATH
+case "$(uname -s)" in
+  Linux)
+    # root path
+    export PATH=/usr/local/bin:$PATH
+    # tools path & alias
+    [ -d $LOCAL/python3 ] && export PATH=$LOCAL/python3/bin:$PATH && export LD_LIBRARY_PATH=$LOCAL/python3/lib:$LD_LIBRARY_PATH
+    [ -d $LOCAL/nvim ] && alias nvim=$LOCAL/nvim/bin/nvim
+    [ -d $LOCAL/tmux ] && alias tmux=$LOCAL/tmux/bin/tmux
+    ;;
 
-[ -d $LOCAL_PATH/python3 ] && export PATH=$LOCAL_PATH/python3/bin:$PATH && export LD_LIBRARY_PATH=$LOCAL_PATH/python3/lib:$LD_LIBRARY_PATH
-[ -d $LOCAL_PATH/nvim ] && export PATH=$LOCAL_PATH/nvim/bin:$PATH
-[ -d $LOCAL_PATH/tmux ] && export PATH=$LOCAL_PATH/tmux/bin:$PATH
-
-[ -f "$HOME/.custom-conf/custom-env.sh" ] && source $HOME/.custom-conf/custom-env.sh
+  Darwin)
+    export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
+    export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
+    export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+    export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
+    export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
+    ;;
+esac
 
 # alias
 [ -x "$(command -v nvim)" ] && alias vim=nvim && alias vimdiff="nvim -d"
 
 alias tree="tree -C"
-alias rmcmake="rm -r CMakeFiles CMakeCache.txt cmake_install.cmake"
+alias rmcmake="rm -r CMakeFiles CMakeCache.txt"
 alias xargs_pssh="xargs -0 -I {} pssh -H '{}' "
 alias xargs_keyscan="xargs ssh-keyscan >> $HOME/.ssh/known_hosts"
+
+# custom
+[ -f "$HOME/.custom-conf/custom-env.sh" ] && source $HOME/.custom-conf/custom-env.sh
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
