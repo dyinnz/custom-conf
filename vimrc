@@ -53,10 +53,11 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 
 " Lint
-Plug 'dense-analysis/ale', { 'for': 'python' }
+" Plug 'dense-analysis/ale', { 'for': 'python' }
 
 " Complete
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm ci'}
+Plug 'antoinemadec/coc-fzf'
 
 " Cpp
 Plug 'derekwyatt/vim-fswitch'
@@ -102,6 +103,8 @@ set mouse=
 
 set tags=../.tags;,.tags;,tags
 set completeopt=menu " disable preview window (would be show below)
+
+set pumheight=24
 
 if has('nvim')
   autocmd TermClose * bd!
@@ -171,7 +174,6 @@ map   <C-E>             $
 imap  <C-E>             <ESC>A
 
 " Begin with <Space>
-nnoremap <Space>s       : w<CR>
 nnoremap <Space>q       : q<CR>
 nnoremap <Space>Q       : q!<CR>
 
@@ -185,8 +187,8 @@ nnoremap <Space>wc      : close<CR>
 nnoremap <Space>wo      : only<CR>
 nnoremap <Space>WV      : vs term://.//zsh<CR>
 nnoremap <Space>WS      : sp term://.//zsh<CR>
-nnoremap <Space>a       : FSHere<CR>
-nnoremap <Space>wa      : FSSplitRight<CR>
+autocmd FileType c,cpp nnoremap <Space>a       : FSHere<CR>
+autocmd FileType c,cpp nnoremap <Space>wa      : FSSplitRight<CR>
 nnoremap <Space>wt      : Tagbar<CR>
 nnoremap <Space>wn      : NERDTreeToggle<CR>
 
@@ -197,8 +199,6 @@ nnoremap <Space>to      : tabonly<CR>
 nnoremap <Space>TT      : tabe term://.//zsh<CR>
 nnoremap <Space>tn      : tabnext<CR>
 nnoremap <Space>tp      : tabprev<CR>
-nnoremap <Space>th      : tabmove -<CR>
-nnoremap <Space>tl      : tabmove +<CR>
 
 nnoremap <Space>0       0gt<CR>
 nnoremap <Space>1       1gt<CR>
@@ -212,7 +212,7 @@ nnoremap <Space>8       8gt<CR>
 nnoremap <Space>9       9gt<CR>
 
 " Buffer
-nnoremap <Space>bs      : w<CR>
+nnoremap <Space>bw      : w<CR>
 nnoremap <Space>bd      : bd<CR>
 nnoremap <Space>bn      : bn<CR>
 nnoremap <Space>bp      : bp<CR>
@@ -223,14 +223,16 @@ autocmd FileType fzf tnoremap <buffer> <C-J> <C-N>
 autocmd FileType fzf tnoremap <buffer> <C-K> <C-P>
 
 nnoremap <C-P>          : Files<CR>
-nnoremap <C-M>          : Buffers<CR>
+nnoremap <Space>o       : Files<CR>
+nnoremap <Space>fb      : Buffers<CR>
 nnoremap <Space>ff      : Files<CR>
 nnoremap <Space>fb      : Buffers<CR>
 nnoremap <Space>fg      : GFiles<CR>
 nnoremap <Space>fs      : Rg! 
-nnoremap <Space>fw      : Rg! <C-R><C-W><CR>
+nnoremap <Space>fw      : Rg <C-R><C-W><CR>
 
 " begin with <leader>
+nnoremap <leader>w       : w<CR>
 nnoremap <leader>ds     : call StripTrailingWhitespace()<CR>
 
 noremap  <leader>ft     : Autoformat<CR>

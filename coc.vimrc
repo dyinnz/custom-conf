@@ -142,18 +142,25 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics
-" nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" " Manage extensions
-" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" " Show commands
-" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" " Find symbol of current document
-" nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" " Search workspace symbols
-" nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" " Do default action for next item
-" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" " Do default action for previous item
-" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" " Resume latest coc list
-" nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> <space>d  :<C-u>CocFzfList diagnostics<cr>
+nnoremap <silent><nowait> <space>m  :<C-u>CocFzfList mru<cr>
+nnoremap <silent><nowait> <space>s  :<C-u>CocFzfList symbols<cr>
+nnoremap <silent><nowait> <space>cw :<C-u>CocFzfList symbols <C-R><C-W><cr>
+nnoremap <silent><nowait> <space>y  :<C-u>CocFzfList yank<cr>
+
+
+" Manage extensions
+nnoremap <silent><nowait> <space>ce  :<C-u>CocFzfList extensions<cr>
+" Show commands
+nnoremap <silent><nowait> <space>cc  :<C-u>CocFzfList commands<cr>
+" Find symbol of current document
+nnoremap <silent><nowait> <space>co  :<C-u>CocFzfList outline<cr>
+" Do default action for next item
+nnoremap <silent><nowait> <space>cj  :<C-u>CocNext<CR>
+" Do default action for previous item
+nnoremap <silent><nowait> <space>ck  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent><nowait> <space>cp  :<C-u>CocFzfListResume<CR>
+
+let g:coc_fzf_preview = ''
+let g:coc_fzf_opts = []
