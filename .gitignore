@@ -1,4 +1,6 @@
 package/
 tmp/
+
 .git
 custom-env.sh
+lazy-lock.json

@@ -1,0 +1,10 @@
+{
+  "suggest.noselect": true,
+  "list.height": 24,
+  "list.insertMappings": {
+    "<C-n>": "normal:j",
+    "<C-p>": "normal:k",
+  },
+  "clangd.arguments": ["--header-insertion=never"],
+  "sumneko-lua.enableNvimLuaDev": true,
+}

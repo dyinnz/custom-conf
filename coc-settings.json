@@ -1,7 +1,0 @@
-{
-  "list.height": 24,
-  "list.insertMappings": {
-    "<C-n>": "normal:j",
-    "<C-p>": "normal:k",
-  },
-}
