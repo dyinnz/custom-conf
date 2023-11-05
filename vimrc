@@ -65,6 +65,9 @@ Plug 'derekwyatt/vim-fswitch'
 " Python
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
 
+" Git
+Plug 'tpope/vim-fugitive'
+
 " Plug 'github/copilot.vim'
 
 call plug#end()
@@ -223,11 +226,13 @@ autocmd FileType fzf tnoremap <buffer> <C-J> <C-N>
 autocmd FileType fzf tnoremap <buffer> <C-K> <C-P>
 
 nnoremap <C-P>          : Files<CR>
+" nnoremap <C-M>          : Buffers<CR>
 nnoremap <Space>o       : Files<CR>
-nnoremap <Space>fb      : Buffers<CR>
 nnoremap <Space>ff      : Files<CR>
-nnoremap <Space>fb      : Buffers<CR>
 nnoremap <Space>fg      : GFiles<CR>
+nnoremap <Space>fb      : Buffers<CR>
+nnoremap <Space>ft      : BTags<CR>
+" nnoremap <Space>fl      : BLines<CR>
 nnoremap <Space>fs      : Rg! 
 nnoremap <Space>fw      : Rg <C-R><C-W><CR>
 
@@ -291,7 +296,12 @@ let g:airline#extensions#ale#enabled = 1
 
 
 " fzf
-let g:fzf_layout = { 'down': '50%' }
+let g:fzf_layout = { 'down': '60%' }
+" fzf-preview
+let g:fzf_preview_direct_window_option = { 'width': 1.0, 'height': 0.66, 'relative': v:true, 'yoffset': 1.0 }
+let g:fzf_preview_default_fzf_options = { '--reverse': v:false }
+" coc-fzf
+let g:coc_fzf_opts = ["--height=60%"]
 
 " tagbar
 let g:tagbar_position = 'topleft vertical'

@@ -36,6 +36,9 @@ setopt HIST_SAVE_NO_DUPS
 LOCAL=$HOME/local
 export PATH=$LOCAL/bin:$PATH
 
+export BAT_THEME="TwoDark"
+export FZF_PREVIEW_PREVIEW_BAT_THEME=$BAT_THEME
+
 case "$(uname -s)" in
   Linux)
     # root path

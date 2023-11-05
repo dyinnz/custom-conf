@@ -50,6 +50,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> <space>r <Plug>(coc-references)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call ShowDocumentation()<CR>
@@ -141,26 +142,31 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
-" Show all diagnostics
+
+nnoremap <silent><nowait> <space>ga :<C-u>CocCommand fzf-preview.GitActions<cr>
+nnoremap <silent><nowait> <space>gs :<C-u>CocCommand fzf-preview.GitStatus<cr>
+nnoremap <silent><nowait> <C-M>     :<C-u>CocCommand fzf-preview.FromResources buffer project_mru<cr>
+nnoremap <silent><nowait> <space>m  :<C-u>CocCommand fzf-preview.FromResources buffer project_mru<cr>
+" nnoremap <silent><nowait> <space>r  :<C-u>CocCommand fzf-preview.CocReferences<cr>
+nnoremap <silent><nowait> <space>x  :<C-u>CocCommand fzf-preview.QuickFix<cr>
+nnoremap <silent><nowait> <space>l  :<C-u>CocCommand fzf-preview.BufferLines<cr>
+
+nnoremap <silent><nowait> <space>a  :<C-u>CocFzfList actions<cr>
 nnoremap <silent><nowait> <space>d  :<C-u>CocFzfList diagnostics<cr>
-nnoremap <silent><nowait> <space>m  :<C-u>CocFzfList mru<cr>
+nnoremap <silent><nowait> <space>y  :<C-u>CocFzfList yank<cr>
 nnoremap <silent><nowait> <space>s  :<C-u>CocFzfList symbols<cr>
 nnoremap <silent><nowait> <space>cw :<C-u>CocFzfList symbols <C-R><C-W><cr>
-nnoremap <silent><nowait> <space>y  :<C-u>CocFzfList yank<cr>
-
 
 " Manage extensions
-nnoremap <silent><nowait> <space>ce  :<C-u>CocFzfList extensions<cr>
+nnoremap <silent><nowait> <space>ce  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent><nowait> <space>cc  :<C-u>CocFzfList commands<cr>
+nnoremap <silent><nowait> <space>cc  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent><nowait> <space>co  :<C-u>CocFzfList outline<cr>
+nnoremap <silent><nowait> <space>co  :<C-u>CocList outline<cr>
 " Do default action for next item
 nnoremap <silent><nowait> <space>cj  :<C-u>CocNext<CR>
 " Do default action for previous item
 nnoremap <silent><nowait> <space>ck  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent><nowait> <space>cp  :<C-u>CocFzfListResume<CR>
+nnoremap <silent><nowait> <space>cp  :<C-u>CocListResume<CR>
 
-let g:coc_fzf_preview = ''
-let g:coc_fzf_opts = []
