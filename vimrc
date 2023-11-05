@@ -107,7 +107,7 @@ set mouse=
 set tags=../.tags;,.tags;,tags
 set completeopt=menu " disable preview window (would be show below)
 
-set pumheight=24
+set pumheight=8
 
 if has('nvim')
   autocmd TermClose * bd!

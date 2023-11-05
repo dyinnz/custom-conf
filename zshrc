@@ -41,12 +41,13 @@ export FZF_PREVIEW_PREVIEW_BAT_THEME=$BAT_THEME
 
 case "$(uname -s)" in
   Linux)
+    export TERM=xterm-256color
     # root path
     export PATH=/usr/local/bin:$PATH
     # tools path & alias
     [ -d $LOCAL/python3 ] && export PATH=$LOCAL/python3/bin:$PATH && export LD_LIBRARY_PATH=$LOCAL/python3/lib:$LD_LIBRARY_PATH
+    [ -d $LOCAL/tmux ] && export PATH=$LOCAL/tmux/usr/bin:$PATH
     [ -d $LOCAL/nvim ] && alias nvim=$LOCAL/nvim/bin/nvim
-    [ -d $LOCAL/tmux ] && alias tmux=$LOCAL/tmux/bin/tmux
     ;;
 
   Darwin)

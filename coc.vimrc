@@ -1,3 +1,15 @@
+let g:coc_global_extensions = [
+  \ 'coc-clangd',
+  \ 'coc-cmake',
+  \ 'coc-fzf-preview',
+  \ 'coc-json',
+  \ 'coc-json',
+  \ 'coc-lists',
+  \ 'coc-pairs',
+  \ 'coc-sh',
+  \ '@yaegassy/coc-pylsp'
+  \ ]
+
 " May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
 " utf-8 byte sequence
 set encoding=utf-8
@@ -91,7 +103,7 @@ nmap <leader>ac  <Plug>(coc-codeaction-cursor)
 " Remap keys for apply code actions affect whole buffer
 nmap <leader>as  <Plug>(coc-codeaction-source)
 " Apply the most preferred quickfix action to fix diagnostic on the current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <space>x  <Plug>(coc-fix-current)
 
 " Remap keys for applying refactor code actions
 nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
@@ -116,10 +128,14 @@ omap ac <Plug>(coc-classobj-a)
 if has('nvim-0.4.0') || has('patch-8.2.0750')
   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
   nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  " inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
   inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+
+  inoremap <silent><nowait><expr> <C-f> coc#pum#visible() ? coc#pum#confirm() : (coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>")
+else
+  inoremap <silent><nowait><expr> <C-f> coc#pum#visible() ? coc#pum#confirm() : "\<Right>"
 endif
 
 " Use CTRL-S for selections ranges
@@ -148,7 +164,7 @@ nnoremap <silent><nowait> <space>gs :<C-u>CocCommand fzf-preview.GitStatus<cr>
 nnoremap <silent><nowait> <C-M>     :<C-u>CocCommand fzf-preview.FromResources buffer project_mru<cr>
 nnoremap <silent><nowait> <space>m  :<C-u>CocCommand fzf-preview.FromResources buffer project_mru<cr>
 " nnoremap <silent><nowait> <space>r  :<C-u>CocCommand fzf-preview.CocReferences<cr>
-nnoremap <silent><nowait> <space>x  :<C-u>CocCommand fzf-preview.QuickFix<cr>
+nnoremap <silent><nowait> <space>cx  :<C-u>CocCommand fzf-preview.QuickFix<cr>
 nnoremap <silent><nowait> <space>l  :<C-u>CocCommand fzf-preview.BufferLines<cr>
 
 nnoremap <silent><nowait> <space>a  :<C-u>CocFzfList actions<cr>
