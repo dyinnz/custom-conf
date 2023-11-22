@@ -1,331 +1,286 @@
 --------------------------------------------------------------------------------
 -- Plug manager
 
-local lazypath = vim.fn.expand('$HOME/.vim/lazy.nvim')
+local lazypath = vim.fn.expand("$HOME/.vim/lazy.nvim")
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable",
-    "https://github.com/folke/lazy.nvim.git",
-    lazypath,
-  })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"--branch=stable",
+		"https://github.com/folke/lazy.nvim.git",
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    -- UI
-    -- { "joshdick/onedark.vim",    priority = 1000 },         -- Ensure it loads first
-    { "navarasu/onedark.nvim", priority = 1000 },
-    -- { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-    {
-      'nvim-lualine/lualine.nvim',
-      opts = {
-        options = {
-          icons_enabled = false, section_separators = '', component_separators = '',
-        },
-        tabline = {
-          lualine_a = {
-            { 'tabs', tab_max_length = 24, max_length = 240, mode = 1, path = 1, },
-          },
-        },
-      }
-    },
-    'sheerun/vim-polyglot', -- TODO: new
+	-- UI
+	-- { "joshdick/onedark.vim",    priority = 1000 },         -- Ensure it loads first
 
-    -- Sidebar
-    { 'preservim/tagbar',      cmd = 'Tagbar' }, -- TODO: nvim version
-    { 'scrooloose/nerdtree',   cmd = 'NERDTreeToggle' }, -- TODO: nvim version
+	{
+		"navarasu/onedark.nvim", -- S
+		priority = 1000,
+		config = function()
+			require("colorscheme")
+		end,
+	},
 
-    -- Motion
-    'christoomey/vim-tmux-navigator', -- TODO: nvim version
-    'justinmk/vim-sneak', -- TODO: new
+	{
+		"nvim-lualine/lualine.nvim", -- S
+		opts = function()
+			return require("config-lualine").opts
+		end,
+	},
 
-    -- Editing
-    {
-      "kylechui/nvim-surround",
-      version = "*",
-      event = "VeryLazy",
-      config = function()
-        require("nvim-surround").setup()
-      end
-    },
-    { 'scrooloose/nerdcommenter', event = 'VeryLazy' }, -- TODO: nvim version
-    {
-      'Chiel92/vim-autoformat',  -- TODO: nvim version
-      keys = {
-        { '=', ': Autoformat <CR>', 'n' }
-      }
-    },
+	-- Sidebar
+	-- { 'stevearc/aerial.nvim' } -- TODO: config me
 
-    -- Fuzzy Finder
-    { 'junegunn/fzf',             dir = '~/.fzf',    build = './install --bin' },
-    { 'junegunn/fzf.vim', },
+	{
+		"folke/noice.nvim", -- A
+		event = "VeryLazy",
+		opts = function()
+			return require("config-noice").opts
+		end,
+		dependencies = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify", -- OPTIONAL:
+		},
+	},
 
-    -- Complete & Language
-    { 'neoclide/coc.nvim',        branch = 'master', build = 'npm ci' },
-    'antoinemadec/coc-fzf',
-    -- cpp
-    { 'derekwyatt/vim-fswitch',   ft = { 'cpp', 'h' },                            event = "VeryLazy" }, -- TODO: lazy cmd
+	-- Highlight
+	--{ "nvim-treesitter/nvim-treesitter", build = ": TSUpdate" },
 
-    -- Git
-    {
-      "lewis6991/gitsigns.nvim",
-      config = function()
-        require('gitsigns').setup {
-          current_line_blame_opts = {
-            virt_text = true,
-            virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-            delay = 80,
-            ignore_whitespace = false,
-            virt_text_priority = 100,
-          },
-        }
-      end
-    },
-    { 'sindrets/diffview.nvim', cmd = { 'DiffviewOpen', 'DiffviewFileHistory' } },
-    { 'tpope/vim-fugitive',     event = "VeryLazy" }, -- TODO: lazy cmd
+	-- highlight the word under cursor -- TODO: lazy
+	{
+		"RRethy/vim-illuminate", -- B
+		config = function()
+			require("illuminate").configure({
+				providers = { "lsp" },
+			})
+		end,
+	},
+	-- highlight TODO
+	{ "folke/todo-comments.nvim" }, -- B
+	-- highlight *.log
+	{ "MTDL9/vim-log-highlighting", ft = "log" }, -- A
 
-    -- Utility
-    { 'dstein64/vim-startuptime', cmd = "StartupTime", },
-  },
-  {
-    root = vim.fn.expand('$HOME/.vim/plugged'),
-  })
+	-- Motion
+	"christoomey/vim-tmux-navigator", -- A -- TODO: nvim version
+	"justinmk/vim-sneak", -- B -- TODO: new
 
---------------------------------------------------------------------------------
--- Basic settings
+	-- Editing
+	{
+		"kylechui/nvim-surround", -- B
+		version = "*",
+		event = "VeryLazy",
+		opts = {},
+	},
 
-vim.opt.synmaxcol = 400
-vim.opt.lazyredraw = true
-vim.opt.scrolloff = 3 -- Minimum lines to keep above and below cursor
-vim.opt.wrap = false
+	{
+		"numToStr/Comment.nvim", -- B
+		keys = {
+			{ "gcc", mode = "n", desc = "Comment toggle current line" },
+			{ "gc", mode = { "n", "o" }, desc = "Comment toggle linewise" },
+			{ "gc", mode = "x", desc = "Comment toggle linewise (visual)" },
+			{ "gbc", mode = "n", desc = "Comment toggle current block" },
+			{ "gb", mode = { "n", "o" }, desc = "Comment toggle blockwise" },
+			{ "gb", mode = "x", desc = "Comment toggle blockwise (visual)" },
+		},
+		opts = {
+			padding = true,
+		},
+	},
 
--- Complete popup menu
-vim.opt.pumheight = 8
+	-- Keymap
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		init = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 500
+		end,
+		opts = {},
+	},
 
--- Shell and terminal
-vim.opt.shell = "/bin/bash"
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-vim.cmd.autocmd("BufWinEnter,WinEnter term://* startinsert")
--- TODO
--- vim.cmd.autocmd("TermClose * bd!")
+	-- Fuzzy Finder
+	{
+		"ibhagwan/fzf-lua", -- S
+		cmd = { "FzfLua" },
+		keys = {
+			{ "<C-P>", "<cmd> FzfLua files <CR>" },
+			{ "<Space>c", "<cmd> FzfLua commands <CR>", desc = "fuzzy - commands" },
+			{ "<Space>ff", "<cmd> FzfLua builtin <CR>" },
 
--- Tabs
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 0
-vim.opt.softtabstop = 2
-vim.opt.expandtab = true
+			{ "<Space>fk", "<cmd> FzfLua keymaps <CR>", desc = "fuzzy - keymaps" },
+			{
+				"<Space>fl",
+				"<cmd> lua require('fzf-lua').blines{ fzf_opts = { ['--layout'] = 'reverse' } } <CR>",
+				desc = "fuzzy - lines",
+			},
+			{ "<Space>fs", "<cmd> FzfLua grep <CR>", desc = "fuzzy - grep" },
+			{ "<Space>fw", "<cmd> FzfLua grep_cword <CR>", desc = "fuzzy - grep cword" },
 
-vim.opt.smartcase = true
-vim.opt.ignorecase = true
-vim.opt.mouse = ""
+			{ "<Space>lc", "<cmd> FzfLua lsp_incoming_calls <CR>", desc = "fuzzy - incomming calls" },
+			{ "<Space>ld", "<cmd> FzfLua lsp_document_diagnostics <CR>", desc = "fuzzy - diagnostics" },
+			{ "<Space>li", "<cmd> FzfLua lsp_implementations <CR>", desc = "fuzzy - implementations" },
+			{ "<Space>lr", "<cmd> FzfLua lsp_references <CR>", desc = "fuzzy - references" },
+			{ "<Space>ls", "<cmd> FzfLua lsp_document_symbols <CR>", desc = "fuzzy - symbols" },
+			{ "<Space>lt", "<cmd> FzfLua lsp_typedefs <CR>", desc = "fuzzy - typedefs" },
 
-if (vim.fn.has("unix") and not vim.fn.has("macunix")) then
-  vim.opt.clipboard = "unnamedplus"
-end
+			{ "<Space>gf", "<cmd> FzfLua git_files <CR>", desc = "fuzzy git files" },
+			{ "<Space>gl", "<cmd> FzfLua git_bcommits <CR>", desc = "fuzzy - git log for buffer" },
+			{ "<Space>gs", "<cmd> FzfLua git_status <CR>", desc = "fuzzy - git status" },
+		},
+		opts = {
+			fzf_opts = { ["--layout"] = "default" },
+			winopts = { width = 1.0, height = 0.62, row = 1.0, preview = { horizontal = "right:50%" } },
+		},
+	},
 
---------------------------------------------------------------------------------
--- Key mappings
+	-- Coding
+	-- LSP
+	{
+		"neovim/nvim-lspconfig", -- S
+		dependencies = {
+			{ "williamboman/mason.nvim", PATH = "append" },
+			{ "williamboman/mason-lspconfig.nvim" },
+			{ "folke/neodev.nvim", opts = {} },
+		},
+		config = function()
+			require("config-nvim-lspconfig").setup()
+		end,
+	},
 
---------------------------------------------------------------------------------
--- command abbr
--- no one is really happy until you have this shortcuts
--- vim.keymap.set('ca', 'Q!', 'q!')
--- vim.keymap.set('ca', 'Q', 'q')
--- vim.keymap.set('ca', 'Qall!', 'qall!')
--- vim.keymap.set('ca', 'Qall', 'qall')
--- vim.keymap.set('ca', 'W!', 'w!')
--- vim.keymap.set('ca', 'W', 'w')
--- vim.keymap.set('ca', 'WQ', 'wq')
--- vim.keymap.set('ca', 'Wa', 'wa')
--- vim.keymap.set('ca', 'Wq', 'wq')
--- vim.keymap.set('ca', 'wQ', 'wq')
+	-- Code completion
+	{
+		"hrsh7th/nvim-cmp", -- S
+		event = { "InsertEnter", "CmdlineEnter" },
+		dependencies = {
+			-- snippet plugin
+			{
+				"L3MON4D3/LuaSnip",
+				dependencies = "rafamadriz/friendly-snippets",
+				opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+			},
+			-- cmp sources plugins
+			{
+				"saadparwaiz1/cmp_luasnip",
+				"hrsh7th/cmp-nvim-lua",
+				"hrsh7th/cmp-nvim-lsp",
+				"hrsh7th/cmp-buffer",
+				"hrsh7th/cmp-path",
+			},
+		},
+		opts = function()
+			return require("config-nvim-cmp").opts
+		end,
+	},
 
-vim.cmd("cnoreabbrev W! w!")
-vim.cmd("cnoreabbrev Q! q!")
-vim.cmd("cnoreabbrev Qall! qall!")
-vim.cmd("cnoreabbrev Wq wq")
-vim.cmd("cnoreabbrev Wa wa")
-vim.cmd("cnoreabbrev wQ wq")
-vim.cmd("cnoreabbrev WQ wq")
-vim.cmd("cnoreabbrev W w")
-vim.cmd("cnoreabbrev Q q")
-vim.cmd("cnoreabbrev Qall qall")
+	-- Diagnostics
+	{
+		"folke/trouble.nvim", -- C
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
+	},
 
+	-- Format & Lint
+	{
+		"stevearc/conform.nvim", -- S
+		keys = {
+			{
+				"=",
+				function()
+					require("conform").format({ async = true, lsp_fallback = true })
+				end,
+				mode = { "n", "v" },
+			},
+		},
+		opts = function()
+			return require("config-conform").opts
+		end,
+	},
 
---------------------------------------------------------------------------------
--- map
-vim.keymap.set('', '<C-A>', '^')
-vim.keymap.set('i', '<C-A>', '<ESC>I')
-vim.keymap.set('', '<C-E>', '$')
-vim.keymap.set('i', '<C-E>', '<ESC>A')
+	-- cpp
+	{
+		"derekwyatt/vim-fswitch", -- B
+		ft = { "cpp", "h" },
+		cmd = { "FSHere", "FSSplitRight" },
+	},
 
-vim.keymap.del('', 's')
-vim.keymap.del('', 'S')
-vim.keymap.set('', 'f', '<Plug>Sneak_s')
-vim.keymap.set('', 'F', '<Plug>Sneak_S')
+	-- Git
+	{
+		"lewis6991/gitsigns.nvim", -- A
+		ft = { "gitcommit", "diff" },
+		init = function()
+			require("config-gitsigns").init()
+		end,
+		opts = function()
+			return require("config-gitsigns").opts
+		end,
+	},
 
---------------------------------------------------------------------------------
--- visual mode
+	{ "sindrets/diffview.nvim", cmd = { "DiffviewOpen", "DiffviewFileHistory" } }, -- C
 
--- continuous shift
-vim.keymap.set('v', '<', '<gv')
-vim.keymap.set('v', '>', '>gv')
--- easy align
-vim.keymap.set('v', '<leader>a', '<Plug>(EasyAlign)')
+	{ "tpope/vim-fugitive", event = "VeryLazy" }, -- C -- TODO: lazy cmd
 
---------------------------------------------------------------------------------
--- normal mode
+	-- Terminal
+	{
+		"akinsho/toggleterm.nvim", -- C
+		keys = {
+			-- { "<F1>", "<cmd>exe 1 . 'ToggleTerm size=24' <CR>",                    mode = { "n", "i", "v", "t" } },
+			-- { "<F3>", "<cmd>exe 3 . 'ToggleTerm size=80 direction=vertical' <CR>", mode = { "n", "i", "v", "t" } },
+			{ "<F5>", "<cmd>exe 2 . 'ToggleTerm direction=float' <CR>", mode = { "n", "i", "v", "t" } },
+		},
+		config = function()
+			require("toggleterm").setup()
+		end,
+		-- lazy = false,
+	},
 
-vim.keymap.set('n', '<Tab>', 'gt')
-vim.keymap.set('n', '<S-Tab>', 'gT')
-
--- Search mappings: These will make it so that going to the next one in a
--- search will center on the line it's found in.
-vim.keymap.set('n', 'n', 'nzzzv')
-vim.keymap.set('n', 'N', 'Nzzzv')
-
-vim.keymap.set('n', 'XX', '"+cc<CR>')
-vim.keymap.set('n', 'Xx', '"+cc<CR>')
-vim.keymap.set('n', 'YY', '"+yy<CR>')
-vim.keymap.set('n', 'Yy', '"+yy<CR>')
-vim.keymap.set('n', '<leader>p', '"+gp<CR>')
-
--- Space
-
-vim.keymap.set('n', '<space>q', ':q<CR>')
-vim.keymap.set('n', '<space>Q', ':q!<CR>')
-
--- Window
-vim.keymap.set('n', '<Space>=', ':vertical resize +10<CR>')
-vim.keymap.set('n', '<Space>-', ':vertical resize -10<CR>')
-
-vim.keymap.set('n', '<Space>WS', ':sp term://.//zsh<CR>')
-vim.keymap.set('n', '<Space>WV', ':vs term://.//zsh<CR>')
-vim.keymap.set('n', '<Space>wc', ':close<CR>')
-vim.keymap.set('n', '<Space>wn', ':NERDTreeToggle<CR>')
-vim.keymap.set('n', '<Space>wo', ':only<CR>')
-vim.keymap.set('n', '<Space>ws', ':sp<CR>')
-vim.keymap.set('n', '<Space>wt', ':Tagbar<CR>')
-vim.keymap.set('n', '<Space>wv', ':vs<CR>')
-
--- Tab
-vim.keymap.set('n', '<Space>TT', ':tabe term://.//zsh<CR>')
-vim.keymap.set('n', '<Space>tc', ':tabclose<CR>')
-vim.keymap.set('n', '<Space>tn', ':tabnext<CR>')
-vim.keymap.set('n', '<Space>to', ':tabonly<CR>')
-vim.keymap.set('n', '<Space>tp', ':tabprev<CR>')
-vim.keymap.set('n', '<Space>tt', ':tab split<CR>')
-
-vim.keymap.set('n', '<Space>0', '0gt<CR>')
-vim.keymap.set('n', '<Space>1', '1gt<CR>')
-vim.keymap.set('n', '<Space>2', '2gt<CR>')
-vim.keymap.set('n', '<Space>3', '3gt<CR>')
-vim.keymap.set('n', '<Space>4', '4gt<CR>')
-vim.keymap.set('n', '<Space>5', '5gt<CR>')
-vim.keymap.set('n', '<Space>6', '6gt<CR>')
-vim.keymap.set('n', '<Space>7', '7gt<CR>')
-vim.keymap.set('n', '<Space>8', '8gt<CR>')
-vim.keymap.set('n', '<Space>9', '9gt<CR>')
-
---Buffer
-vim.keymap.set('n', '<Space>bd', ':bd<CR>')
-vim.keymap.set('n', '<Space>bn', ':bn<CR>')
-vim.keymap.set('n', '<Space>bp', ':bp<CR>')
-vim.keymap.set('n', '<Space>bw', ':w<CR>')
-
--- FZF
-vim.keymap.set('n', '<C-P>', ': Files<CR>')
-vim.keymap.set('n', '<Space>o', ': Files<CR>')
-vim.keymap.set('n', '<Space>ff', ': Files<CR>')
-vim.keymap.set('n', '<Space>fg', ': GFiles<CR>')
-vim.keymap.set('n', '<Space>fb', ': Buffers<CR>')
-vim.keymap.set('n', '<Space>ft', ': BTags<CR>')
-vim.keymap.set('n', '<Space>fs', ': Rg! ')
-vim.keymap.set('n', '<Space>fw', ': Rg <C-R><C-W><CR>')
-
-
-vim.keymap.set('n', '<Space>gh', ':DiffviewFileHistory ')
-vim.keymap.set('n', '<Space>gd', ':DiffviewOpen ')
-vim.keymap.set('n', '<Space>gc', ':DiffviewClose<CR>')
-vim.keymap.set('n', '<Space>gb', function()
-  vim.cmd('Gitsigns toggle_current_line_blame')
-  vim.cmd('set nonumber!')
-end)
-
--- begin with <leader>
-vim.keymap.set('n', '<leader>w', ':w<CR>')
-
--- vim.keymap.set('n', '=', ': Autoformat<CR>')
-vim.keymap.set('n', '<leader>ft', ': Autoformat<CR>')
-
---------------------------------------------------------------------------------
--- terminal mode
-
-vim.keymap.del('n', '<C-Bslash>') -- remove vim-tmux-navigator keymap
-vim.keymap.set('t', '<Esc>', '<C-Bslash><C-N>')
-vim.keymap.set('t', '<C-H>', '<C-Bslash><C-N><C-W>h')
-vim.keymap.set('t', '<C-J>', '<C-Bslash><C-N><C-W>j')
-vim.keymap.set('t', '<C-K>', '<C-Bslash><C-N><C-W>k')
-vim.keymap.set('t', '<C-L>', '<C-Bslash><C-N><C-W>l')
-
-
---------------------------------------------------------------------------------
--- Setup plugged
-
-require('colorscheme')
-
-require('coc-config')
-
---------------------------------------------------------------------------------
--- variable
-
--- fzf
-vim.g.fzf_layout = { down = '60%' }
--- fzf-preview
-vim.g.fzf_preview_direct_window_option = { width = 1.0, height = 0.66, relative = true, yoffset = 1.0 }
--- coc-fzf
-vim.g.coc_fzf_opts = { "--height=60%" }
-
--- tagbar
-vim.g.tagbar_position = 'topleft vertical'
-
---------------------------------------------------------------------------------
--- FIXME: https://github.com/neovim/neovim/issues/23522
--- vim.filetype.add({
---   extension = {
---     cppm = "cpp",
---     cpp = "cppm",
---   },
--- })
-
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = "*.cppm",
-  command = "setfiletype cpp",
+	{ "dstein64/vim-startuptime", cmd = "StartupTime" }, -- B
+}, {
+	root = vim.fn.expand("$HOME/.vim/plugged"),
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"2html_plugin",
+				"tohtml",
+				"getscript",
+				"getscriptPlugin",
+				"gzip",
+				"logipat",
+				"netrw",
+				"netrwPlugin",
+				"netrwSettings",
+				"netrwFileHandlers",
+				"matchit",
+				"tar",
+				"tarPlugin",
+				"rrhelper",
+				"spellfile_plugin",
+				"vimball",
+				"vimballPlugin",
+				"zip",
+				"zipPlugin",
+				"tutor",
+				"rplugin",
+				"syntax",
+				"synmenu",
+				"optwin",
+				"compiler",
+				"bugreport",
+				"ftplugin",
+			},
+		},
+	},
 })
 
--- fswitch
-vim.api.nvim_create_autocmd('BufEnter', {
-  pattern = { '*.h' },
-  command = 'let b:fswitchdst = "cpp,cc,c,m"'
-})
+require("basic")
+require("keymaps")
+require("lsp")
+require("misc")
 
-vim.api.nvim_create_autocmd('BufEnter', {
-  pattern = { '*.cpp' },
-  command = 'let b:fswitchdst = "h,hpp"'
-})
-
-vim.cmd([[
-function StripTrailingWhitespace()
-  " Preparation: save last search, and cursor position.
-  let _s=@/
-  let l = line(".")
-  let c = col(".")
-  " do the business:
-  %s/\s\+$//e
-  " clean up: restore previous search history, and cursor position
-  let @/=_s
-  call cursor(l, c)
-endfunction
-
-nnoremap <leader>ds     : call StripTrailingWhitespace()<CR>
-]])
+require("conform").setup()

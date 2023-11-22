@@ -13,3 +13,4 @@ ln -s $ROOT/tmux.conf $HOME/.tmux.conf
 
 ln -s $ROOT/nvim $HOME/.config/nvim
 ln -s $ROOT/python/pycodestyle $HOME/.config/pycodestyle
+
