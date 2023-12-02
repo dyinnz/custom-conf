@@ -47,7 +47,7 @@ case "$(uname -s)" in
     # tools path & alias
     [ -d $LOCAL/python3 ] && export PATH=$LOCAL/python3/bin:$PATH && export LD_LIBRARY_PATH=$LOCAL/python3/lib:$LD_LIBRARY_PATH
     [ -d $LOCAL/tmux ] && export PATH=$LOCAL/tmux/usr/bin:$PATH
-    [ -d $LOCAL/nvim ] && alias nvim=$LOCAL/nvim/bin/nvim
+    [ -d $LOCAL/nvim ] && alias nvim=$LOCAL/nvim/bin/nvim && alias vim=$LOCAL/nvim/bin/nvim
     ;;
 
   Darwin)

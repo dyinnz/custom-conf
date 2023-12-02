@@ -1,4 +1,3 @@
-
 -- FIXME: https://github.com/neovim/neovim/issues/23522
 -- vim.filetype.add({
 --   extension = {
@@ -6,7 +5,6 @@
 --     cpp = "cppm",
 --   },
 -- })
-
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = "*.cppm",
@@ -25,7 +23,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = { "*.cpp" },
 	command = 'let b:fswitchdst = "h,hpp"',
 })
-
 
 vim.cmd([[
 function StripTrailingWhitespace()

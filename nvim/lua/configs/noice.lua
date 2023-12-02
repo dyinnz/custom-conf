@@ -4,8 +4,7 @@ M.opts = {
 	cmdline = {
 		view = "cmdline", -- a classic cmdline at the bottom
 	},
-  popupmenu = {
-  },
+	popupmenu = {},
 	lsp = {
 		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
 		override = {

@@ -25,6 +25,6 @@ vim.opt.mouse = ""
 -- no swap
 vim.opt.swapfile = false
 
-if (vim.fn.has("unix") and not vim.fn.has("macunix")) then
-  vim.opt.clipboard = "unnamedplus"
+if vim.fn.has("unix") and not vim.fn.has("macunix") then
+	vim.opt.clipboard = "unnamedplus"
 end

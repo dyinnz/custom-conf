@@ -34,13 +34,12 @@ vim.keymap.set("", "q", "<nop>")
 
 vim.keymap.set("n", "<C-A>", "^")
 vim.keymap.set("i", "<C-A>", "<ESC>I")
+vim.keymap.set("c", "<C-A>", "<Home>")
 vim.keymap.set("n", "<C-E>", "$")
 vim.keymap.set("i", "<C-E>", "<ESC>A")
-
-vim.keymap.del("", "s")
-vim.keymap.del("", "S")
-vim.keymap.set("", "f", "<Plug>Sneak_s")
-vim.keymap.set("", "F", "<Plug>Sneak_S")
+vim.keymap.set("c", "<C-E>", "<End>")
+vim.keymap.set("c", "<C-B>", "<Left>")
+vim.keymap.set("c", "<C-F>", "<Right>")
 
 --------------------------------------------------------------------------------
 -- visual mode
@@ -87,7 +86,6 @@ vim.keymap.set("n", "<Space>to", "<cmd>tabonly<CR>")
 vim.keymap.set("n", "<Space>tp", "<cmd>tabprev<CR>")
 vim.keymap.set("n", "<Space>tt", "<cmd>tab split<CR>")
 
-vim.keymap.set("n", "<Space>0", "0gt<CR>", { desc = "tab 0" })
 vim.keymap.set("n", "<Space>1", "1gt<CR>", { desc = "tab 1" })
 vim.keymap.set("n", "<Space>2", "2gt<CR>", { desc = "tab 2" })
 vim.keymap.set("n", "<Space>3", "3gt<CR>", { desc = "tab 3" })
@@ -122,8 +120,12 @@ vim.keymap.set("n", "<C-S>", "<cmd>w<CR>")
 --------------------------------------------------------------------------------
 -- terminal mode
 
--- vim.keymap.del('n', '<C-Bslash>') -- remove vim-tmux-navigator keymap
-vim.keymap.set("t", "<Esc>", "<C-Bslash><C-N>")
+vim.cmd([[
+autocmd TermOpen,TermEnter * startinsert
+autocmd BufEnter,BufNew term://* startinsert
+]])
+
+vim.keymap.set("t", "<C-Q>", "<C-Bslash><C-N>")
 vim.keymap.set("t", "<C-H>", "<C-Bslash><C-N><C-W>h")
 vim.keymap.set("t", "<C-J>", "<C-Bslash><C-N><C-W>j")
 vim.keymap.set("t", "<C-K>", "<C-Bslash><C-N><C-W>k")

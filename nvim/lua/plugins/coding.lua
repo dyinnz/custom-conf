@@ -13,14 +13,18 @@ return {
 			-- cmp sources plugins
 			{
 				"saadparwaiz1/cmp_luasnip",
+				"hrsh7th/cmp-buffer",
 				"hrsh7th/cmp-nvim-lua",
 				"hrsh7th/cmp-nvim-lsp",
-				"hrsh7th/cmp-buffer",
+				"hrsh7th/cmp-cmdline",
 				"hrsh7th/cmp-path",
 			},
 		},
 		opts = function()
 			return require("configs.nvim-cmp").opts
+		end,
+		config = function(_, opts)
+			require("configs.nvim-cmp").setup(opts)
 		end,
 	},
 
@@ -61,6 +65,14 @@ return {
 		},
 		opts = {
 			padding = true,
+			toggler = {
+				line = "<leader>cc",
+				block = "<leader>bc",
+			},
+			opleader = {
+				line = "<leader>c",
+				block = "<leader>b",
+			},
 		},
 	},
 

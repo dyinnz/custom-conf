@@ -9,7 +9,7 @@ M.treesitter = {
 	"query",
 	"vim",
 	"vimdoc",
-  "sql",
+	"sql",
 }
 
 M.mason = {

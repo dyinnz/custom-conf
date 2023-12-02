@@ -20,8 +20,8 @@ return {
 			},
 			{
 				"<space>gd",
-				"<cmd>DiffviewOpen<CR>",
-				desc = "DiffviewOpen",
+				"<cmd>DiffviewToggle<CR>",
+				desc = "DiffviewToggle",
 			},
 			{
 				"<space>gc",
@@ -30,6 +30,18 @@ return {
 			},
 		},
 		cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+
+		config = function()
+			vim.api.nvim_create_user_command("DiffviewToggle", function(e)
+				local view = require("diffview.lib").get_current_view()
+
+				if view then
+					vim.cmd("DiffviewClose")
+				else
+					vim.cmd("DiffviewOpen " .. e.args)
+				end
+			end, { nargs = "*" })
+		end,
 	}, -- C
 
 	{ "tpope/vim-fugitive", event = "VeryLazy" }, -- C -- TODO: lazy cmd

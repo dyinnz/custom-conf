@@ -1,18 +1,44 @@
 local M = {}
 
+local open_projects = function()
+	local contents = require("project_nvim").get_recent_projects()
+	local reverse = {}
+	for i = #contents, 1, -1 do
+		reverse[#reverse + 1] = contents[i]
+	end
+	require("fzf-lua").fzf_exec(reverse, {
+		actions = {
+			["default"] = function(e)
+				vim.cmd.cd(e[1])
+			end,
+			["ctrl-d"] = function(x)
+				local choice = vim.fn.confirm("Delete '" .. #x .. "' projects? ", "&Yes\n&No", 2)
+				if choice == 1 then
+					local history = require("project_nvim.utils.history")
+					for _, v in ipairs(x) do
+						history.delete_project(v)
+					end
+				end
+			end,
+		},
+	})
+end
+
 M.keys = {
 	{ "<C-P>", "<cmd> FzfLua files <CR>" },
 	{ "<Space>c", "<cmd> FzfLua commands <CR>", desc = "fuzzy - commands" },
-	{ "<Space>ff", "<cmd> FzfLua builtin <CR>" },
-
-	{ "<Space>fk", "<cmd> FzfLua keymaps <CR>", desc = "fuzzy - keymaps" },
 	{
 		"<Space>fl",
 		"<cmd> lua require('fzf-lua').blines{ fzf_opts = { ['--layout'] = 'reverse' } } <CR>",
 		desc = "fuzzy - lines",
 	},
+
+	{ "<Space>ff", "<cmd> FzfLua builtin <CR>", desc = "fuzzy builtin" },
+	{ "<Space>fc", "<cmd> FzfLua command_history <CR>", desc = "fuzzy - grep cword" },
+	{ "<Space>fk", "<cmd> FzfLua keymaps <CR>", desc = "fuzzy - keymaps" },
 	{ "<Space>fs", "<cmd> FzfLua grep <CR>", desc = "fuzzy - grep" },
 	{ "<Space>fw", "<cmd> FzfLua grep_cword <CR>", desc = "fuzzy - grep cword" },
+	{ "<Space>fp", open_projects, desc = "fuzzy - projects" },
 
 	{ "<Space>lc", "<cmd> FzfLua lsp_incoming_calls <CR>", desc = "fuzzy - incomming calls" },
 	{ "<Space>ld", "<cmd> FzfLua lsp_document_diagnostics <CR>", desc = "fuzzy - diagnostics" },

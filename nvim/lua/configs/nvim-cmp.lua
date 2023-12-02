@@ -9,6 +9,22 @@ end
 local luasnip = require("luasnip")
 local cmp = require("cmp")
 
+local custom_filter = function(entry, ctx)
+	if ctx.filetype ~= "cpp" then
+		return true
+	end
+
+	local s = entry.completion_item.insertText
+	return not (
+		string.find(s, "^boost")
+		or string.find(s, "^absl::")
+		or string.find(s, "^arrow::")
+		or string.find(s, "^clang::")
+		or string.find(s, "^kudu::")
+		or string.find(s, "^llvm::")
+	)
+end
+
 M.opts = {
 	snippet = {
 		expand = function(args)
@@ -16,11 +32,12 @@ M.opts = {
 		end,
 	},
 	sources = {
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
 		{ name = "buffer" },
+		{ name = "luasnip" },
+		{ name = "nvim_lsp", entry_filter = custom_filter },
 		{ name = "nvim_lua" },
 		{ name = "path" },
+		{ name = "cmdline" },
 	},
 	--- @diagnostic disable-next-line: missing-fields
 	sorting = {
@@ -43,8 +60,8 @@ M.opts = {
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
-				-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-				-- that way you will only jump inside the snippet region
+			-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+			-- that way you will only jump inside the snippet region
 			elseif luasnip.expand_or_jumpable() then
 				luasnip.expand_or_jump()
 			elseif has_words_before() then
@@ -66,5 +83,29 @@ M.opts = {
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 	},
 }
+
+M.setup = function(opts)
+	cmp.setup(opts)
+
+	-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+	--- @diagnostic disable-next-line: missing-fields
+	cmp.setup.cmdline({ "/", "?" }, {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = {
+			{ name = "buffer" },
+		},
+	})
+
+	-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+	--- @diagnostic disable-next-line: missing-fields
+	cmp.setup.cmdline(":", {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = cmp.config.sources({
+			{ name = "path" },
+		}, {
+			{ name = "cmdline" },
+		}),
+	})
+end
 
 return M

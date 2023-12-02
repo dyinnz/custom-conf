@@ -14,8 +14,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins"
-, {
+require("lazy").setup("plugins", {
 	root = vim.fn.expand("$HOME/.vim/plugged"),
 	performance = {
 		rtp = {
@@ -54,7 +53,4 @@ require("lazy").setup("plugins"
 
 require("basic")
 require("keymaps")
-require("lsp")
 require("misc")
-
-require("conform").setup()
