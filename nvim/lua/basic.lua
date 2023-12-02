@@ -11,9 +11,6 @@ vim.opt.pumheight = 8
 vim.opt.shell = "/bin/bash"
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.cmd.autocmd("BufWinEnter,WinEnter term://* startinsert")
--- TODO
--- vim.cmd.autocmd("TermClose * bd!")
 
 -- Tabs
 vim.opt.tabstop = 2

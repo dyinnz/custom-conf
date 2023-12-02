@@ -32,9 +32,9 @@ vim.cmd("cnoreabbrev NOHL nohl")
 -- map
 vim.keymap.set("", "q", "<nop>")
 
-vim.keymap.set("", "<C-A>", "^")
+vim.keymap.set("n", "<C-A>", "^")
 vim.keymap.set("i", "<C-A>", "<ESC>I")
-vim.keymap.set("", "<C-E>", "$")
+vim.keymap.set("n", "<C-E>", "$")
 vim.keymap.set("i", "<C-E>", "<ESC>A")
 
 vim.keymap.del("", "s")
@@ -48,8 +48,6 @@ vim.keymap.set("", "F", "<Plug>Sneak_S")
 -- continuous shift
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
--- easy align
-vim.keymap.set("v", "<leader>a", "<Plug>(EasyAlign)")
 
 --------------------------------------------------------------------------------
 -- normal mode
@@ -108,6 +106,7 @@ vim.keymap.set("n", "<Space>bw", "<cmd>w<CR>")
 
 vim.keymap.set("n", "<Space>in", "<cmd>Inspect<CR>")
 
+--- TODO: move to other
 vim.keymap.set("n", "<Space>gh", "<cmd>DiffviewFileHistory<CR>")
 vim.keymap.set("n", "<Space>gd", "<cmd>DiffviewOpen<CR>")
 vim.keymap.set("n", "<Space>gc", "<cmd>DiffviewClose<CR>")
@@ -129,8 +128,6 @@ vim.keymap.set("t", "<C-H>", "<C-Bslash><C-N><C-W>h")
 vim.keymap.set("t", "<C-J>", "<C-Bslash><C-N><C-W>j")
 vim.keymap.set("t", "<C-K>", "<C-Bslash><C-N><C-W>k")
 vim.keymap.set("t", "<C-L>", "<C-Bslash><C-N><C-W>l")
-
--- vim.keymap.set("n", "<space>fe", "<Esc>?error:<CR>")
 
 function _G.set_terminal_keymaps()
 	local opts = { buffer = 0 }

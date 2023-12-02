@@ -1,6 +1,4 @@
 
-require("todo-comments").setup()
-
 -- FIXME: https://github.com/neovim/neovim/issues/23522
 -- vim.filetype.add({
 --   extension = {
@@ -27,9 +25,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = { "*.cpp" },
 	command = 'let b:fswitchdst = "h,hpp"',
 })
-
-
--- vim.cmd(" autocmd TermOpen * startinsert ")
 
 
 vim.cmd([[
