@@ -24,8 +24,8 @@ return {
 		"justinmk/vim-sneak", -- B
 		event = "VeryLazy",
 		config = function()
-      pcall(vim.keymap.del, "", "s")
-      pcall(vim.keymap.del, "", "S")
+			pcall(vim.keymap.del, "", "s")
+			pcall(vim.keymap.del, "", "S")
 			vim.keymap.set("", "f", "<Plug>Sneak_s")
 			vim.keymap.set("", "F", "<Plug>Sneak_S")
 		end,
@@ -33,17 +33,42 @@ return {
 
 	-- Better diagnostics
 	{
-		"folke/trouble.nvim", -- C
+		"folke/trouble.nvim", -- A
 		event = "VeryLazy",
+		keys = {
+			{ "<space>xx", "<cmd> TroubleToggle <cr>", desc = "trouble default" },
+			{ "<space>xd", "<cmd> TroubleToggle document_diagnostics<cr>", desc = "trouble diagnostics" },
+			{ "gd", "<cmd> TroubleToggle lsp_definitions<cr>", desc = "trouble lsp_definitions" },
+			{ "gi", "<cmd> TroubleToggle lsp_implementations<cr>", desc = "trouble lsp_implementations" },
+			{ "gr", "<cmd> TroubleToggle lsp_references<cr>", desc = "trouble lsp_references" },
+			{ "gy", "<cmd> TroubleToggle lsp_type_definitions<cr>", desc = "trouble lsp_typedefs" },
+		},
+		opts = {
+			cycle_results = false,
+			height = 12,
+		},
 	},
 
-	-- Better quick fix
+	-- Symbol outline
 	{
-		"kevinhwang91/nvim-bqf", -- C
-		event = "VeryLazy",
+		"stevearc/aerial.nvim", -- B
+		lazy = true,
+		cmd = { "AerialToggle" },
+		keys = {
+			{ "<space>o", "<cmd>AerialToggle! left<CR>", desc = "Toggle outline" },
+		},
 		opts = {
-			preview = {
-				winblend = 0, -- 0 for opaque window
+			backends = { "lsp", "markdown", "man" },
+			filter_kind = {
+				-- "Namespace",
+				"Class",
+				"Constructor",
+				"Enum",
+				"Function",
+				"Interface",
+				"Module",
+				"Method",
+				"Struct",
 			},
 		},
 	},

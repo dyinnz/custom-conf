@@ -27,14 +27,11 @@ return {
 			"MunifTanjim/nui.nvim",
 			{
 				"rcarriga/nvim-notify", -- OPTIONAL:
-				config = function()
-					--- @diagnostic disable-next-line: missing-fields
-					require("notify").setup({
-						timeout = 2000,
-						render = "wrapped-compact",
-						stages = "fade",
-					})
-				end,
+				opts = {
+					timeout = 3000,
+					render = "wrapped-compact",
+					stages = "fade",
+				},
 			},
 		},
 	},
@@ -48,29 +45,9 @@ return {
 			vim.o.timeoutlen = 500
 		end,
 		opts = {},
-	},
-
-	{
-		"stevearc/aerial.nvim", -- B
-		lazy = true,
-		cmd = { "AerialToggle" },
-		keys = { -- Example mapping to toggle outline
-			{ "<space>o", "<cmd>AerialToggle! left<CR>", desc = "Toggle outline" },
-		},
-		opts = {
-			backends = { "lsp", "markdown", "man" },
-			filter_kind = {
-				-- "Namespace",
-				"Class",
-				"Constructor",
-				"Enum",
-				"Function",
-				"Interface",
-				"Module",
-				"Method",
-				"Struct",
-			},
-		},
+		config = function()
+			register_which_key()
+		end,
 	},
 
 	{ "nvim-tree/nvim-web-devicons", lazy = true }, -- B

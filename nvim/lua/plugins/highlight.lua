@@ -20,13 +20,13 @@ return {
 		event = { "VeryLazy" },
 	},
 
-	-- highlight the word under cursor -- TODO: lazy
+	-- highlight the word under cursor
 	{
 		"RRethy/vim-illuminate", -- B
 		event = { "VeryLazy" },
 		config = function()
 			require("illuminate").configure({
-				providers = { "lsp" },
+				providers = { "lsp", "treesitter" },
 			})
 		end,
 	},

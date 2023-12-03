@@ -31,6 +31,16 @@ local telescope = {
 	end,
 }
 
+local nvim_bqf = {
+	"kevinhwang91/nvim-bqf", -- C
+	event = "VeryLazy",
+	opts = {
+		preview = {
+			winblend = 0, -- 0 for opaque window
+		},
+	},
+}
+
 -- Debug
 -- {
 --   "mfussenegger/nvim-dap",

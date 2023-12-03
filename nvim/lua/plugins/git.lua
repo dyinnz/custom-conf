@@ -1,7 +1,16 @@
+local toggle_blame = function()
+	require("gitsigns").toggle_current_line_blame()
+	vim.cmd("set nonumber!")
+end
+
 return {
 	{
 		"lewis6991/gitsigns.nvim", -- A
 		ft = { "gitcommit", "diff" },
+		keys = {
+			{ "<space>gb", toggle_blame, desc = "toggle line blame" },
+		},
+
 		init = function()
 			require("configs.gitsigns").init()
 		end,
@@ -13,21 +22,9 @@ return {
 	{
 		"sindrets/diffview.nvim",
 		keys = {
-			{
-				"<space>gh",
-				"<cmd>DiffviewFileHistory<CR>",
-				desc = "DiffviewFileHistory",
-			},
-			{
-				"<space>gd",
-				"<cmd>DiffviewToggle<CR>",
-				desc = "DiffviewToggle",
-			},
-			{
-				"<space>gc",
-				"<cmd>DiffviewClose<CR>",
-				desc = "DiffviewClose",
-			},
+			{ "<space>gh", "<cmd>DiffviewFileHistory<CR>", desc = "DiffviewFileHistory" },
+			{ "<space>gd", "<cmd>DiffviewToggle<CR>", desc = "DiffviewToggle" },
+			{ "<space>gc", "<cmd>DiffviewClose<CR>", desc = "DiffviewClose" },
 		},
 		cmd = { "DiffviewOpen", "DiffviewFileHistory" },
 
@@ -44,5 +41,12 @@ return {
 		end,
 	}, -- C
 
-	{ "tpope/vim-fugitive", event = "VeryLazy" }, -- C -- TODO: lazy cmd
+	{
+		"tpope/vim-fugitive",
+		cmd = "Git",
+		event = "VeryLazy",
+		config = function()
+			vim.cmd("cnoreabbrev git Git")
+		end,
+	}, -- C
 }

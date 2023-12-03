@@ -1,11 +1,11 @@
 vim.opt.synmaxcol = 400
 vim.opt.lazyredraw = false
-vim.opt.scrolloff = 3 -- Minimum lines to keep above and below cursor
+vim.opt.scrolloff = 6 -- Minimum lines to keep above and below cursor
 vim.opt.wrap = false
 vim.opt.signcolumn = "yes"
 
 -- Complete popup menu
-vim.opt.pumheight = 8
+vim.opt.pumheight = 10
 
 -- Shell and terminal
 vim.opt.shell = "/bin/bash"

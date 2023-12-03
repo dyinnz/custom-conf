@@ -1,6 +1,6 @@
 local M = {}
 
-local open_projects = function()
+local fzf_projects = function()
 	local contents = require("project_nvim").get_recent_projects()
 	local reverse = {}
 	for i = #contents, 1, -1 do
@@ -24,21 +24,22 @@ local open_projects = function()
 	})
 end
 
+local fzf_blines = function()
+	require("fzf-lua").blines({ fzf_opts = { ["--layout"] = "reverse" } })
+end
+
 M.keys = {
 	{ "<C-P>", "<cmd> FzfLua files <CR>" },
 	{ "<Space>c", "<cmd> FzfLua commands <CR>", desc = "fuzzy - commands" },
-	{
-		"<Space>fl",
-		"<cmd> lua require('fzf-lua').blines{ fzf_opts = { ['--layout'] = 'reverse' } } <CR>",
-		desc = "fuzzy - lines",
-	},
 
-	{ "<Space>ff", "<cmd> FzfLua builtin <CR>", desc = "fuzzy builtin" },
 	{ "<Space>fc", "<cmd> FzfLua command_history <CR>", desc = "fuzzy - grep cword" },
+	{ "<Space>ff", "<cmd> FzfLua buffers <CR>", desc = "fuzzy buffers" },
+	{ "<Space>ff", "<cmd> FzfLua builtin <CR>", desc = "fuzzy builtin" },
 	{ "<Space>fk", "<cmd> FzfLua keymaps <CR>", desc = "fuzzy - keymaps" },
+	{ "<Space>fl", fzf_blines, desc = "fuzzy - lines" },
+	{ "<Space>fp", fzf_projects, desc = "fuzzy - projects" },
 	{ "<Space>fs", "<cmd> FzfLua grep <CR>", desc = "fuzzy - grep" },
 	{ "<Space>fw", "<cmd> FzfLua grep_cword <CR>", desc = "fuzzy - grep cword" },
-	{ "<Space>fp", open_projects, desc = "fuzzy - projects" },
 
 	{ "<Space>lc", "<cmd> FzfLua lsp_incoming_calls <CR>", desc = "fuzzy - incomming calls" },
 	{ "<Space>ld", "<cmd> FzfLua lsp_document_diagnostics <CR>", desc = "fuzzy - diagnostics" },
@@ -47,8 +48,8 @@ M.keys = {
 	{ "<Space>ls", "<cmd> FzfLua lsp_document_symbols <CR>", desc = "fuzzy - symbols" },
 	{ "<Space>ly", "<cmd> FzfLua lsp_typedefs <CR>", desc = "fuzzy - typedefs" },
 	{ "gc", "<cmd> FzfLua lsp_incoming_calls <CR>", desc = "fuzzy - incomming calls" },
-	{ "gi", "<cmd> FzfLua lsp_implementations <CR>", desc = "fuzzy - implementations" },
-	{ "gr", "<cmd> FzfLua lsp_references <CR>", desc = "fuzzy - references" },
+	-- { "gi", "<cmd> FzfLua lsp_implementations <CR>", desc = "fuzzy - implementations" },
+	-- { "gr", "<cmd> FzfLua lsp_references <CR>", desc = "fuzzy - references" },
 	{ "gy", "<cmd> FzfLua lsp_typedefs <CR>", desc = "fuzzy - typedefs" },
 
 	{ "<Space>gf", "<cmd> FzfLua git_files <CR>", desc = "fuzzy git files" },

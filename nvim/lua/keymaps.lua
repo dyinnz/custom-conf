@@ -30,16 +30,14 @@ vim.cmd("cnoreabbrev NOHL nohl")
 
 --------------------------------------------------------------------------------
 -- map
-vim.keymap.set("", "q", "<nop>")
+vim.keymap.set("", "q", "<nop>") -- disable macro
 
-vim.keymap.set("n", "<C-A>", "^")
 vim.keymap.set("i", "<C-A>", "<ESC>I")
 vim.keymap.set("c", "<C-A>", "<Home>")
-vim.keymap.set("n", "<C-E>", "$")
 vim.keymap.set("i", "<C-E>", "<ESC>A")
 vim.keymap.set("c", "<C-E>", "<End>")
-vim.keymap.set("c", "<C-B>", "<Left>")
-vim.keymap.set("c", "<C-F>", "<Right>")
+vim.keymap.set({ "c", "i" }, "<C-B>", "<Left>")
+vim.keymap.set({ "c", "i" }, "<C-F>", "<Right>")
 
 --------------------------------------------------------------------------------
 -- visual mode
@@ -63,7 +61,7 @@ vim.keymap.set("n", "XX", '"+cc<CR>')
 vim.keymap.set("n", "Xx", '"+cc<CR>')
 vim.keymap.set("n", "YY", '"+yy<CR>')
 vim.keymap.set("n", "Yy", '"+yy<CR>')
-vim.keymap.set("n", "<leader>p", '"+gp<CR>')
+vim.keymap.set("n", "<leader>p", '"+gp<CR>', { desc = "paste from system yank" })
 
 -- Space
 
@@ -102,16 +100,8 @@ vim.keymap.set("n", "<Space>bn", "<cmd>bn<CR>")
 vim.keymap.set("n", "<Space>bp", "<cmd>bp<CR>")
 vim.keymap.set("n", "<Space>bw", "<cmd>w<CR>")
 
+-- Misc
 vim.keymap.set("n", "<Space>in", "<cmd>Inspect<CR>")
-
---- TODO: move to other
-vim.keymap.set("n", "<Space>gh", "<cmd>DiffviewFileHistory<CR>")
-vim.keymap.set("n", "<Space>gd", "<cmd>DiffviewOpen<CR>")
-vim.keymap.set("n", "<Space>gc", "<cmd>DiffviewClose<CR>")
-vim.keymap.set("n", "<Space>gb", function()
-	vim.cmd("Gitsigns toggle_current_line_blame")
-	vim.cmd("set nonumber!")
-end, { desc = "toggle number line" })
 
 -- begin with <leader>
 vim.keymap.set("n", "<leader>w", "<cmd>w<CR>")
@@ -139,20 +129,26 @@ end
 
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
-local wk = require("which-key")
-wk.register({
-	["<space>"] = {
-		name = "leader",
-		{
-			q = "which_key_ignore",
-			Q = "which_key_ignore",
+--------------------------------------------------------------------------------
+--- which key
 
-			b = { name = "buffer" },
-			f = { name = "fzf" },
-			g = { name = "git" },
-			i = { name = "inspect" },
-			l = { name = "lsp" },
-			t = { name = "tab" },
+function _G.register_which_key()
+	local wk = require("which-key")
+	wk.register({
+		["<space>"] = {
+			name = "leader",
+			{
+				q = "which_key_ignore",
+				Q = "which_key_ignore",
+
+				b = { name = "buffer" },
+				f = { name = "fzf" },
+				g = { name = "git" },
+				i = { name = "inspect" },
+				l = { name = "lsp" },
+				t = { name = "tab" },
+				w = { name = "window" },
+			},
 		},
-	},
-})
+	})
+end

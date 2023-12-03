@@ -27,7 +27,7 @@ local setup_lsp = function()
 			-- See `:help vim.lsp.*` for documentation on any of the below functions
 			local opts = { buffer = ev.buf }
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+			-- vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 			-- vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
 			-- vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 			vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
