@@ -3,27 +3,28 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter", -- A
 		build = ": TSUpdate",
-		event = { "VeryLazy" },
+		event = "VeryLazy",
 		config = function()
-			--- @diagnostic disable-next-line: missing-fields
-			require("nvim-treesitter.configs").setup({
-				ensure_install = require("ensure-install").treesitter,
-				highlight = {
-					enable = true,
-				},
-			})
+			require("configs.treesitter").setup()
 		end,
 	},
 
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects", -- A
-		event = { "VeryLazy" },
+		event = "VeryLazy",
 	},
+
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = "VeryLazy",
+    -- config = function()
+    -- end,
+  },
 
 	-- highlight the word under cursor
 	{
 		"RRethy/vim-illuminate", -- B
-		event = { "VeryLazy" },
+		event = "VeryLazy",
 		config = function()
 			require("illuminate").configure({
 				providers = { "lsp", "treesitter" },
@@ -34,7 +35,7 @@ return {
 	-- highlight TODO
 	{
 		"folke/todo-comments.nvim", -- B
-		event = { "VeryLazy" },
+		event = "VeryLazy",
 		opts = {},
 	},
 
