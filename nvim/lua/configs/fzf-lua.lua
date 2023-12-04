@@ -33,7 +33,7 @@ M.keys = {
 	{ "<Space>c", "<cmd> FzfLua commands <CR>", desc = "fuzzy - commands" },
 
 	{ "<Space>fc", "<cmd> FzfLua command_history <CR>", desc = "fuzzy - grep cword" },
-	{ "<Space>ff", "<cmd> FzfLua buffers <CR>", desc = "fuzzy buffers" },
+	{ "<Space>fb", "<cmd> FzfLua buffers <CR>", desc = "fuzzy buffers" },
 	{ "<Space>ff", "<cmd> FzfLua builtin <CR>", desc = "fuzzy builtin" },
 	{ "<Space>fk", "<cmd> FzfLua keymaps <CR>", desc = "fuzzy - keymaps" },
 	{ "<Space>fl", fzf_blines, desc = "fuzzy - lines" },

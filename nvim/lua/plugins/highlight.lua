@@ -14,12 +14,13 @@ return {
 		event = "VeryLazy",
 	},
 
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    event = "VeryLazy",
-    -- config = function()
-    -- end,
-  },
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		ft = { "cpp", "lua", "python" },
+		event = "VeryLazy",
+		-- config = function()
+		-- end,
+	},
 
 	-- highlight the word under cursor
 	{

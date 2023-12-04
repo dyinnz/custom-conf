@@ -86,8 +86,8 @@ vim.keymap.set("n", "<Space>tc", "<cmd>tabclose<CR>")
 vim.keymap.set("n", "<Space>tn", "<cmd>tabnext<CR>")
 vim.keymap.set("n", "<Space>to", "<cmd>tabonly<CR>")
 vim.keymap.set("n", "<Space>tp", "<cmd>tabprev<CR>")
-vim.keymap.set("n", "<Space>ts", "<cmd>tab split<CR>")
-vim.keymap.set("n", "<Space>tt", "<cmd>tabnew<CR>")
+vim.keymap.set("n", "<Space>tt", "<cmd>tab split<CR>")
+vim.keymap.set("n", "<Space>TT", "<cmd>tabnew<CR>")
 
 vim.keymap.set("n", "<Space>1", "1gt<CR>", { desc = "tab 1" })
 vim.keymap.set("n", "<Space>2", "2gt<CR>", { desc = "tab 2" })
@@ -112,10 +112,15 @@ vim.keymap.set("n", "<leader>w", "<cmd>write<CR>")
 -- Misc
 vim.keymap.set("n", "<Space>in", "<cmd>Inspect<CR>")
 
+vim.keymap.set("n", "<Space>fe", "?error:<CR>")
+-- vim.keymap.set("t", "<Space>fe", "<C-Bslash><C-N>?error:<CR>")
+
+vim.keymap.set("n", "<leader>ds", [[<cmd> %s/\s\+$//e <cr>]], { desc = "trim whiltespace" })
+
 --------------------------------------------------------------------------------
 -- terminal mode
 
-vim.keymap.set("t", "<C-Q>", "<C-Bslash><C-N>")
+vim.keymap.set("t", "jk", "<C-Bslash><C-n>")
 vim.keymap.set("t", "<C-H>", "<C-Bslash><C-N><C-W>h")
 vim.keymap.set("t", "<C-J>", "<C-Bslash><C-N><C-W>j")
 vim.keymap.set("t", "<C-K>", "<C-Bslash><C-N><C-W>k")

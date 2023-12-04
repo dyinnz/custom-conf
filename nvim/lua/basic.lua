@@ -3,9 +3,7 @@ vim.opt.lazyredraw = false
 vim.opt.scrolloff = 6 -- Minimum lines to keep above and below cursor
 vim.opt.wrap = false
 vim.opt.signcolumn = "yes"
-
--- Complete popup menu
-vim.opt.pumheight = 10
+vim.opt.pumheight = 10 -- Complete popup menu
 
 -- Shell and terminal
 vim.opt.shell = "/bin/bash"
@@ -18,12 +16,13 @@ vim.opt.shiftwidth = 0
 vim.opt.softtabstop = 2
 vim.opt.expandtab = true
 
+-- Search
 vim.opt.smartcase = true
 vim.opt.ignorecase = true
-vim.opt.mouse = ""
 
--- no swap
-vim.opt.swapfile = false
+-- Misc
+vim.opt.mouse = ""
+vim.opt.swapfile = false -- no swap
 
 if vim.fn.has("unix") and not vim.fn.has("macunix") then
 	vim.opt.clipboard = "unnamedplus"
