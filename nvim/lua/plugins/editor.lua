@@ -17,7 +17,11 @@ return {
 		-- 	{ "C-K", [[<cmd>lua require("tmux").move_top()<cr>]], desc = "move top" },
 		-- 	{ "C-L", [[<cmd>lua require("tmux").move_right()<cr>]], desc = "move right" },
 		-- },
-		opts = {},
+		opts = {
+			copy_sync = {
+				sync_unnamed = false, -- sync_unnamed will break block paste
+			},
+		},
 	},
 
 	{

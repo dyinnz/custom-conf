@@ -38,13 +38,26 @@ return {
 			}
 
 			vim.api.nvim_create_user_command("LLDBStart", function()
-				local file = ""
-				if P.test_binary then
-					file = require("util").git_root .. P.test_binary
-				end
-				local cmd = "GdbStartLLDB lldb " .. file
-				vim.cmd(cmd)
-				vim.notify(cmd)
+				local common = require("common")
+				local pc = common.project_config
+
+				-- save the cwd
+				local prev_cwd = vim.fn.getcwd()
+				vim.api.nvim_set_current_dir(common.git_root)
+
+				local file = pc.test_dir .. pc.test_binary
+				vim.ui.input({ prompt = "file to debug: ", default = file, completion = "file" }, function(input)
+					if input then
+						local relative = vim.fn.fnamemodify(input, ":h")
+						vim.api.nvim_set_current_dir(relative)
+
+						local cmd = "GdbStartLLDB lldb " .. vim.fn.fnamemodify(input, ":t")
+						vim.notify(cmd .. " in " .. relative)
+						vim.cmd(cmd)
+					end
+				end)
+
+				vim.api.nvim_set_current_dir(prev_cwd)
 			end, { nargs = "*" })
 		end,
 	},
@@ -64,72 +77,54 @@ return {
 			{ "ª", "<cmd> ToggleBuildTerm <CR>", mode = { "n", "i", "v", "t" } }, -- A-9
 
 			-- build
-			{ "®", "<cmd> ToggleTesting <CR>", mode = { "n", "i", "v", "t" } }, -- A-B
+			{ "®", "<cmd> ToggleTesting <CR>", mode = { "n", "i", "v", "t" } }, -- A-R
 			{ "∫", "<cmd> ToggleBuilding <CR>", mode = { "n", "i", "v", "t" } }, -- A-B
 		},
 		opts = {
 			shell = my_shell,
 			size = function(term)
 				if term.direction == "horizontal" then
-					return 20
+					return 22
 				elseif term.direction == "vertical" then
 					return vim.o.columns * 0.42
 				end
+			end,
+			on_exit = function(t, job, exit_code, name)
+				vim.notify("Terminal " .. t.display_name .. " exited.. ")
 			end,
 		},
 		config = function(_, opts)
 			require("toggleterm").setup(opts)
 
-			local util = require("util")
+			local test_id = 8
+			local build_id = 9
+			local common = require("common")
 
 			vim.api.nvim_create_user_command("ToggleTesting", function()
-				local cmd = "echo please test_dir, test_cmd "
-				local dir = "."
-				if P.test_cmd and P.test_dir then
-					cmd = P.test_cmd
-					dir = util.git_root .. P.test_dir
-				end
-				require("toggleterm").exec(cmd, 8, nil, dir)
+				local pc = require("common").project_config
+				local dir = common.git_root .. pc.test_dir
+				require("toggleterm").toggle(test_id, nil, dir, nil, "test")
+				require("toggleterm").exec(pc.test_cmd, test_id, nil, dir, nil, "test")
 			end, { nargs = "*" })
 
 			vim.api.nvim_create_user_command("ToggleBuilding", function()
-				local cmd = "ninja"
-				if P.build_cmd then
-					cmd = P.build_cmd
-				end
-				require("toggleterm").exec(cmd, 9)
+				local pc = require("common").project_config
+				local dir = common.git_root .. pc.build_dir
+				require("toggleterm").toggle(build_id, nil, dir, nil, "build")
+				require("toggleterm").exec(pc.build_cmd, build_id, nil, dir, nil, "build")
 			end, { nargs = "*" })
 
 			vim.api.nvim_create_user_command("ToggleTestTerm", function()
-				local dir = "."
-				if P.test_dir then
-					dir = util.git_root .. P.test_dir
-				end
-				require("toggleterm").toggle(8, nil, dir, "horizontal", "test")
+				local pc = require("common").project_config
+				local dir = common.git_root .. pc.test_dir
+				require("toggleterm").toggle(test_id, nil, dir, nil, "test")
 			end, { nargs = "*" })
 
 			vim.api.nvim_create_user_command("ToggleBuildTerm", function()
-				local dir = "."
-				if P.build_dir then
-					dir = util.git_root .. P.build_dir
-				end
-				require("toggleterm").toggle(9, nil, dir, "horizontal", "build")
+				local pc = require("common").project_config
+				local dir = common.git_root .. pc.build_dir
+				require("toggleterm").toggle(build_id, nil, dir, nil, "build")
 			end, { nargs = "*" })
-		end,
-	},
-
-	-- Project
-	{
-		"ahmedkhalf/project.nvim", -- C
-		event = "VeryLazy",
-		config = function()
-			vim.keymap.set("n", "<space>pr", "<cmd>ProjectRoot<CR>")
-
-			require("project_nvim").setup({
-				patterns = { "=src", ".git" },
-				manual_mode = true,
-				silent_chdir = false,
-			})
 		end,
 	},
 
@@ -137,7 +132,7 @@ return {
 		"klen/nvim-config-local",
 		event = "VeryLazy",
 		config = function()
-			local config_in_git = require("util").git_root .. ".nvim.lua"
+			local config_in_git = require("common").git_root .. ".nvim.lua"
 			require("config-local").setup({
 				config_files = { config_in_git, ".nvim.lua" },
 			})

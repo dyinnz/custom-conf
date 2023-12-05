@@ -60,10 +60,7 @@ vim.keymap.set("v", "∆", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 vim.keymap.set("v", "˚", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 -- Yank
-vim.keymap.set("n", "XX", '"+cc')
-vim.keymap.set("n", "Xx", '"+cc')
-vim.keymap.set("n", "YY", '"+yy')
-vim.keymap.set("n", "Yy", '"+yy')
+vim.keymap.set({ "n", "v" }, "Y", '"+yy')
 vim.keymap.set("n", "<leader>p", '"+gp<CR>', { desc = "paste from system yank" })
 
 -- Window

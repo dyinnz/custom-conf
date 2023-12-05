@@ -37,7 +37,6 @@ M.opts = {
 		{ name = "nvim_lsp", entry_filter = custom_filter },
 		{ name = "nvim_lua" },
 		{ name = "path" },
-		{ name = "cmdline" },
 	},
 	--- @diagnostic disable-next-line: missing-fields
 	sorting = {
