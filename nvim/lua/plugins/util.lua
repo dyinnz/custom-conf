@@ -23,8 +23,9 @@ return {
 				key_finish = "<F12>",
 				key_frameup = "<",
 				key_framedown = ">",
-				key_eval = "<C-M>",
+				key_eval = "µ", -- A-M
 				key_quit = nil,
+        termwin_command = "topleft vs",
 				set_tkeymaps = function()
 					NvimGdb.here.keymaps:set_t()
 					vim.api.nvim_buf_del_keymap(vim.api.nvim_get_current_buf(), "t", "<Esc>")
@@ -86,7 +87,7 @@ return {
 				if term.direction == "horizontal" then
 					return 22
 				elseif term.direction == "vertical" then
-					return vim.o.columns * 0.42
+					return vim.o.columns * 0.45
 				end
 			end,
 			on_exit = function(t, job, exit_code, name)
@@ -103,27 +104,27 @@ return {
 			vim.api.nvim_create_user_command("ToggleTesting", function()
 				local pc = require("common").project_config
 				local dir = common.git_root .. pc.test_dir
-				require("toggleterm").toggle(test_id, nil, dir, nil, "test")
-				require("toggleterm").exec(pc.test_cmd, test_id, nil, dir, nil, "test")
+				require("toggleterm").toggle(test_id, nil, dir, "vertical", "test")
+				require("toggleterm").exec(pc.test_cmd, test_id, nil, dir, "vertical", "test")
 			end, { nargs = "*" })
 
 			vim.api.nvim_create_user_command("ToggleBuilding", function()
 				local pc = require("common").project_config
 				local dir = common.git_root .. pc.build_dir
-				require("toggleterm").toggle(build_id, nil, dir, nil, "build")
-				require("toggleterm").exec(pc.build_cmd, build_id, nil, dir, nil, "build")
+				require("toggleterm").toggle(build_id, nil, dir, "vertical", "build")
+				require("toggleterm").exec(pc.build_cmd, build_id, nil, dir, "vertical", "build")
 			end, { nargs = "*" })
 
 			vim.api.nvim_create_user_command("ToggleTestTerm", function()
 				local pc = require("common").project_config
 				local dir = common.git_root .. pc.test_dir
-				require("toggleterm").toggle(test_id, nil, dir, nil, "test")
+				require("toggleterm").toggle(test_id, nil, dir, "vertical", "test")
 			end, { nargs = "*" })
 
 			vim.api.nvim_create_user_command("ToggleBuildTerm", function()
 				local pc = require("common").project_config
 				local dir = common.git_root .. pc.build_dir
-				require("toggleterm").toggle(build_id, nil, dir, nil, "build")
+				require("toggleterm").toggle(build_id, nil, dir, "vertical", "build")
 			end, { nargs = "*" })
 		end,
 	},

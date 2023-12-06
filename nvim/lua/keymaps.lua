@@ -117,7 +117,8 @@ vim.keymap.set("n", "<leader>ds", [[<cmd> %s/\s\+$//e <cr>]], { desc = "trim whi
 --------------------------------------------------------------------------------
 -- terminal mode
 
-vim.keymap.set("t", "jk", "<C-Bslash><C-n>")
+vim.keymap.set({"n", "v"}, "<C-Q>", "<nop>")
+vim.keymap.set("t", "<C-Q>", "<C-Bslash><C-n>")
 vim.keymap.set("t", "<C-H>", "<C-Bslash><C-N><C-W>h")
 vim.keymap.set("t", "<C-J>", "<C-Bslash><C-N><C-W>j")
 vim.keymap.set("t", "<C-K>", "<C-Bslash><C-N><C-W>k")
