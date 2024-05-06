@@ -16,12 +16,14 @@ local custom_filter = function(entry, ctx)
 
 	local s = entry.completion_item.insertText
 	return not (
-		string.find(s, "^boost")
-		or string.find(s, "^absl::")
-		or string.find(s, "^arrow::")
-		or string.find(s, "^clang::")
-		or string.find(s, "^kudu::")
-		or string.find(s, "^llvm::")
+		s:sub(-1) == "-"
+		or s:find("^boost")
+		-- or s:find("^absl::")
+		or s:find("^arrow::")
+		or s:find("^clang::")
+		or s:find("^kudu::")
+		or s:find("^llvm::")
+		or s:find("^Aws::")
 	)
 end
 

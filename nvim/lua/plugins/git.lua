@@ -1,14 +1,15 @@
-local toggle_blame = function()
-	require("gitsigns").toggle_current_line_blame()
-	vim.cmd("set nonumber!")
-end
-
 return {
 	{
 		"lewis6991/gitsigns.nvim", -- A
 		ft = { "gitcommit", "diff" },
 		keys = {
-			{ "<space>gb", toggle_blame, desc = "toggle line blame" },
+			{
+				"<space>gb",
+				function()
+					require("gitsigns").toggle_current_line_blame()
+				end,
+				desc = "toggle line blame",
+			},
 		},
 
 		init = function()

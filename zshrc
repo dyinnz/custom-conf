@@ -19,7 +19,8 @@ source $ZSH/oh-my-zsh.sh
 
 # ------------------------------------------------------------------------------
 # zsh history
-export HISTSIZE=100000
+export HISTSIZE=134217728 # 128M
+export SAVEHIST=$HISTSIZE
 setopt EXTENDED_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS

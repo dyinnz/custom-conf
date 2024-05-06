@@ -9,6 +9,7 @@ M.opts = {
 		python = { "isort", "black" },
 		sh = { "beautysh" },
 		sql = { "sqlfmt" },
+		ocaml = { "ocamlformat" },
 	},
 }
 

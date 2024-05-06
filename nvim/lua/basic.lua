@@ -22,7 +22,7 @@ vim.opt.ignorecase = true
 
 -- Misc
 vim.opt.mouse = ""
-vim.opt.swapfile = false -- no swap
+-- vim.opt.swapfile = false -- no swap
 
 if vim.fn.has("unix") and not vim.fn.has("macunix") then
 	vim.opt.clipboard = "unnamedplus"
