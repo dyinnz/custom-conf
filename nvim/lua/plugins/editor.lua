@@ -36,22 +36,22 @@ return {
 	},
 
 	-- Better diagnostics
-	{
-		"folke/trouble.nvim", -- A
-		event = "VeryLazy",
-		keys = {
-			{ "<space>xx", "<cmd> TroubleToggle <cr>", desc = "trouble default" },
-			{ "<space>xd", "<cmd> TroubleToggle document_diagnostics<cr>", desc = "trouble diagnostics" },
-			{ "gd", "<cmd> TroubleToggle lsp_definitions<cr>", desc = "trouble lsp_definitions" },
-			{ "gi", "<cmd> TroubleToggle lsp_implementations<cr>", desc = "trouble lsp_implementations" },
-			{ "gr", "<cmd> TroubleToggle lsp_references<cr>", desc = "trouble lsp_references" },
-			{ "gy", "<cmd> TroubleToggle lsp_type_definitions<cr>", desc = "trouble lsp_typedefs" },
-		},
-		opts = {
-			cycle_results = false,
-			height = 12,
-		},
-	},
+	-- {
+	-- 	"folke/trouble.nvim", -- A
+	-- 	event = "VeryLazy",
+	-- 	keys = {
+	-- 		{ "<space>xx", "<cmd> Trouble <cr>", desc = "trouble default" },
+	-- 		{ "<space>xd", "<cmd> Trouble document_diagnostics<cr>", desc = "trouble diagnostics" },
+	-- 		{ "gd", "<cmd> Trouble lsp_definitions<cr>", desc = "trouble lsp_definitions" },
+	-- 		{ "gi", "<cmd> Trouble lsp_implementations<cr>", desc = "trouble lsp_implementations" },
+	-- 		{ "gr", "<cmd> Trouble lsp_references<cr>", desc = "trouble lsp_references" },
+	-- 		{ "gy", "<cmd> Trouble lsp_type_definitions<cr>", desc = "trouble lsp_typedefs" },
+	-- 	},
+	-- 	opts = {
+	-- 		cycle_results = false,
+	-- 		height = 12,
+	-- 	},
+	-- },
 
 	-- Symbol outline
 	{

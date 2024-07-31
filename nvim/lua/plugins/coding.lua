@@ -44,6 +44,12 @@ return {
 		opts = function()
 			return require("configs.conform").opts
 		end,
+		config = function(_, opts)
+			require("conform").formatters.beautysh = {
+				prepend_args = { "-i", "2" },
+			}
+			require("conform").setup(opts)
+		end,
 	},
 
 	{

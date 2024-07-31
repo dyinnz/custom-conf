@@ -10,6 +10,11 @@ local setup_lsp = function()
 	require("lspconfig").lua_ls.setup({ capabilities = capabilities })
 	require("lspconfig").pyright.setup({ capabilities = capabilities })
 	require("lspconfig").sqlls.setup({ capabilities = capabilities })
+	require("lspconfig").rust_analyzer.setup({ capabilities = capabilities })
+	require("lspconfig").ocamllsp.setup({
+		capabilities = capabilities,
+		on_attach = require("virtualtypes").on_attach,
+	})
 
 	-- Global mappings.
 	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -26,10 +31,12 @@ local setup_lsp = function()
 			-- Buffer local mappings.
 			-- See `:help vim.lsp.*` for documentation on any of the below functions
 			local opts = { buffer = ev.buf }
+
+			vim.keymap.set("n", "<space>a", "<cmd>ClangdSwitchSourceHeader<cr>", opts)
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-			-- vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-			-- vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-			-- vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+			vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+			vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 			vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
 			vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
 
@@ -97,5 +104,10 @@ return {
 		config = function()
 			setup_lsp()
 		end,
+	},
+
+	{
+		"jubnzv/virtual-types.nvim",
+		-- ft = { "ocaml" },
 	},
 }

@@ -27,6 +27,25 @@ local custom_filter = function(entry, ctx)
 	)
 end
 
+local under_compare = function(entry1, entry2)
+	local entry1_under = vim.startswith(entry1.completion_item.label, "_")
+	local entry2_under = vim.startswith(entry2.completion_item.label, "_")
+	if entry1_under and not entry2_under then
+		return false
+	elseif not entry1_under and entry2_under then
+		return true
+	end
+	if entry1_under and entry2_under then
+		local entry1_dunder = vim.startswith(entry1.completion_item.label, "__")
+		local entry2_dunder = vim.startswith(entry2.completion_item.label, "__")
+		if entry1_dunder and not entry2_dunder then
+			return false
+		elseif not entry1_dunder and entry2_dunder then
+			return true
+		end
+	end
+end
+
 M.opts = {
 	snippet = {
 		expand = function(args)
@@ -47,6 +66,7 @@ M.opts = {
 			cmp.config.compare.exact,
 			cmp.config.compare.recently_used,
 			cmp.config.compare.score,
+			under_compare,
 			cmp.config.compare.locality,
 			cmp.config.compare.kind,
 			cmp.config.compare.sort_text,

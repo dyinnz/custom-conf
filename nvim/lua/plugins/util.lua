@@ -25,7 +25,7 @@ return {
 				key_framedown = ">",
 				key_eval = "µ", -- A-M
 				key_quit = nil,
-        termwin_command = "topleft vs",
+				termwin_command = "topleft vs",
 				set_tkeymaps = function()
 					NvimGdb.here.keymaps:set_t()
 					vim.api.nvim_buf_del_keymap(vim.api.nvim_get_current_buf(), "t", "<Esc>")
@@ -83,9 +83,15 @@ return {
 		},
 		opts = {
 			shell = my_shell,
+			highlights = {
+				Normal = {
+					bold = "#fffeff",
+					guifg = "#c7c7c7",
+				},
+			},
 			size = function(term)
 				if term.direction == "horizontal" then
-					return 22
+					return vim.o.lines * 0.37
 				elseif term.direction == "vertical" then
 					return vim.o.columns * 0.45
 				end
@@ -104,27 +110,27 @@ return {
 			vim.api.nvim_create_user_command("ToggleTesting", function()
 				local pc = require("common").project_config
 				local dir = common.git_root .. pc.test_dir
-				require("toggleterm").toggle(test_id, nil, dir, "vertical", "test")
-				require("toggleterm").exec(pc.test_cmd, test_id, nil, dir, "vertical", "test")
+				require("toggleterm").toggle(test_id, nil, dir, "horizontal", "test")
+				require("toggleterm").exec(pc.test_cmd, test_id, nil, dir, "horizontal", "test")
 			end, { nargs = "*" })
 
 			vim.api.nvim_create_user_command("ToggleBuilding", function()
 				local pc = require("common").project_config
 				local dir = common.git_root .. pc.build_dir
-				require("toggleterm").toggle(build_id, nil, dir, "vertical", "build")
-				require("toggleterm").exec(pc.build_cmd, build_id, nil, dir, "vertical", "build")
+				require("toggleterm").toggle(build_id, nil, dir, "horizontal", "build")
+				require("toggleterm").exec(pc.build_cmd, build_id, nil, dir, "horizontal", "build")
 			end, { nargs = "*" })
 
 			vim.api.nvim_create_user_command("ToggleTestTerm", function()
 				local pc = require("common").project_config
 				local dir = common.git_root .. pc.test_dir
-				require("toggleterm").toggle(test_id, nil, dir, "vertical", "test")
+				require("toggleterm").toggle(test_id, nil, dir, "horizontal", "test")
 			end, { nargs = "*" })
 
 			vim.api.nvim_create_user_command("ToggleBuildTerm", function()
 				local pc = require("common").project_config
 				local dir = common.git_root .. pc.build_dir
-				require("toggleterm").toggle(build_id, nil, dir, "vertical", "build")
+				require("toggleterm").toggle(build_id, nil, dir, "horizontal", "build")
 			end, { nargs = "*" })
 		end,
 	},

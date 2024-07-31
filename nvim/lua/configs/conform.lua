@@ -10,6 +10,7 @@ M.opts = {
 		sh = { "beautysh" },
 		sql = { "sqlfmt" },
 		ocaml = { "ocamlformat" },
+		rust = { "rustfmt" },
 	},
 }
 
