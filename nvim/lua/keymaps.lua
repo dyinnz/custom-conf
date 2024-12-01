@@ -142,21 +142,16 @@ vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 function _G.register_which_key()
 	local wk = require("which-key")
-	wk.register({
-		["<space>"] = {
-			name = "leader",
-			{
-				q = "which_key_ignore",
-				Q = "which_key_ignore",
-
-				b = { name = "buffer" },
-				f = { name = "fzf" },
-				g = { name = "git" },
-				i = { name = "inspect" },
-				l = { name = "lsp" },
-				t = { name = "tab" },
-				w = { name = "window" },
-			},
-		},
+	wk.add({
+		{ "<space>", group = "leader" },
+		{ "<space>Q", hidden = true },
+		{ "<space>b", group = "buffer" },
+		{ "<space>f", group = "fzf" },
+		{ "<space>g", group = "git" },
+		{ "<space>i", group = "inspect" },
+		{ "<space>l", group = "lsp" },
+		{ "<space>q", hidden = true },
+		{ "<space>t", group = "tab" },
+		{ "<space>w", group = "window" },
 	})
 end

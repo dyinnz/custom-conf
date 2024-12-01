@@ -12,7 +12,6 @@ fi
 plugins=(
   git
   z
-  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -66,9 +65,11 @@ alias tree="tree -C"
 alias rmcmake="rm -r CMakeFiles CMakeCache.txt"
 alias xargs_pssh="xargs -0 -I {} pssh -H '{}' "
 alias xargs_keyscan="xargs ssh-keyscan >> $HOME/.ssh/known_hosts"
+alias tokei='tokei -s code'
 
 # custom
 [ -f "$HOME/.custom-conf/custom-env.sh" ] && source $HOME/.custom-conf/custom-env.sh
+[ -f "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # fzf
 [ -x "$(command -v fzf)" ] && source <(fzf --zsh)
