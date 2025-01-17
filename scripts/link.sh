@@ -7,6 +7,7 @@ echo $ROOT
 
 # always works
 mkdir -p $HOME/.vim
+mkdir -p $HOME/.config
 
 ln -s $ROOT/zshrc $HOME/.zshrc
 ln -s $ROOT/tmux.conf $HOME/.tmux.conf
