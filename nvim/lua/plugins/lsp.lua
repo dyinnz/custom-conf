@@ -5,7 +5,10 @@ local setup_lsp = function()
 
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	require("lspconfig").bashls.setup({ capabilities = capabilities })
-	require("lspconfig").clangd.setup({ capabilities = capabilities, cmd = { "clangd", "-j", "6" } })
+	require("lspconfig").clangd.setup({
+		capabilities = capabilities,
+		cmd = { "clangd", "-j", "6", "-experimental-modules-support" },
+	})
 	require("lspconfig").cmake.setup({ capabilities = capabilities })
 	require("lspconfig").lua_ls.setup({ capabilities = capabilities })
 	require("lspconfig").pyright.setup({ capabilities = capabilities })
@@ -34,9 +37,9 @@ local setup_lsp = function()
 
 			vim.keymap.set("n", "<space>a", "<cmd>ClangdSwitchSourceHeader<cr>", opts)
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-			vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+			-- vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+			-- vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+			-- vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 			vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
 			vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
 
