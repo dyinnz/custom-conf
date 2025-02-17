@@ -55,8 +55,6 @@ case "$(uname -s)" in
     export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
     export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
     export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
-
-    [ -x "$(command -v nvim)" ] && alias vim=nvim && alias vimdiff="nvim -d"
     ;;
 esac
 
@@ -70,6 +68,8 @@ alias tokei='tokei -s code'
 # custom
 [ -f "$HOME/.custom-conf/custom-env.sh" ] && source $HOME/.custom-conf/custom-env.sh
 [ -f "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+[ -x "$(command -v nvim)" ] && alias vim=nvim && alias vimdiff="nvim -d"
 
 # fzf
 [ -x "$(command -v fzf)" ] && source <(fzf --zsh)

@@ -7,6 +7,7 @@ local setup_lsp = function()
 	require("lspconfig").bashls.setup({ capabilities = capabilities })
 	require("lspconfig").clangd.setup({
 		capabilities = capabilities,
+		filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }, -- exclude "proto"
 		cmd = { "clangd", "-j", "6", "-experimental-modules-support" },
 	})
 	require("lspconfig").cmake.setup({ capabilities = capabilities })
