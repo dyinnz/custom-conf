@@ -1,17 +1,17 @@
 #!/bin/bash
 set -x
 
-CURR="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-ROOT="$(dirname $CURR)"
-echo $ROOT
+SCRIPT_DIR="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+PROJECT_DIR="$(dirname $SCRIPT_DIR)"
 
-# always works
-mkdir -p $HOME/.vim
+rm $HOME/.zshrc && ln -s $PROJECT_DIR/zshrc $HOME/.zshrc
+rm $HOME/.tmux.conf && ln -s $PROJECT_DIR/tmux.conf $HOME/.tmux.conf
+
 mkdir -p $HOME/.config
+ln -s $PROJECT_DIR/nvim $HOME/.config/nvim
 
-ln -s $ROOT/zshrc $HOME/.zshrc
-ln -s $ROOT/tmux.conf $HOME/.tmux.conf
+mkdir -p $HOME/.ccache
+rm $HOME/.ccache/ccache.conf && ln -s $PROJECT_DIR/cpp/ccache.conf $HOME/.ccache/ccache.conf
 
-ln -s $ROOT/nvim $HOME/.config/nvim
-ln -s $ROOT/python/pycodestyle $HOME/.config/pycodestyle
-
+# python
+pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple

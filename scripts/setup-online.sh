@@ -1,20 +1,24 @@
 #!/bin/bash
 
-CURR="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-ROOT="$(dirname $CURR)"
-echo $ROOT
+set -x
 
-# pepare directories
-mkdir -p $ROOT/package
-mkdir -p $HOME/.local/share/nvim/site/autoload
-mkdir -p $HOME/.vim/autoload
-
-# vim-plug
-curl -fLo $ROOT/package/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-ln -s $ROOT/package/plug.vim $HOME/.local/share/nvim/site/autoload/plug.vim 
-ln -s $ROOT/package/plug.vim $HOME/.vim/autoload/plug.vim
+SCRIPT_DIR="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+PROJECT_DIR="$(dirname $SCRIPT_DIR)"
+echo $PROJECT_DIR
 
 # oh-my-zsh
-git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/plugins/zsh-autosuggestions
+git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
+git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+# pepare directories
+mkdir -p $HOME/local/bin
+mkdir -p $HOME/local/package
+cd $HOME/local/package
+
+curl -fsSL https://github.com/neovim/neovim/releases/download/v0.10.4/nvim-linux-x86_64.tar.gz -o nvim.tar.gz \
+  && mkdir -p nvim && tar zxf nvim.tar.gz -C nvim --strip-components=1 && mv nvim $HOME/local
+
+curl -fsSL https://github.com/junegunn/fzf/releases/download/v0.60.0/fzf-0.60.0-linux_amd64.tar.gz -o fzf.tar.gz \
+  && tar zxf fzf.tar.gz && mv fzf $HOME/local/bin
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash

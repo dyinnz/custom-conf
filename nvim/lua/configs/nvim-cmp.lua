@@ -17,13 +17,25 @@ local custom_filter = function(entry, ctx)
 	local s = entry.completion_item.insertText
 	return not (
 		s:sub(-1) == "-"
-		or s:find("^boost")
-		-- or s:find("^absl::")
+		or s:find("^Aws::")
+		or s:find("^Hdfs::")
+		or s:find("^absl::")
 		or s:find("^arrow::")
+		or s:find("^boost")
 		or s:find("^clang::")
+		or s:find("^cppkafka::")
+		or s:find("^datastax::")
+		or s:find("^folly::")
+		or s:find("^gflags::")
+		or s:find("^google::")
+		or s:find("^grpc::")
+		or s:find("^kj::")
 		or s:find("^kudu::")
 		or s:find("^llvm::")
-		or s:find("^Aws::")
+		or s:find("^nanodbc::")
+		or s:find("^opentelemetry::")
+		or s:find("^rocksdb::")
+		or s:find("^testing::internal::")
 	)
 end
 

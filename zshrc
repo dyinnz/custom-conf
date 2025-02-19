@@ -41,7 +41,7 @@ case "$(uname -s)" in
   Linux)
     export TERM=xterm-256color
     # root path
-    export PATH=/usr/local/bin:$PATH
+    export PATH=$HOME/.local/bin:/usr/local/bin:$PATH
     # tools path & alias
     [ -d $LOCAL/python3 ] && export PATH=$LOCAL/python3/bin:$PATH && export LD_LIBRARY_PATH=$LOCAL/python3/lib:$LD_LIBRARY_PATH
     [ -x $LOCAL/tmux/usr/bin/tmux ] && alias tmux=$LOCAL/tmux/usr/bin/tmux
@@ -64,12 +64,21 @@ alias rmcmake="rm -r CMakeFiles CMakeCache.txt"
 alias xargs_pssh="xargs -0 -I {} pssh -H '{}' "
 alias xargs_keyscan="xargs ssh-keyscan >> $HOME/.ssh/known_hosts"
 alias tokei='tokei -s code'
+alias tailf='tail -f'
 
 # custom
 [ -f "$HOME/.custom-conf/custom-env.sh" ] && source $HOME/.custom-conf/custom-env.sh
-[ -f "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# zsh
+[ -f "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -f "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# nvim
 [ -x "$(command -v nvim)" ] && alias vim=nvim && alias vimdiff="nvim -d"
 
 # fzf
 [ -x "$(command -v fzf)" ] && source <(fzf --zsh)
+
+# nvm/node
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
