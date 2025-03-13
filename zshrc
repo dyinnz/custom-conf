@@ -46,6 +46,7 @@ case "$(uname -s)" in
     [ -d $LOCAL/python3 ] && export PATH=$LOCAL/python3/bin:$PATH && export LD_LIBRARY_PATH=$LOCAL/python3/lib:$LD_LIBRARY_PATH
     [ -x $LOCAL/tmux/usr/bin/tmux ] && alias tmux=$LOCAL/tmux/usr/bin/tmux
     [ -x $LOCAL/nvim/bin/nvim ] && alias nvim=$LOCAL/nvim/bin/nvim && alias vim=nvim && alias vimdiff="nvim -d"
+    # fdfind in debian
     [ -x "$(command -v fdfind)" ]  && alias fd=fdfind
     ;;
 
@@ -55,30 +56,34 @@ case "$(uname -s)" in
     export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
     export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
     export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
+    # nvim
+    [ -x "$(command -v nvim)" ] && alias vim=nvim && alias vimdiff="nvim -d"
     ;;
 esac
 
+
+### Shell
 # alias
-alias tree="tree -C"
 alias rmcmake="rm -r CMakeFiles CMakeCache.txt"
-alias xargs_pssh="xargs -0 -I {} pssh -H '{}' "
-alias xargs_keyscan="xargs ssh-keyscan >> $HOME/.ssh/known_hosts"
 alias tokei='tokei -s code'
 alias tailf='tail -f'
-
-# custom
-[ -f "$HOME/.custom-conf/custom-env.sh" ] && source $HOME/.custom-conf/custom-env.sh
 
 # zsh
 [ -f "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# nvim
-[ -x "$(command -v nvim)" ] && alias vim=nvim && alias vimdiff="nvim -d"
-
 # fzf
 [ -x "$(command -v fzf)" ] && source <(fzf --zsh)
 
+
+### Programming Languages
 # nvm/node
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# rust
+[ -d "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
+
+
+### custom
+[ -f "$HOME/.custom-conf/custom-env.sh" ] && source $HOME/.custom-conf/custom-env.sh
+

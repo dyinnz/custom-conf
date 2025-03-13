@@ -10,7 +10,7 @@ local luasnip = require("luasnip")
 local cmp = require("cmp")
 
 local custom_filter = function(entry, ctx)
-	if ctx.filetype ~= "cpp" then
+  if ctx.filetype ~= "cpp" then
 		return true
 	end
 

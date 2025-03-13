@@ -1,15 +1,28 @@
 local M = {}
 
 M.treesitter = {
-	"bash",
+  -- native
 	"cmake",
+	"c",
 	"cpp",
-	"lua",
+	"rust",
+  -- jvm
+	"java",
+	"scala",
+  -- script
+	"bash",
 	"python",
-	"query",
+	"sql",
+  -- vim
+	"lua",
 	"vim",
 	"vimdoc",
-	"sql",
+  -- config & text
+	"json",
+	"json5",
+	"markdown",
+	"markdown_inline",
+	"yaml",
 }
 
 M.mason = {

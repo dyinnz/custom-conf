@@ -1,5 +1,10 @@
 local M = {}
 
+-- local auto_install = false
+-- if 0 == vim.fn.executable() then
+--   auto_install = true
+-- end
+
 M.setup = function()
 	--- @diagnostic disable-next-line: missing-fields
 	require("nvim-treesitter.configs").setup({
@@ -7,7 +12,10 @@ M.setup = function()
 
 		highlight = {
 			enable = true,
+			additional_vim_regex_highlighting = false,
 		},
+
+		auto_install = (1 == vim.fn.executable("tree-sitter")),
 
 		textobjects = {
 			select = {

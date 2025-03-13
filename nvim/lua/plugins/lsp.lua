@@ -1,19 +1,25 @@
 local setup_lsp = function()
 	require("mason").setup()
-	require("mason-lspconfig").setup()
+	-- require("mason-lspconfig").setup()
 	require("neodev").setup()
+
+	local clangd_threads = "6"
+	if 0 == vim.fn.has("macunix") then
+		clangd_threads = "40"
+	end
 
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	require("lspconfig").bashls.setup({ capabilities = capabilities })
 	require("lspconfig").clangd.setup({
 		capabilities = capabilities,
 		filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }, -- exclude "proto"
-		cmd = { "clangd", "-j", "6", "-experimental-modules-support" },
+		cmd = { "clangd", "-j", clangd_threads },
 	})
 	require("lspconfig").cmake.setup({ capabilities = capabilities })
 	require("lspconfig").lua_ls.setup({ capabilities = capabilities })
 	require("lspconfig").pyright.setup({ capabilities = capabilities })
 	require("lspconfig").sqlls.setup({ capabilities = capabilities })
+	require("lspconfig").ruff.setup({ capabilities = capabilities })
 	require("lspconfig").rust_analyzer.setup({ capabilities = capabilities })
 	require("lspconfig").ocamllsp.setup({
 		capabilities = capabilities,
