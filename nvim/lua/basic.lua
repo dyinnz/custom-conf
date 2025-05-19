@@ -1,4 +1,4 @@
-vim.opt.synmaxcol = 400
+vim.opt.synmaxcol = 300
 vim.opt.lazyredraw = false
 vim.opt.scrolloff = 6 -- Minimum lines to keep above and below cursor
 vim.opt.wrap = false

@@ -3,8 +3,23 @@ return {
 	{
 		"ibhagwan/fzf-lua", -- S
 		cmd = { "FzfLua" },
-		keys = require("configs.fzf-lua").keys,
+		-- keys = require("configs.fzf-lua").keys,
 		opts = require("configs.fzf-lua").opts,
+	},
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+		},
+		cmd = { "Telescope" },
+		keys = require("configs.telescope").keys,
+		-- opts = require("configs.telescope").opts,
+		config = function()
+			local opts = require("configs.telescope").opts
+			require("telescope").setup(opts)
+			require("telescope").load_extension("fzf")
+		end,
 	},
 
 	-- Motion

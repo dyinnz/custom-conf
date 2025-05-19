@@ -75,6 +75,9 @@ alias tailf='tail -f'
 # fzf
 [ -x "$(command -v fzf)" ] && source <(fzf --zsh)
 
+# mise
+[ -x "$( command -v mise )" ] && eval "$( mise activate zsh )"
+
 
 ### Programming Languages
 # nvm/node
