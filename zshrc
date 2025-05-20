@@ -32,7 +32,7 @@ setopt HIST_SAVE_NO_DUPS
 
 # env
 LOCAL=$HOME/local
-export PATH=$LOCAL/bin:$PATH
+export PATH=$LOCAL/bin:/usr/local/bin:$PATH
 
 export BAT_THEME="TwoDark"
 export FZF_PREVIEW_PREVIEW_BAT_THEME=$BAT_THEME
@@ -41,7 +41,7 @@ case "$(uname -s)" in
   Linux)
     export TERM=xterm-256color
     # root path
-    export PATH=$HOME/.local/bin:/usr/local/bin:$PATH
+    export PATH=$HOME/.local/bin:$PATH
     # tools path & alias
     [ -d $LOCAL/python3 ] && export PATH=$LOCAL/python3/bin:$PATH && export LD_LIBRARY_PATH=$LOCAL/python3/lib:$LD_LIBRARY_PATH
     [ -x $LOCAL/tmux/usr/bin/tmux ] && alias tmux=$LOCAL/tmux/usr/bin/tmux
