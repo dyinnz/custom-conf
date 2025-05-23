@@ -21,10 +21,6 @@ local setup_lsp = function()
 	require("lspconfig").sqlls.setup({ capabilities = capabilities })
 	require("lspconfig").ruff.setup({ capabilities = capabilities })
 	require("lspconfig").rust_analyzer.setup({ capabilities = capabilities })
-	require("lspconfig").ocamllsp.setup({
-		capabilities = capabilities,
-		on_attach = require("virtualtypes").on_attach,
-	})
 
 	-- Global mappings.
 	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -114,10 +110,5 @@ return {
 		config = function()
 			setup_lsp()
 		end,
-	},
-
-	{
-		"jubnzv/virtual-types.nvim",
-		-- ft = { "ocaml" },
 	},
 }

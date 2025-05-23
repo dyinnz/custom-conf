@@ -11,9 +11,9 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 -- Tabs
-vim.opt.tabstop = 2
+vim.opt.tabstop = 4
 vim.opt.shiftwidth = 0
-vim.opt.softtabstop = 2
+vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 
 -- Search

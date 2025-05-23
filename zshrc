@@ -10,8 +10,8 @@ else
 fi
 
 plugins=(
-  git
-  z
+    git
+    z
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -34,11 +34,8 @@ setopt HIST_SAVE_NO_DUPS
 LOCAL=$HOME/local
 export PATH=$LOCAL/bin:/usr/local/bin:$PATH
 
-export BAT_THEME="TwoDark"
-export FZF_PREVIEW_PREVIEW_BAT_THEME=$BAT_THEME
-
 case "$(uname -s)" in
-  Linux)
+Linux)
     export TERM=xterm-256color
     # root path
     export PATH=$HOME/.local/bin:$PATH
@@ -47,10 +44,11 @@ case "$(uname -s)" in
     [ -x $LOCAL/tmux/usr/bin/tmux ] && alias tmux=$LOCAL/tmux/usr/bin/tmux
     [ -x $LOCAL/nvim/bin/nvim ] && alias nvim=$LOCAL/nvim/bin/nvim && alias vim=nvim && alias vimdiff="nvim -d"
     # fdfind in debian
-    [ -x "$(command -v fdfind)" ]  && alias fd=fdfind
+    [ -x "$(command -v fdfind)" ] && alias fd=fdfind
     ;;
 
-  Darwin)
+Darwin)
+    export PATH=/opt/homebrew/bin:$PATH
     export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
     export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
     export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
@@ -60,7 +58,6 @@ case "$(uname -s)" in
     [ -x "$(command -v nvim)" ] && alias vim=nvim && alias vimdiff="nvim -d"
     ;;
 esac
-
 
 ### Shell
 # alias
@@ -73,20 +70,19 @@ alias tailf='tail -f'
 [ -f "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # fzf
+export BAT_THEME="TwoDark"
+export FZF_PREVIEW_PREVIEW_BAT_THEME=$BAT_THEME
 [ -x "$(command -v fzf)" ] && source <(fzf --zsh)
 
 # mise
-[ -x "$( command -v mise )" ] && eval "$( mise activate zsh )"
-
+[ -x "$(command -v mise)" ] && eval "$(mise activate zsh)"
 
 ### Programming Languages
 # nvm/node
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 # rust
 [ -d "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
 
-
 ### custom
 [ -f "$HOME/.custom-conf/custom-env.sh" ] && source $HOME/.custom-conf/custom-env.sh
-
