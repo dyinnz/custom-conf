@@ -50,6 +50,12 @@ return {
 		end,
 	},
 
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = true,
+	},
+
 	-- Better diagnostics
 	{
 		"folke/trouble.nvim", -- S
