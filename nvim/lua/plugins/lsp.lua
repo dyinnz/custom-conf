@@ -1,26 +1,25 @@
 local setup_lsp = function()
 	require("mason").setup()
 	-- require("mason-lspconfig").setup()
-	require("neodev").setup()
 
 	local clangd_threads = "6"
 	if 0 == vim.fn.has("macunix") then
 		clangd_threads = "40"
 	end
 
-	local capabilities = require("cmp_nvim_lsp").default_capabilities()
-	require("lspconfig").bashls.setup({ capabilities = capabilities })
-	require("lspconfig").clangd.setup({
-		capabilities = capabilities,
+	vim.lsp.config("clangd", {
 		filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }, -- exclude "proto"
 		cmd = { "clangd", "-j", clangd_threads },
 	})
-	require("lspconfig").cmake.setup({ capabilities = capabilities })
-	require("lspconfig").lua_ls.setup({ capabilities = capabilities })
-	require("lspconfig").pyright.setup({ capabilities = capabilities })
-	require("lspconfig").sqlls.setup({ capabilities = capabilities })
-	require("lspconfig").ruff.setup({ capabilities = capabilities })
-	require("lspconfig").rust_analyzer.setup({ capabilities = capabilities })
+
+	vim.lsp.enable("bashls")
+	vim.lsp.enable("clangd")
+	vim.lsp.enable("cmake")
+	vim.lsp.enable("lua_ls")
+	vim.lsp.enable("pyright")
+	vim.lsp.enable("sqlls")
+	vim.lsp.enable("ruff")
+	vim.lsp.enable("rust_analyzer")
 
 	-- Global mappings.
 	-- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -38,7 +37,7 @@ local setup_lsp = function()
 			-- See `:help vim.lsp.*` for documentation on any of the below functions
 			local opts = { buffer = ev.buf }
 
-			vim.keymap.set("n", "<space>a", "<cmd>ClangdSwitchSourceHeader<cr>", opts)
+			vim.keymap.set("n", "<space>a", "<cmd>LspClangdSwitchSourceHeader<cr>", opts)
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 			-- vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 			-- vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
@@ -105,7 +104,6 @@ return {
 					ensure_install = require("ensure-install").mason,
 				},
 			},
-			{ "folke/neodev.nvim", opts = {} },
 		},
 		config = function()
 			setup_lsp()

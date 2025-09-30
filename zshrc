@@ -14,11 +14,14 @@ plugins=(
     z
 )
 
+# disable oh-my-zsh update before source oh-my-zsh
+DISABLE_AUTO_UPDATE=true
+
 source $ZSH/oh-my-zsh.sh
 
 # ------------------------------------------------------------------------------
 # zsh history
-export HISTSIZE=134217728 # 128M
+export HISTSIZE=256000100 # 256M
 export SAVEHIST=$HISTSIZE
 setopt EXTENDED_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
@@ -36,7 +39,6 @@ export PATH=$LOCAL/bin:/usr/local/bin:$PATH
 
 case "$(uname -s)" in
 Linux)
-    export TERM=xterm-256color
     # root path
     export PATH=$HOME/.local/bin:$PATH
     # tools path & alias
@@ -60,14 +62,12 @@ Darwin)
 esac
 
 ### Shell
+export TERM=xterm-256color
+
 # alias
 alias rmcmake="rm -r CMakeFiles CMakeCache.txt"
 alias tokei='tokei -s code'
 alias tailf='tail -f'
-
-# zsh
-[ -f "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-[ -f "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # fzf
 export BAT_THEME="TwoDark"
@@ -86,3 +86,7 @@ export NVM_DIR="$HOME/.nvm"
 
 ### custom
 [ -f "$HOME/.custom-conf/custom-env.sh" ] && source $HOME/.custom-conf/custom-env.sh
+
+# zsh
+[ -f "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -f "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh

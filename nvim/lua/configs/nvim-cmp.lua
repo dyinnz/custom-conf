@@ -10,7 +10,7 @@ local luasnip = require("luasnip")
 local cmp = require("cmp")
 
 local custom_filter = function(entry, ctx)
-  if ctx.filetype ~= "cpp" then
+	if ctx.filetype ~= "cpp" then
 		return true
 	end
 
@@ -138,6 +138,11 @@ M.setup = function(opts)
 		}, {
 			{ name = "cmdline" },
 		}),
+	})
+
+	table.insert(opts.sources, {
+		name = "lazydev",
+		group_index = 0, -- set group index to 0 to skip loading LuaLS completions
 	})
 end
 
